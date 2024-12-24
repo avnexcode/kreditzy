@@ -1,18 +1,15 @@
-import { type DefaultSession, type NextAuthConfig } from 'next-auth';
+import { type NextAuthConfig } from 'next-auth';
 import { providers } from './providers';
 import { adapter } from './adapter';
 import { callbacks } from './callbacks';
 import { pages } from './pages';
+import { session } from './session';
 
-declare module 'next-auth' {
-    interface Session extends DefaultSession {
-        user: {
-            id: string;
-        } & DefaultSession['user'];
-    }
-}
+import { env } from '~/config/env';
 
 export const authConfig = {
+    session,
+    secret: env.AUTH_SECRET,
     providers,
     adapter,
     callbacks,
