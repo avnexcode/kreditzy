@@ -4,6 +4,12 @@ export const createMessageGetSuccess = (model: string): string =>
 export const createMessageGetError = (model: string): string =>
     `Failed to retrieve ${model}.`;
 
+export const createMessageGetLengthSuccess = (model: string): string =>
+    `Successfully retrieved the length of ${model}.`;
+
+export const createMessageGetLengthError = (model: string): string =>
+    `Failed to retrieve the length of ${model}.`;
+
 export const createMessageGetUniqueSuccess = (
     model: string,
     unique: string,

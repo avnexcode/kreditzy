@@ -2,19 +2,18 @@ import {
     Card,
     CardContent,
     CardDescription,
-    CardFooter,
     CardHeader,
     CardTitle,
 } from '~/components/ui/card';
 
-type PageContainerProps = {
+type DashboardPageContainerProps = {
     children: React.ReactNode;
     className?: string;
     title: string;
     description: string;
 };
 
-export const PageContainer: React.FC<PageContainerProps> = ({
+export const DashboardPageContainer: React.FC<DashboardPageContainerProps> = ({
     children,
     className,
     ...props
@@ -22,7 +21,7 @@ export const PageContainer: React.FC<PageContainerProps> = ({
     return (
         <Card className={`border-none shadow-none ${className}`}>
             <CardHeader>
-                <CardTitle>{props.title}</CardTitle>
+                <CardTitle className="text-zinc-900">{props.title}</CardTitle>
                 <CardDescription>{props.description}</CardDescription>
             </CardHeader>
             <CardContent className="mt-10">{children}</CardContent>

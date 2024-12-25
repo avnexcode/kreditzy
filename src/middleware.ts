@@ -15,17 +15,32 @@ export default auth(async req => {
     const authHeader = req.headers.get('Authorization');
     const access_token = authHeader?.split(' ')[1];
 
-    // Check route types
     const isApiAuthRoute = nextUrl.pathname.startsWith(apiAuthPrefix);
-    const isPublicRoute = publicRoutes.includes(nextUrl.pathname);
+    const isPublicRoute = publicRoutes.some(route => {
+        if (nextUrl.pathname === route) {
+            return true;
+        }
+        if (route.includes(':id')) {
+            console.log(route.includes(':id'));
+
+            const routePattern = new RegExp(
+                '^' + route.replace(':id', '[^/]+') + '$',
+            );
+            return routePattern.test(nextUrl.pathname);
+        }
+        if (route.endsWith('/*')) {
+            const baseRoute = route.slice(0, -2);
+            return nextUrl.pathname.startsWith(baseRoute);
+        }
+
+        return false;
+    });
     const isAuthRoute = authRoutes.includes(nextUrl.pathname);
 
-    // Allow API authentication routes to proceed
     if (isApiAuthRoute) {
         return NextResponse.next();
     }
 
-    // Redirect to dashboard if user is logged in and trying to access auth pages
     if (isAuthRoute) {
         if (isLoggedIn) {
             return NextResponse.redirect(
@@ -35,7 +50,6 @@ export default auth(async req => {
         return NextResponse.next();
     }
 
-    // Handle non-public routes when user is not logged in
     if (!isLoggedIn && !isPublicRoute) {
         const callbackUrl = nextUrl.pathname + nextUrl.search;
         const encodedCallbackUrl = encodeURIComponent(callbackUrl);

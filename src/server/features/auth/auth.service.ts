@@ -45,9 +45,7 @@ export const authService = {
             request,
         );
 
-        let user = await userRepository.findUniqueByEmail(
-            validatedRequest.email,
-        );
+        let user = await userRepository.findUniqueEmail(validatedRequest.email);
 
         if (!user) {
             throw new BadRequestException('Email or password is invalid');

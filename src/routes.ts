@@ -2,7 +2,13 @@
  * publicRoutes: Array of routes that can be accessed without logging in
  * - ['/']: Main/landing page
  */
-export const publicRoutes = ['/'];
+export const publicRoutes = [
+    '/',
+    '/api/users',
+    '/api/customers',
+    '/api/customers/stats/length',
+    '/api/customers/:id',
+];
 
 /**
  * authRoutes: Array of routes related to authentication

@@ -1,9 +1,5 @@
 import {
-    SidebarGroup,
-    SidebarGroupContent,
-    SidebarGroupLabel,
-} from '~/components/ui/sidebar';
-import {
+    BetweenHorizontalEnd,
     KeyRound,
     LayoutDashboard,
     NotebookText,
@@ -17,7 +13,7 @@ import { renderElements } from '~/utils/render-elements';
 export const SidebarGroupList = () => {
     const sidebarItems = [
         {
-            group: 'application',
+            group: 'dashboard',
             list: [
                 {
                     title: 'dashboard',
@@ -25,7 +21,7 @@ export const SidebarGroupList = () => {
                     icon: <LayoutDashboard size={20} />,
                 },
                 {
-                    title: 'customer',
+                    title: 'Nasabah',
                     href: '/dashboard/customer',
                     icon: <Users size={20} />,
                 },
@@ -33,6 +29,11 @@ export const SidebarGroupList = () => {
                     title: 'penjamin',
                     href: '/dashboard/guarantor',
                     icon: <ShieldCheck size={20} />,
+                },
+                {
+                    title: 'data referesnsi',
+                    href: '/dashboard/loan-reference',
+                    icon: <BetweenHorizontalEnd size={20} />,
                 },
                 {
                     title: 'transaksi',
@@ -57,18 +58,14 @@ export const SidebarGroupList = () => {
             ],
         },
     ];
-    return (
-        <>
-            {renderElements({
-                of: sidebarItems,
-                render: (item, index) => (
-                    <SidebarMenuList
-                        key={index}
-                        group={item.group}
-                        sidebarList={item.list}
-                    />
-                ),
-            })}
-        </>
-    );
+    return renderElements({
+        of: sidebarItems,
+        render: (item, index) => (
+            <SidebarMenuList
+                key={index}
+                group={item.group}
+                sidebarList={item.list}
+            />
+        ),
+    });
 };

@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { H1 } from '~/components/elements/heading';
+import { H1 } from '~/components/elements/Heading';
 import { Container } from '~/components/layouts/Container';
 import { currentUser } from '~/lib/auth';
 import { SignOutButton } from '../elements/SignOutButton';

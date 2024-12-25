@@ -24,40 +24,39 @@ model User {
 }
 
 model Customer {
-    id                  String        @id @default(cuid()) // id unik otomatis
-    name                String        @db.VarChar(50) // nama
-    national_id         String        @unique @db.VarChar(30) // NIK
-    id_card_address     String        @db.VarChar(100) // alamat KTP
-    residential_address String        @db.VarChar(100) // alamat tinggal
-    occupation          String        @db.VarChar(100) // pekerjaan
-    phone               String        @db.VarChar(20) // nomor telepon
-    loanReference_id    String
-    guarantor_id        String
-    guarantor           Guarantor     @relation(fields: [guarantor_id], references: [id])
-    loan_reference      LoanReference @relation(fields: [loanReference_id], references: [id])
-    created_at          DateTime      @default(now())
-    updated_at          DateTime      @updatedAt
+    id                  String          @id @default(cuid()) // id unik otomatis
+    name                String          @db.VarChar(50) // nama
+    national_id         String          @unique @db.VarChar(30) // NIK
+    id_card_address     String          @db.VarChar(100) // alamat KTP
+    residential_address String          @db.VarChar(100) // alamat tinggal
+    occupation          String          @db.VarChar(100) // pekerjaan
+    phone               String          @db.VarChar(20) // nomor telepon
+    guarantors          Guarantor[]
+    loan_references     LoanReference[]
+    created_at          DateTime        @default(now())
+    updated_at          DateTime        @updatedAt
 
     @@map("customers")
 }
 
 model Guarantor {
-    id                  String     @id @default(cuid()) // id unik otomatis
-    name                String     @db.VarChar(50) // nama
-    national_id         String     @unique @db.VarChar(30) // NIK
-    id_card_address     String     @db.VarChar(100) // alamat KTP
-    residential_address String     @db.VarChar(100) // alamat tinggal
-    occupation          String     @db.VarChar(100) // pekerjaan
-    phone               String     @db.VarChar(20) // nomor telepon
-    Customer            Customer[]
-    created_at          DateTime   @default(now())
-    updated_at          DateTime   @updatedAt
+    id                  String   @id @default(cuid()) // id unik otomatis
+    name                String   @db.VarChar(50) // nama
+    national_id         String   @unique @db.VarChar(30) // NIK
+    id_card_address     String   @db.VarChar(100) // alamat KTP
+    residential_address String   @db.VarChar(100) // alamat tinggal
+    occupation          String   @db.VarChar(100) // pekerjaan
+    phone               String   @db.VarChar(20) // nomor telepon
+    customer_id         String
+    customer            Customer @relation(fields: [customer_id], references: [id])
+    created_at          DateTime @default(now())
+    updated_at          DateTime @updatedAt
 
     @@map("guarantors")
 }
 
 model LoanReference {
-    id                      String     @id @default(cuid()) // id unik otomatis
+    id                      String   @id @default(cuid()) // id unik otomatis
     monthly_income          String // pendapatan bulanan
     monthly_expenses        String // pengeluaran bulanan
     employment_status       String // status pekerjaan tetap/tidak tetap
@@ -68,9 +67,16 @@ model LoanReference {
     maximum_loan            String // maksimal pinjaman
     loan_term               Int // jangka waktu pinjaman (bulan)
     creditworthiness        Boolean // kelayakan kredit
-    Customer                Customer[]
-    created_at              DateTime   @default(now())
-    updated_at              DateTime   @updatedAt
+    customer_id             String
+    customer                Customer @relation(fields: [customer_id], references: [id])
+    created_at              DateTime @default(now())
+    updated_at              DateTime @updatedAt
 
     @@map("loan_references")
+}
+
+model Transaction {
+    id String @id @default(cuid())
+
+    @@map("transactions")
 }

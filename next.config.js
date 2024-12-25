@@ -9,6 +9,9 @@ const config = {
     //     },
     //     serverComponentsExternalPackages: [],
     // },
+    images: {
+        domains: ['res.cloudinary.com'],
+    },
 };
 
 export default config;

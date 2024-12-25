@@ -1,5 +1,3 @@
-import { Suspense } from 'react';
-import { H6 } from '../elements/heading';
 import { SidebarProvider } from '~/components/ui/sidebar';
 import { DashboardSidebar } from '~/components/fragments/dashboard/sidebar/Sidebar';
 import { DashboardNavbar } from '../fragments/dashboard/Navbar';
@@ -18,23 +16,21 @@ export const DashboardLayout: React.FC<DashboardLayoutProps> = async ({
     const defaultOpen = cookieStore.get('sidebar:state')?.value === 'true';
     return (
         <div className={`${className}`}>
-            <Suspense fallback={<H6>Loading dashboard</H6>}>
-                <SidebarProvider
-                    defaultOpen={defaultOpen}
-                    style={
-                        {
-                            '--sidebar-width': '15rem',
-                            '--sidebar-width-mobile': '20rem',
-                        } as React.CSSProperties
-                    }
-                >
-                    <DashboardSidebar />
-                    <main className="w-full">
-                        <DashboardNavbar />
-                        <div className="p-5">{children}</div>
-                    </main>
-                </SidebarProvider>
-            </Suspense>
+            <SidebarProvider
+                defaultOpen={defaultOpen}
+                style={
+                    {
+                        '--sidebar-width': '15rem',
+                        '--sidebar-width-mobile': '20rem',
+                    } as React.CSSProperties
+                }
+            >
+                <DashboardSidebar />
+                <main className="w-full">
+                    <DashboardNavbar />
+                    <div className="p-5">{children}</div>
+                </main>
+            </SidebarProvider>
         </div>
     );
 };

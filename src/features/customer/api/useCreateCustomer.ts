@@ -12,8 +12,10 @@ export const useCreateCustomer = ({
     return useMutation({
         mutationKey: ['customers'],
         mutationFn: async (values: CreateCustomerFormSchema) => {
-            const response =
-                await axiosAuth.post<ApiResponse<Customer>>('/customers');
+            const response = await axiosAuth.post<ApiResponse<Customer>>(
+                '/customers',
+                values,
+            );
             return response.data.data;
         },
         onMutate,

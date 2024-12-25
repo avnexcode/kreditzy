@@ -9,14 +9,14 @@ export const userRepository = {
         return users;
     },
 
-    findUniqueById: async (id: string): Promise<User | null> => {
+    findUniqueId: async (id: string): Promise<User | null> => {
         const user = await db.user.findUnique({
             where: { id },
         });
         return user;
     },
 
-    findUniqueByEmail: async (email: string): Promise<User | null> => {
+    findUniqueEmail: async (email: string): Promise<User | null> => {
         const user = await db.user.findUnique({
             where: { email },
         });

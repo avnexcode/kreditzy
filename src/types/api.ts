@@ -1,6 +1,7 @@
 import { type AxiosError } from 'axios';
 
 export type ApiProps = {
+    id?: string;
     onMutate?: () => Promise<void>;
     onSuccess?: () => Promise<void>;
     onError?: (error: AxiosError<ApiErrorResponse>) => Promise<void>;

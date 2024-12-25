@@ -1,10 +1,10 @@
-import { PageContainer } from '~/components/layouts/PageContainer';
+import { DashboardPageContainer } from '~/components/layouts/DashboardPageContainer';
 import { GuarantorTable } from '../components/table/GuarantorTable';
 
 export const GuarantorPage = () => {
     return (
-        <PageContainer title="Dashboard - Penjamin" description="">
+        <DashboardPageContainer title="Dashboard - Penjamin" description="">
             <GuarantorTable />
-        </PageContainer>
+        </DashboardPageContainer>
     );
 };
