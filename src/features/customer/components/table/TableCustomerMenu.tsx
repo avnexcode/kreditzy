@@ -4,8 +4,9 @@ import {
     DropdownMenuItem,
     DropdownMenuTrigger,
 } from '~/components/ui/dropdown-menu';
-import { Ellipsis, Pencil, ScanEye, Trash2 } from 'lucide-react';
+import { Ellipsis, Pencil, ScanEye } from 'lucide-react';
 import { useRouter } from 'next/navigation';
+import { DeleteCustomerDialog } from '../dialog/DeleteCustomerDialog';
 
 type CustomerTableMenuProps = {
     id: string;
@@ -35,10 +36,7 @@ export const TableCustomerMenu = (props: CustomerTableMenuProps) => {
                     <Pencil />
                     Edit
                 </DropdownMenuItem>
-                <DropdownMenuItem>
-                    <Trash2 />
-                    Delete
-                </DropdownMenuItem>
+                <DeleteCustomerDialog id={props.id} />
             </DropdownMenuContent>
         </DropdownMenu>
     );

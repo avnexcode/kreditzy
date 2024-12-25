@@ -25,7 +25,8 @@ export const createCustomerFormSchema = z.object({
     occupation: z
         .string()
         .min(1, { message: 'Pekerjaan wajib diisi' })
-        .max(100, { message: 'Pekerjaan tidak boleh lebih dari 100 karakter' }),
+        .max(100, { message: 'Pekerjaan tidak boleh lebih dari 100 karakter' })
+        .toLowerCase(),
     phone: z.string().min(1, { message: 'Nomor telepon wajib diisi' }).max(20, {
         message: 'Nomor telepon tidak boleh lebih dari 20 karakter',
     }),

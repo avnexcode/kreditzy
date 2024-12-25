@@ -21,8 +21,6 @@ export default auth(async req => {
             return true;
         }
         if (route.includes(':id')) {
-            console.log(route.includes(':id'));
-
             const routePattern = new RegExp(
                 '^' + route.replace(':id', '[^/]+') + '$',
             );

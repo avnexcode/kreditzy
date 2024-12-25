@@ -24,8 +24,8 @@ export const CreateCustomerForm = ({
                 setIsPending(isCreateCustomerPending);
             },
             onSuccess: async () => {
-                setIsOpen(false);
                 await refetchCustomers();
+                setIsOpen(false);
                 toast({
                     title: 'Success',
                     description: 'Success create new customer',
