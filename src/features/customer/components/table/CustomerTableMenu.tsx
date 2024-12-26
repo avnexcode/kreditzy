@@ -12,7 +12,7 @@ type CustomerTableMenuProps = {
     id: string;
 };
 
-export const TableCustomerMenu = (props: CustomerTableMenuProps) => {
+export const CustomerTableMenu = (props: CustomerTableMenuProps) => {
     const router = useRouter();
     return (
         <DropdownMenu>

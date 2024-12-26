@@ -1,1 +1,1 @@
-export { GuarantorPage as default } from '~/features/guarantor/pages/guarantor-page';
+export { DashboardGuarantorPage as default } from '~/features/guarantor/pages/guarantor-page';

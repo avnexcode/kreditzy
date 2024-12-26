@@ -2,6 +2,7 @@ import {
     BetweenHorizontalEnd,
     KeyRound,
     LayoutDashboard,
+    ListCheck,
     NotebookText,
     ShieldCheck,
     UserPen,
@@ -34,6 +35,11 @@ export const SidebarGroupList = () => {
                     title: 'data referesnsi',
                     href: '/dashboard/loan-reference',
                     icon: <BetweenHorizontalEnd size={20} />,
+                },
+                {
+                    title: 'status kelayakan',
+                    href: '/dashboard/credit-worthiness',
+                    icon: <ListCheck size={20} />,
                 },
                 {
                     title: 'transaksi',

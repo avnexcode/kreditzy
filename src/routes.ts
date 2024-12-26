@@ -8,6 +8,9 @@ export const publicRoutes = [
     '/api/customers',
     '/api/customers/stats/length',
     '/api/customers/:id',
+    '/api/guarantors',
+    '/api/guarantors/stats/length',
+    '/api/guarantors/:id',
 ];
 
 /**

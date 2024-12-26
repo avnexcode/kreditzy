@@ -1,9 +1,9 @@
-import { DashboardPageContainer } from '~/components/layouts/DashboardPageContainer';
+import { DashboardContainer } from '~/components/layouts/DashboardContainer';
 
 export const TransactionPage = () => {
     return (
-        <DashboardPageContainer title="Dashboard - Transaksi" description="">
+        <DashboardContainer title="Dashboard - Transaksi" description="">
             <h1>Transaction Page</h1>
-        </DashboardPageContainer>
+        </DashboardContainer>
     );
 };

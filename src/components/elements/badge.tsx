@@ -6,6 +6,7 @@ interface BadgeProps {
     iconBackground?: string;
     label: string;
     stat: string | number;
+    statLoading: boolean;
     trend: number;
     trendLabel: string;
     rootClassName?: string;
@@ -19,6 +20,7 @@ export function Badge({
     iconBackground = 'bg-blue-500',
     label,
     stat,
+    statLoading,
     trend,
     trendLabel,
     rootClassName,
@@ -52,7 +54,7 @@ export function Badge({
                     {label}
                 </p>
                 <h4 className="block antialiased tracking-normal font-sans text-2xl font-semibold leading-snug text-blue-gray-900">
-                    {stat}
+                    {statLoading ? '--' : stat}
                 </h4>
             </div>
 

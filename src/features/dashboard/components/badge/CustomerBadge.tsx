@@ -4,13 +4,15 @@ import { Badge } from '~/components/elements/Badge';
 import { useCustomersCount } from '~/features/customer/api';
 
 export const CustomerBadge = () => {
-    const { data: customerCount } = useCustomersCount();
+    const { data: customersCount, isLoading: isCustomersCountLoading } =
+        useCustomersCount();
     return (
         <Badge
             icon={<Users size={25} />}
             iconBackground="bg-pink-500"
-            label="Total Customers"
-            stat={customerCount ? customerCount : '0'}
+            label="Total Nasabah"
+            stat={customersCount ? customersCount : 0}
+            statLoading={isCustomersCountLoading}
             trend={12}
             trendLabel="compared to last month"
             rootClassName="w-full"

@@ -1,6 +1,7 @@
 import { validateSchema } from '~/server/service/validation.service';
 import type {
     CreateCustomerRequest,
+    CustomerWithRelations,
     UpdateCustomerRequest,
 } from './customer.model';
 import { customerRepository } from './customer.repository';
@@ -8,23 +9,35 @@ import {
     createCustomerRequest,
     updateCustomerRequest,
 } from './customer.validation';
-import { NotFoundException } from '~/server/helper/error.exception';
+import {
+    BadRequestException,
+    NotFoundException,
+} from '~/server/helper/error.exception';
 import { type Customer } from '@prisma/client';
+import {
+    toCustomerResponse,
+    toCustomerWithRelationsResponse,
+} from './customer.response';
 
 export const customerService = {
-    getAll: async (): Promise<Customer[]> => {
-        const customers = await customerRepository.findMany();
+    getAll: async (): Promise<CustomerWithRelations[]> => {
+        const response = await customerRepository.findMany();
+
+        const customers = response?.map(customer =>
+            toCustomerWithRelationsResponse(customer),
+        );
+
         return customers!;
     },
 
-    getById: async (id: string): Promise<Customer> => {
+    getById: async (id: string): Promise<CustomerWithRelations> => {
         const customer = await customerRepository.findUniqueId(id);
 
         if (!customer) {
             throw new NotFoundException(`Customer with id ${id} not found`);
         }
 
-        return customer;
+        return toCustomerWithRelationsResponse(customer);
     },
 
     countAll: async (): Promise<number> => {
@@ -38,9 +51,17 @@ export const customerService = {
             request,
         );
 
+        const nationalIdExists = await customerRepository.countUniqueNationalId(
+            validatedRequest.national_id,
+        );
+
+        if (nationalIdExists !== 0) {
+            throw new BadRequestException('National id already used');
+        }
+
         const customer = await customerRepository.insertOnce(validatedRequest);
 
-        return customer!;
+        return toCustomerResponse(customer!);
     },
 
     update: async (
@@ -52,13 +73,25 @@ export const customerService = {
             updateCustomerRequest,
             request,
         );
+        const customerWithNationalIdExists =
+            await customerRepository.findUniqueNationalId(
+                validatedRequest.national_id ?? '',
+            );
+
+        if (
+            customerWithNationalIdExists &&
+            customerWithNationalIdExists.id !== id &&
+            customerWithNationalIdExists.national_id === request.national_id
+        ) {
+            throw new BadRequestException('National id already used');
+        }
 
         const customer = await customerRepository.updateOnce(
             id,
             validatedRequest,
         );
 
-        return customer!;
+        return toCustomerResponse(customer!);
     },
 
     delete: async (id: string): Promise<{ id: string }> => {

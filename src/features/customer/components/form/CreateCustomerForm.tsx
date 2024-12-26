@@ -28,7 +28,7 @@ export const CreateCustomerForm = ({
                 setIsOpen(false);
                 toast({
                     title: 'Success',
-                    description: 'Success create new customer',
+                    description: 'Berhasil menambahkan data nasabah',
                 });
             },
             onError: async error => {

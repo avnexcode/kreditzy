@@ -31,11 +31,11 @@ model Customer {
     residential_address String             @db.VarChar(100) // alamat tinggal
     occupation          String             @db.VarChar(100) // pekerjaan
     phone               String             @db.VarChar(20) // nomor telepon
-    guarantors          Guarantor[]
-    loan_references     LoanReference[]
     created_at          DateTime           @default(now())
     updated_at          DateTime           @updatedAt
-    Creditworthiness    Creditworthiness[]
+    guarantors          Guarantor[]
+    loan_references     LoanReference[]
+    credit_worthiness   Creditworthiness[]
 
     @@map("customers")
 }
@@ -63,11 +63,8 @@ model LoanReference {
     employment_status       String // status pekerjaan tetap/tidak tetap
     previous_credit_history Boolean // riwayat kredit sebelumnya
     requested_loan_amount   String // jumlah pinjaman yang diajukan
-    has_collateral          Boolean // memiliki jaminan atau aset
     collateral_estimate     String // taksiran jaminan
-    maximum_loan            String // maksimal pinjaman
     loan_term               Int // jangka waktu pinjaman (bulan)
-    creditworthiness        Boolean // kelayakan kredit
     customer_id             String
     customer                Customer @relation(fields: [customer_id], references: [id], onDelete: Restrict)
     created_at              DateTime @default(now())
@@ -84,8 +81,9 @@ model Transaction {
 
 model Creditworthiness {
     id          String   @id @default(cuid())
+    status      Boolean
     customer_id String
     customer    Customer @relation(fields: [customer_id], references: [id], onDelete: Restrict)
 
-    @@map("creditworthinesses")
+    @@map("credit_worthinesses")
 }

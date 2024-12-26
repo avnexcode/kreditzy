@@ -1,10 +1,16 @@
-import { DashboardPageContainer } from '~/components/layouts/DashboardPageContainer';
+import { Input } from '~/components/ui/input';
+import { CreateGuarantorDialog } from '../components/dialog/CreateGuarantorDialog';
 import { GuarantorTable } from '../components/table/GuarantorTable';
+import { DashboardContainer } from '~/components/layouts/DashboardContainer';
 
-export const GuarantorPage = () => {
+export const DashboardGuarantorPage = () => {
     return (
-        <DashboardPageContainer title="Dashboard - Penjamin" description="">
+        <DashboardContainer title="Dashboard - Penjamin Nasabah" description="">
+            <nav className="flex gap-5 mb-5">
+                <Input placeholder="search" />
+                <CreateGuarantorDialog />
+            </nav>
             <GuarantorTable />
-        </DashboardPageContainer>
+        </DashboardContainer>
     );
 };

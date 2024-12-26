@@ -1,4 +1,4 @@
-import { DashboardPageContainer } from '~/components/layouts/DashboardPageContainer';
+import { DashboardContainer } from '~/components/layouts/DashboardContainer';
 
 type DashboardDetailCustomerPageProps = {
     params: Promise<{
@@ -12,11 +12,8 @@ export const DashboardDetailCustomerPage = async (
     const { id } = await props.params;
 
     return (
-        <DashboardPageContainer
-            title="Dashboard - Detail Customer"
-            description=""
-        >
+        <DashboardContainer title="Dashboard - Detail Customer" description="">
             {id}
-        </DashboardPageContainer>
+        </DashboardContainer>
     );
 };

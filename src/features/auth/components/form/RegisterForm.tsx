@@ -9,6 +9,7 @@ import { useRouter } from 'next/navigation';
 export const RegisterForm = () => {
     const { toast } = useToast();
     const router = useRouter();
+
     const { mutate: register, isPending: isRegisterPending } = useRegister({
         onSuccess: async () => {
             toast({

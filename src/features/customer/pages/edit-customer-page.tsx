@@ -1,13 +1,10 @@
-import { DashboardPageContainer } from '~/components/layouts/DashboardPageContainer';
 import { EditCustomerForm } from '../components/form/EditCustomerForm';
+import { DashboardContainer } from '~/components/layouts/DashboardContainer';
 
 export const DashboardEditCustomerPage = () => {
     return (
-        <DashboardPageContainer
-            title="Dashboard - Edit Customer"
-            description=""
-        >
+        <DashboardContainer title="Dashboard - Edit Customer" description="">
             <EditCustomerForm />
-        </DashboardPageContainer>
+        </DashboardContainer>
     );
 };

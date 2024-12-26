@@ -20,7 +20,7 @@ export const CreateCustomerDialog = () => {
             <DialogTrigger asChild>
                 <Button variant={'default'}>Tambah</Button>
             </DialogTrigger>
-            <DialogContent className="max-w-4xl">
+            <DialogContent className="max-w-4xl max-h-screen overflow-auto">
                 <DialogHeader>
                     <DialogTitle>Pendaftaran Nasabah Baru</DialogTitle>
                     <DialogDescription>

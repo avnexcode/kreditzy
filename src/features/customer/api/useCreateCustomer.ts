@@ -1,13 +1,13 @@
 import { useMutation } from '@tanstack/react-query';
-import { CreateCustomerFormSchema } from '../types';
+import type { CreateCustomerFormSchema } from '../types';
 import { axiosAuth } from '~/lib/axios';
-import { ApiProps, ApiResponse } from '~/types/api';
-import { Customer } from '@prisma/client';
+import type { ApiProps, ApiResponse } from '~/types/api';
+import { type Customer } from '@prisma/client';
 
 export const useCreateCustomer = ({
     onMutate,
-    onSuccess,
     onError,
+    onSuccess,
 }: ApiProps) => {
     return useMutation({
         mutationKey: ['customers'],
@@ -19,7 +19,7 @@ export const useCreateCustomer = ({
             return response.data.data;
         },
         onMutate,
-        onSuccess,
         onError,
+        onSuccess,
     });
 };

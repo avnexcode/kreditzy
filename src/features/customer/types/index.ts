@@ -31,7 +31,7 @@ export const createCustomerFormSchema = z.object({
         message: 'Nomor telepon tidak boleh lebih dari 20 karakter',
     }),
 });
-export const updateCustomerFormSchema = createCustomerFormSchema.partial();
+export const updateCustomerFormSchema = createCustomerFormSchema;
 
 export type CreateCustomerFormSchema = z.infer<typeof createCustomerFormSchema>;
 export type UpdateCustomerFormSchema = z.infer<typeof updateCustomerFormSchema>;

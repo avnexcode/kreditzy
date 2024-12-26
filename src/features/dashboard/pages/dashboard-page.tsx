@@ -1,16 +1,10 @@
-import { CustomerBadge } from '../components/badge/CustomerBadge';
-import { GuarantorBadge } from '../components/badge/GuarantorBadge';
-import { TransactionBadge } from '../components/badge/TransactionBadge';
-import { DashboardPageContainer } from '~/components/layouts/DashboardPageContainer';
+import { DashboardContainer } from '~/components/layouts/DashboardContainer';
+import { BadgeList } from '../components/badge/BadgeList';
 
 export const DashboardPage = async () => {
     return (
-        <DashboardPageContainer title="Dashboard" description="">
-            <div className="flex gap-12 w-full flex-wrap justify-center">
-                <TransactionBadge />
-                <GuarantorBadge />
-                <CustomerBadge />
-            </div>
-        </DashboardPageContainer>
+        <DashboardContainer title="Dashboard" description="">
+            <BadgeList />
+        </DashboardContainer>
     );
 };

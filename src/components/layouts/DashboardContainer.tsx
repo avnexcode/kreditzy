@@ -5,15 +5,16 @@ import {
     CardHeader,
     CardTitle,
 } from '~/components/ui/card';
+import { PageContainer } from './PageContainer';
 
-type DashboardPageContainerProps = {
+type DashboardContainerProps = {
     children: React.ReactNode;
     className?: string;
     title: string;
     description: string;
 };
 
-export const DashboardPageContainer: React.FC<DashboardPageContainerProps> = ({
+export const DashboardContainer: React.FC<DashboardContainerProps> = ({
     children,
     className,
     ...props
@@ -24,7 +25,9 @@ export const DashboardPageContainer: React.FC<DashboardPageContainerProps> = ({
                 <CardTitle className="text-zinc-900">{props.title}</CardTitle>
                 <CardDescription>{props.description}</CardDescription>
             </CardHeader>
-            <CardContent className="mt-10">{children}</CardContent>
+            <CardContent>
+                <PageContainer>{children}</PageContainer>
+            </CardContent>
         </Card>
     );
 };

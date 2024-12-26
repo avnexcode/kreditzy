@@ -23,6 +23,7 @@ export const DeleteCustomerDialog = (props: DeleteCustomerDialogProps) => {
     const { refetch: refetchCustomers } = useCustomers();
     const { mutate: deleteCustomer, isPending: isDeleteCustomerPending } =
         useDeleteCustomer({
+            id: props.id,
             onSuccess: async () => {
                 await refetchCustomers();
                 toast({
@@ -60,7 +61,7 @@ export const DeleteCustomerDialog = (props: DeleteCustomerDialogProps) => {
                 <AlertDialogFooter>
                     <AlertDialogCancel>Cancel</AlertDialogCancel>
                     <AlertDialogAction
-                        onClick={() => deleteCustomer(props.id)}
+                        onClick={() => deleteCustomer()}
                         disabled={isDeleteCustomerPending}
                         className="bg-red-500"
                     >

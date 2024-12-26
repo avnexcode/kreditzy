@@ -1,6 +1,6 @@
 'use client';
 import { useToast } from '~/hooks/use-toast';
-import { useUpdateCustomer } from '../../api/useUpdateCustomer';
+import { useUpdateCustomer } from '../../api';
 import { type UpdateCustomerFormSchema } from '../../types';
 import { EditCustomerFormLayout } from '../layout/EditCustomerFormLayout';
 import { EditCustomerFormInner } from './EditCustomerFormInner';
@@ -26,8 +26,8 @@ export const EditCustomerForm = () => {
                     title: 'Error',
                     variant: 'destructive',
                     description:
-                        error.message ??
                         error.response?.data.error ??
+                        error.message ??
                         'Gagal memperbarui data nasabah',
                 });
             },
