@@ -1,0 +1,122 @@
+[
+    {
+        "monthly_income": "8000000",
+        "monthly_expenses": "5000000",
+        "employment_status": true,
+        "previous_credit_history": false,
+        "requested_loan_amount": "10000000",
+        "collateral_estimate": "15000000",
+        "loan_term": 12,
+        "customer_id": "cm55c1sux0002xi90ugpgumea"
+    },
+    {
+        "monthly_income": "4500000",
+        "monthly_expenses": "3000000",
+        "employment_status": false,
+        "previous_credit_history": false,
+        "requested_loan_amount": "5000000",
+        "collateral_estimate": "6000000",
+        "loan_term": 6,
+        "customer_id": "cm55c1sux0002xi90ugpgumea"
+    },
+    {
+        "monthly_income": "10000000",
+        "monthly_expenses": "7000000",
+        "employment_status": true,
+        "previous_credit_history": true,
+        "requested_loan_amount": "18000000",
+        "collateral_estimate": "24000000",
+        "loan_term": 24,
+        "customer_id": "cm55c1sux0002xi90ugpgumea"
+    },
+    {
+        "monthly_income": "6000000",
+        "monthly_expenses": "4000000",
+        "employment_status": true,
+        "previous_credit_history": true,
+        "requested_loan_amount": "7500000",
+        "collateral_estimate": "10000000",
+        "loan_term": 18,
+        "customer_id": "cm55c1sux0002xi90ugpgumea"
+    },
+    {
+        "monthly_income": "6500000",
+        "monthly_expenses": "5500000",
+        "employment_status": false,
+        "previous_credit_history": true,
+        "requested_loan_amount": "2000000",
+        "collateral_estimate": "8000000",
+        "loan_term": 6,
+        "customer_id": "cm55c1sux0002xi90ugpgumea"
+    },
+    {
+        "monthly_income": "5000000",
+        "monthly_expenses": "4500000",
+        "employment_status": true,
+        "previous_credit_history": false,
+        "requested_loan_amount": "12000000",
+        "collateral_estimate": "16000000",
+        "loan_term": 24,
+        "customer_id": "cm55c1sux0002xi90ugpgumea"
+    },
+    {
+        "monthly_income": "5000000",
+        "monthly_expenses": "3500000",
+        "employment_status": false,
+        "previous_credit_history": true,
+        "requested_loan_amount": "6000000",
+        "collateral_estimate": "6000000",
+        "loan_term": 12,
+        "customer_id": "cm55c1sux0002xi90ugpgumea"
+    },
+    {
+        "monthly_income": "10000000",
+        "monthly_expenses": "8000000",
+        "employment_status": true,
+        "previous_credit_history": true,
+        "requested_loan_amount": "20000000",
+        "collateral_estimate": "25000000",
+        "loan_term": 24,
+        "customer_id": "cm55c1sux0002xi90ugpgumea"
+    },
+    {
+        "monthly_income": "3000000",
+        "monthly_expenses": "2750000",
+        "employment_status": false,
+        "previous_credit_history": false,
+        "requested_loan_amount": "4000000",
+        "collateral_estimate": "5000000",
+        "loan_term": 6,
+        "customer_id": "cm55c1sux0002xi90ugpgumea"
+    },
+    {
+        "monthly_income": "11000000",
+        "monthly_expenses": "7500000",
+        "employment_status": true,
+        "previous_credit_history": true,
+        "requested_loan_amount": "18000000",
+        "collateral_estimate": "24000000",
+        "loan_term": 24,
+        "customer_id": "cm55c1sux0002xi90ugpgumea"
+    },
+    {
+        "monthly_income": "7500000",
+        "monthly_expenses": "6000000",
+        "employment_status": true,
+        "previous_credit_history": true,
+        "requested_loan_amount": "20000000",
+        "collateral_estimate": "15000000",
+        "loan_term": 12,
+        "customer_id": "cm55c1sux0002xi90ugpgumea"
+    },
+    {
+        "monthly_income": "9000000",
+        "monthly_expenses": "8800000",
+        "employment_status": false,
+        "previous_credit_history": true,
+        "requested_loan_amount": "12000000",
+        "collateral_estimate": "16000000",
+        "loan_term": 24,
+        "customer_id": "cm55c1sux0002xi90ugpgumea"
+    }
+]

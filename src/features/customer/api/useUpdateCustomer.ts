@@ -13,7 +13,7 @@ export const useUpdateCustomer = ({
     return useMutation({
         mutationKey: ['customers', id],
         mutationFn: async (values: UpdateCustomerFormSchema) => {
-            if (!id) throw new Error(`Id is required`);
+            if (!id) throw new Error('Id is required');
             const response = await axiosAuth.put<ApiResponse<Customer>>(
                 `/customers/${id}`,
                 values,

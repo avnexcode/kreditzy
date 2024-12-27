@@ -3,7 +3,7 @@ import { Suspense } from 'react';
 import { CustomerTableSkeleton } from '~/features/customer/components/skeleton/TableCustomerSkeleton';
 
 export const metadata: Metadata = {
-    title: 'Dashboard - Guarantor',
+    title: 'Dashboard - Penjamin Nasabah',
 };
 
 const DashboardGuarantorLayout: React.FC<React.PropsWithChildren> = ({

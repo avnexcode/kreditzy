@@ -1,3 +1,4 @@
+import { Prisma } from '@prisma/client';
 import { z } from 'zod';
 
 export const createGuarantorFormSchema = z.object({
@@ -48,3 +49,11 @@ export type CreateGuarantorFormSchema = z.infer<
 export type UpdateGuarantorFormSchema = z.infer<
     typeof updateGuarantorFormSchema
 >;
+
+export type CustomerWithRelations = Prisma.CustomerGetPayload<{
+    include: {
+        guarantors: true;
+        loan_references: true;
+        credit_worthiness: true;
+    };
+}>;

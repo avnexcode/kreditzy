@@ -7,6 +7,7 @@ export const useGuarantorId = (id?: string) => {
     return useQuery({
         queryKey: ['guarantors', id],
         queryFn: async () => {
+            if (!id) throw new Error('Id is required');
             const response = await axiosAuth.get<ApiResponse<Guarantor>>(
                 `/guarantors/${id}`,
             );

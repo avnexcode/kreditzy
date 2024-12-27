@@ -1,1 +1,1 @@
-export { TransactionPage as default } from '~/features/transaction/pages/transaction-page';
+export { DashboardTransactionPage as default } from '~/features/transaction/pages/transaction-page';

@@ -16,7 +16,7 @@ import { useEffect } from 'react';
 import { Input } from '~/components/ui/input';
 import { inputHandle } from '~/utils/form-input';
 import { useGuarantorId } from '../../api';
-import { SelectCustomerGuarantorForm } from '../select/SelectCustomerGuarantorForm';
+import { SelectCustomer } from '~/features/customer/components/select/asd';
 
 type EditGuarantorFormInnerProps = {
     guarantorId: string;
@@ -66,10 +66,7 @@ export const EditGuarantorFormInner = ({
                 className="flex flex-col gap-5"
             >
                 <div>
-                    <SelectCustomerGuarantorForm
-                        form={form}
-                        customer_id={guarantor ? guarantor.id : ''}
-                    />
+                    <SelectCustomer form={form} name="customer_id" />
                 </div>
                 <div>
                     <FormField

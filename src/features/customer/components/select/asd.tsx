@@ -1,4 +1,4 @@
-import { UseFormReturn } from 'react-hook-form';
+import type { FieldValues, Path, UseFormReturn } from 'react-hook-form';
 import {
     FormControl,
     FormField,
@@ -13,31 +13,28 @@ import {
     SelectTrigger,
     SelectValue,
 } from '~/components/ui/select';
-import {
-    CreateGuarantorFormSchema,
-    UpdateGuarantorFormSchema,
-} from '../../types';
 import { useCustomers } from '~/features/customer/api';
 
-type SelectCustomerGuarantorFormProps = {
-    customer_id?: string;
-    form: UseFormReturn<UpdateGuarantorFormSchema | CreateGuarantorFormSchema>;
+type SelectCustomerProps<T extends FieldValues> = {
+    form: UseFormReturn<T>;
+    name: Path<T>;
+    label?: string;
 };
 
-export const SelectCustomerGuarantorForm = ({
-    customer_id,
+export const SelectCustomer = <T extends FieldValues>({
     form,
-}: SelectCustomerGuarantorFormProps) => {
+    name,
+    label,
+}: SelectCustomerProps<T>) => {
     const { data: customers } = useCustomers();
 
     return (
         <FormField
             control={form.control}
-            name="customer_id"
-            defaultValue={customer_id}
+            name={name}
             render={({ field }) => (
                 <FormItem>
-                    <FormLabel>Nasabah yang di jamin</FormLabel>
+                    <FormLabel>{label ?? 'Pilih Nasabah'}</FormLabel>
                     <Select onValueChange={field.onChange} value={field.value}>
                         <FormControl>
                             <SelectTrigger className="capitalize">
@@ -45,9 +42,9 @@ export const SelectCustomerGuarantorForm = ({
                             </SelectTrigger>
                         </FormControl>
                         <SelectContent>
-                            {customers?.map((customer, index) => (
+                            {customers?.map(customer => (
                                 <SelectItem
-                                    key={index}
+                                    key={customer.id}
                                     value={customer.id}
                                     className="capitalize"
                                 >

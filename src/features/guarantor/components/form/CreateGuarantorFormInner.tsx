@@ -14,14 +14,7 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Input } from '~/components/ui/input';
 import { inputHandle } from '~/utils/form-input';
-import {
-    Select,
-    SelectContent,
-    SelectItem,
-    SelectTrigger,
-    SelectValue,
-} from '~/components/ui/select';
-import { SelectCustomerGuarantorForm } from '../select/SelectCustomerGuarantorForm';
+import { SelectCustomer } from '~/features/customer/components/select/asd';
 
 type CreateGuarantorFormInnerProps = {
     form_id: string;
@@ -53,7 +46,7 @@ export const CreateGuarantorFormInner = ({
                 className="flex flex-col gap-5"
             >
                 <div>
-                    <SelectCustomerGuarantorForm form={form} />
+                    <SelectCustomer form={form} name="customer_id" />
                 </div>
                 <div>
                     <FormField

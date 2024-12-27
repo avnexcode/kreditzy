@@ -11,7 +11,7 @@ export const CustomerBadge = () => {
             icon={<Users size={25} />}
             iconBackground="bg-pink-500"
             label="Total Nasabah"
-            stat={customersCount ? customersCount : 0}
+            stat={customersCount ?? 0}
             statLoading={isCustomersCountLoading}
             trend={12}
             trendLabel="compared to last month"

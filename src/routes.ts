@@ -11,6 +11,9 @@ export const publicRoutes = [
     '/api/guarantors',
     '/api/guarantors/stats/length',
     '/api/guarantors/:id',
+    '/api/loan-references',
+    '/api/loan-references/stats/length',
+    '/api/loan-references/:id',
 ];
 
 /**

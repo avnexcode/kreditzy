@@ -3,7 +3,7 @@ import { useToast } from '~/hooks/use-toast';
 import { EditGuarantorFormInner } from './EditGuarantorFormInner';
 import { useParams, useRouter } from 'next/navigation';
 import { useUpdateGuarantor } from '../../api';
-import { UpdateGuarantorFormSchema } from '../../types';
+import type { UpdateGuarantorFormSchema } from '../../types';
 import { EditGuarantorFormLayout } from '../layout/EditGuarantorFormLayout';
 
 export const EditGuarantorForm = () => {

@@ -11,7 +11,7 @@ export const GuarantorBadge = () => {
             icon={<ShieldCheck size={25} />}
             iconBackground="bg-green-500"
             label="Total Penjamin"
-            stat={guarantorsCount ? guarantorsCount : 0}
+            stat={guarantorsCount ?? 0}
             statLoading={isGuarantorsLoading}
             trend={12}
             trendLabel="compared to last month"

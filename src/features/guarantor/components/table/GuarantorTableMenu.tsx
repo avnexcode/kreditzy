@@ -6,7 +6,7 @@ import {
 } from '~/components/ui/dropdown-menu';
 import { Ellipsis, Pencil, ScanEye } from 'lucide-react';
 import { useRouter } from 'next/navigation';
-import { DeleteGuarantorDialog } from '../dialog/DeleteCustomerDialog';
+import { DeleteGuarantorDialog } from '../dialog/DeleteGuarantorDialog';
 
 type GuarantorTableMenuProps = {
     id: string;

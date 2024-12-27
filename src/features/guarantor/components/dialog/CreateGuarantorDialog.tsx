@@ -36,11 +36,7 @@ export const CreateGuarantorDialog = () => {
                 />
                 <DialogFooter className="pt-10">
                     <Button onClick={() => setIsOpen(false)}>Batal</Button>
-                    <Button
-                        form="create-guarantor-form"
-                        disabled={isPending}
-                        type="submit"
-                    >
+                    <Button form="create-guarantor-form" disabled={isPending}>
                         {isPending ? 'Menambahkan...' : 'Tambahkan'}
                     </Button>
                 </DialogFooter>

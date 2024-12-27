@@ -36,6 +36,7 @@ model Customer {
     guarantors          Guarantor[]
     loan_references     LoanReference[]
     credit_worthiness   Creditworthiness[]
+    Transaction         Transaction[]
 
     @@map("customers")
 }
@@ -58,13 +59,15 @@ model Guarantor {
 
 model LoanReference {
     id                      String   @id @default(cuid())
-    monthly_income          String // pendapatan bulanan
-    monthly_expenses        String // pengeluaran bulanan
-    employment_status       String // status pekerjaan tetap/tidak tetap
+    monthly_income          String   @db.VarChar(100) // pendapatan bulanan
+    monthly_expenses        String   @db.VarChar(100) // pengeluaran bulanan
+    monthly_surplus         String   @db.VarChar(100)
+    employment_status       Boolean // status pekerjaan tetap/tidak tetap
     previous_credit_history Boolean // riwayat kredit sebelumnya
-    requested_loan_amount   String // jumlah pinjaman yang diajukan
-    collateral_estimate     String // taksiran jaminan
+    requested_loan_amount   String   @db.VarChar(100) // jumlah pinjaman yang diajukan
+    collateral_estimate     String   @db.VarChar(100) // taksiran jaminan
     loan_term               Int // jangka waktu pinjaman (bulan)
+    installment             String   @db.VarChar(100) // angsuran setiap bulan dengan bunga
     customer_id             String
     customer                Customer @relation(fields: [customer_id], references: [id], onDelete: Restrict)
     created_at              DateTime @default(now())
@@ -74,7 +77,11 @@ model LoanReference {
 }
 
 model Transaction {
-    id String @id @default(cuid())
+    id          String   @id @default(cuid())
+    installment String   @db.VarChar(100) // angsuran setiap bulan dengan bunga
+    loan_term   Int // jangka waktu pinjaman (bulan)
+    customer_id String
+    customer    Customer @relation(fields: [customer_id], references: [id], onDelete: Restrict)
 
     @@map("transactions")
 }

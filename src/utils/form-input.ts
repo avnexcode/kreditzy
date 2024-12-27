@@ -17,3 +17,14 @@ export const inputHandle = {
         },
     },
 };
+
+export const inputParse = {
+    stringToNumber: (value: string): number => {
+        const numericValue = parseInt(value.replace(/\D/g, '')) || 0;
+        return numericValue;
+    },
+    stringAsNumber: (value: string): string => {
+        const numericValue = value.replace(/\D/g, '');
+        return numericValue;
+    },
+};
