@@ -1,16 +1,16 @@
 import { useQuery } from '@tanstack/react-query';
 import { axiosAuth } from '~/lib/axios';
 import type { ApiResponse } from '~/types/api';
-import type { LoanReferenceWithRelations } from '../types';
+import type { CustomerWithRelations } from '../../types';
 
-export const useLoanReferenceId = (id?: string) => {
+export const useCustomerId = (id?: string) => {
     return useQuery({
-        queryKey: ['loan-references', id],
+        queryKey: ['customers', id],
         queryFn: async () => {
             if (!id) throw new Error('Id is required');
             const response = await axiosAuth.get<
-                ApiResponse<LoanReferenceWithRelations>
-            >(`/loan-references/${id}`);
+                ApiResponse<CustomerWithRelations>
+            >(`/customers/${id}`);
             return response.data.data;
         },
     });

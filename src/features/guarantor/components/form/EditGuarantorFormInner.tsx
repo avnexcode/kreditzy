@@ -15,8 +15,8 @@ import { useForm } from 'react-hook-form';
 import { useEffect } from 'react';
 import { Input } from '~/components/ui/input';
 import { inputHandle } from '~/utils/form-input';
-import { useGuarantorId } from '../../api';
-import { SelectCustomer } from '~/features/customer/components/select/asd';
+import { SelectCustomer } from '~/features/customer/components/select/SelectCustomer';
+import { useGuarantorId } from '../../api/client';
 
 type EditGuarantorFormInnerProps = {
     guarantorId: string;

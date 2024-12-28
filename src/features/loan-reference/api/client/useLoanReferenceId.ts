@@ -1,16 +1,16 @@
-import { type Customer } from '@prisma/client';
 import { useQuery } from '@tanstack/react-query';
 import { axiosAuth } from '~/lib/axios';
 import type { ApiResponse } from '~/types/api';
+import type { LoanReferenceWithRelations } from '../../types';
 
-export const useCustomerId = (id?: string) => {
+export const useLoanReferenceId = (id?: string) => {
     return useQuery({
-        queryKey: ['customers', id],
+        queryKey: ['loan-references', id],
         queryFn: async () => {
             if (!id) throw new Error('Id is required');
-            const response = await axiosAuth.get<ApiResponse<Customer>>(
-                `/customers/${id}`,
-            );
+            const response = await axiosAuth.get<
+                ApiResponse<LoanReferenceWithRelations>
+            >(`/loan-references/${id}`);
             return response.data.data;
         },
     });

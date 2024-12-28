@@ -13,7 +13,7 @@ import {
     SelectTrigger,
     SelectValue,
 } from '~/components/ui/select';
-import { useCustomers } from '~/features/customer/api';
+import { useCustomers } from '../../api/client';
 
 type SelectCustomerProps<T extends FieldValues> = {
     form: UseFormReturn<T>;

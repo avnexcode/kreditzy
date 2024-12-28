@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import { axiosAuth } from '~/lib/axios';
 import type { ApiResponse } from '~/types/api';
-import type { LoanReferenceWithRelations } from '../types';
+import type { LoanReferenceWithRelations } from '../../types';
 
 export const useLoanReferences = () => {
     return useQuery({

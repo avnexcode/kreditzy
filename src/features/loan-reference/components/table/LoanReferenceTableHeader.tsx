@@ -5,11 +5,13 @@ export const LoanReferenceTableHeader = () => {
         <TableHeader>
             <TableRow>
                 <TableHead>No</TableHead>
-                <TableHead>Nama</TableHead>
-                <TableHead>Status Pekerjaan</TableHead>
-                <TableHead>Riwayat Kredit Sebelumnya</TableHead>
-                <TableHead>Jumlah Pinjaman yang Diajukan</TableHead>
-                <TableHead>Jangka Waktu</TableHead>
+                <TableHead>Income</TableHead>
+                <TableHead>Expense</TableHead>
+                <TableHead>Pekerjaan</TableHead>
+                <TableHead>Riwayat Kredit</TableHead>
+                <TableHead>Jumlah Pinjaman</TableHead>
+                <TableHead>Jaminan</TableHead>
+                <TableHead>Jangka</TableHead>
                 <TableHead>Surplus</TableHead>
                 <TableHead>Angsuran</TableHead>
             </TableRow>

@@ -1,10 +1,10 @@
 'use client';
 import { useToast } from '~/hooks/use-toast';
-import { useUpdateCustomer } from '../../api';
 import { type UpdateCustomerFormSchema } from '../../types';
 import { EditCustomerFormLayout } from '../layout/EditCustomerFormLayout';
 import { EditCustomerFormInner } from './EditCustomerFormInner';
 import { useParams, useRouter } from 'next/navigation';
+import { useUpdateCustomer } from '../../api/client';
 
 export const EditCustomerForm = () => {
     const params: { id: string } = useParams();

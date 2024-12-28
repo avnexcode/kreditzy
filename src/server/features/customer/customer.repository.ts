@@ -7,7 +7,7 @@ import type {
 import { type Customer } from '@prisma/client';
 
 export const customerRepository = {
-    findMany: async (): Promise<CustomerWithRelations[] | null> => {
+    findMany: async (): Promise<CustomerWithRelations[]> => {
         const customers = await db.customer.findMany({
             include: {
                 guarantors: true,

@@ -7,7 +7,7 @@ import type {
 } from './guarantor.model';
 
 export const guarantorRepository = {
-    findMany: async (): Promise<GuarantorWithRelations[] | null> => {
+    findMany: async (): Promise<GuarantorWithRelations[]> => {
         const guarantors = await db.guarantor.findMany({
             include: {
                 customer: true,

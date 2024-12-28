@@ -1,8 +1,8 @@
 'use client';
 import { TableBody, TableCell, TableRow } from '~/components/ui/table';
-import { useCustomers } from '../../api';
 import { toFormatDate } from '~/utils/toFormatDate';
 import { CustomerTableMenu } from './CustomerTableMenu';
+import { useCustomers } from '../../api/client';
 
 export const CustomerTableBody = () => {
     const { data: customers } = useCustomers();

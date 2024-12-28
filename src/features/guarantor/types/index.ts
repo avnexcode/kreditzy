@@ -1,4 +1,4 @@
-import { Prisma } from '@prisma/client';
+import { type Prisma } from '@prisma/client';
 import { z } from 'zod';
 
 export const createGuarantorFormSchema = z.object({
@@ -8,9 +8,10 @@ export const createGuarantorFormSchema = z.object({
         .max(50, { message: 'Nama tidak boleh lebih dari 50 karakter.' }),
     national_id: z
         .string()
-        .min(1, { message: 'Nomor identitas wajib diisi.' })
-        .max(30, {
-            message: 'Nomor identitas tidak boleh lebih dari 30 karakter.',
+        .min(1, { message: 'NIK wajib diisi.' })
+        .min(16, { message: 'NIK tidak sesuai.' })
+        .max(16, {
+            message: 'NIK tidak boleh lebih dari 16 karakter.',
         }),
     id_card_address: z
         .string()
@@ -50,10 +51,8 @@ export type UpdateGuarantorFormSchema = z.infer<
     typeof updateGuarantorFormSchema
 >;
 
-export type CustomerWithRelations = Prisma.CustomerGetPayload<{
+export type GuarantorWithRelations = Prisma.GuarantorGetPayload<{
     include: {
-        guarantors: true;
-        loan_references: true;
-        credit_worthiness: true;
+        customer: true;
     };
 }>;

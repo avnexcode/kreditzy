@@ -27,7 +27,7 @@ export const customerService = {
             toCustomerWithRelationsResponse(customer),
         );
 
-        return customers!;
+        return customers;
     },
 
     getById: async (id: string): Promise<CustomerWithRelations> => {

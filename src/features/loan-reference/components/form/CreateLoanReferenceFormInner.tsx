@@ -22,7 +22,7 @@ import {
     type CreateLoanReferenceFormSchema,
 } from '../../types';
 import { toIDR } from '~/utils/convert-currency';
-import { SelectCustomer } from '~/features/customer/components/select/asd';
+import { SelectCustomer } from '~/features/customer/components/select/SelectCustomer';
 
 type CreateLoanReferenceFormInnerProps = {
     form_id: string;

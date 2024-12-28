@@ -1,8 +1,8 @@
 import { useMutation } from '@tanstack/react-query';
 import { axiosAuth } from '~/lib/axios';
-import type { CreateLoanReferenceFormSchema } from '../types';
 import type { ApiProps, ApiResponse } from '~/types/api';
 import { type LoanReference } from '@prisma/client';
+import type { CreateLoanReferenceFormSchema } from '../../types';
 
 export const useCreateLoanReference = ({
     onMutate,

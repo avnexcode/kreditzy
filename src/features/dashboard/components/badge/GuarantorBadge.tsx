@@ -1,18 +1,19 @@
-'use client';
 import { ShieldCheck } from 'lucide-react';
 import { Badge } from '~/components/elements/Badge';
-import { useGuarantorsCount } from '~/features/guarantor/api';
+import { getGuarantorsCount } from '~/features/guarantor/api/server';
+// import { useGuarantorsCount } from '~/features/guarantor/api/client';
 
-export const GuarantorBadge = () => {
-    const { data: guarantorsCount, isLoading: isGuarantorsLoading } =
-        useGuarantorsCount();
+export const GuarantorBadge = async () => {
+    // const { data: guarantorsCount, isLoading: isGuarantorsLoading } =
+    //     useGuarantorsCount();
+    const guarantorsCount = await getGuarantorsCount();
     return (
         <Badge
             icon={<ShieldCheck size={25} />}
             iconBackground="bg-green-500"
             label="Total Penjamin"
             stat={guarantorsCount ?? 0}
-            statLoading={isGuarantorsLoading}
+            // statLoading={isGuarantorsLoading}
             trend={12}
             trendLabel="compared to last month"
             rootClassName="w-full"

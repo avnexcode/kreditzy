@@ -12,7 +12,7 @@ import {
 import { DropdownMenuItem } from '~/components/ui/dropdown-menu';
 import { Loader2, Trash2 } from 'lucide-react';
 import { useToast } from '~/hooks/use-toast';
-import { useCustomers, useDeleteCustomer } from '../../api';
+import { useCustomers, useDeleteCustomer } from '../../api/client';
 
 type DeleteCustomerDialogProps = {
     id: string;

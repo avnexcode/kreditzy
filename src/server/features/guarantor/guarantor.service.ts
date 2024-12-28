@@ -27,7 +27,7 @@ export const guarantorService = {
             toGuarantorWithRelationsResponse(guarantor),
         );
 
-        return guarantors!;
+        return guarantors;
     },
 
     getById: async (id: string): Promise<GuarantorWithRelations> => {

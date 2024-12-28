@@ -1,18 +1,19 @@
-'use client';
 import { Users } from 'lucide-react';
 import { Badge } from '~/components/elements/Badge';
-import { useCustomersCount } from '~/features/customer/api';
+// import { useCustomersCount } from '~/features/customer/api/client';
+import { getCustomersCount } from '~/features/customer/api/server';
 
-export const CustomerBadge = () => {
-    const { data: customersCount, isLoading: isCustomersCountLoading } =
-        useCustomersCount();
+export const CustomerBadge = async () => {
+    // const { data: customersCount, isLoading: isCustomersCountLoading } =
+    //     useCustomersCount();
+    const customersCount = await getCustomersCount();
     return (
         <Badge
             icon={<Users size={25} />}
             iconBackground="bg-pink-500"
             label="Total Nasabah"
             stat={customersCount ?? 0}
-            statLoading={isCustomersCountLoading}
+            // statLoading={isCustomersCountLoading}
             trend={12}
             trendLabel="compared to last month"
             rootClassName="w-full"

@@ -14,7 +14,7 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Input } from '~/components/ui/input';
 import { inputHandle } from '~/utils/form-input';
-import { SelectCustomer } from '~/features/customer/components/select/asd';
+import { SelectCustomer } from '~/features/customer/components/select/SelectCustomer';
 
 type CreateGuarantorFormInnerProps = {
     form_id: string;

@@ -1,7 +1,7 @@
 import { useToast } from '~/hooks/use-toast';
 import { CreateLoanReferenceFormInner } from './CreateLoanReferenceFormInner';
 import type { CreateLoanReferenceFormSchema } from '../../types';
-import { useCreateLoanReference, useLoanReferences } from '../../api';
+import { useCreateLoanReference, useLoanReferences } from '../../api/client';
 
 type CreateLoanReferenceFormProps = {
     setIsOpen: (isOpen: boolean) => void;

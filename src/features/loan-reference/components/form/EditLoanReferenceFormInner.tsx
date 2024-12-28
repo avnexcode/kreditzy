@@ -22,9 +22,9 @@ import {
     updateLoanReferenceFormSchema,
     type UpdateLoanReferenceFormSchema,
 } from '../../types';
-import { useLoanReferenceId } from '../../api';
 import { toIDR } from '~/utils/convert-currency';
-import { SelectCustomer } from '~/features/customer/components/select/asd';
+import { SelectCustomer } from '~/features/customer/components/select/SelectCustomer';
+import { useLoanReferenceId } from '../../api/client';
 
 type EditLoanReferenceFormInnerProps = {
     loanReferenceId: string;

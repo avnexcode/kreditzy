@@ -2,9 +2,9 @@
 import { useToast } from '~/hooks/use-toast';
 import { EditGuarantorFormInner } from './EditGuarantorFormInner';
 import { useParams, useRouter } from 'next/navigation';
-import { useUpdateGuarantor } from '../../api';
 import type { UpdateGuarantorFormSchema } from '../../types';
 import { EditGuarantorFormLayout } from '../layout/EditGuarantorFormLayout';
+import { useUpdateGuarantor } from '../../api/client';
 
 export const EditGuarantorForm = () => {
     const params: { id: string } = useParams();

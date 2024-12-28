@@ -88,6 +88,51 @@ export const loanReferenceService = {
         return loanReference;
     },
 
+    createMany: async (
+        request: CreateLoanReferenceRequest[],
+    ): Promise<{ count: number }> => {
+        const validatedRequestsWithCalculatedValues = request.map(req => {
+            const validatedRequest = validateSchema(
+                createLoanReferenceRequest,
+                req,
+            );
+
+            const monthly_surplus = String(
+                getMonthlySurplus(
+                    Number(validatedRequest.monthly_income),
+                    Number(validatedRequest.monthly_expenses),
+                ),
+            );
+
+            const installment = String(
+                getInstallment(
+                    Number(validatedRequest.requested_loan_amount),
+                    Number(validatedRequest.loan_term),
+                    1,
+                ),
+            );
+
+            const validatedCalculatedLoanValues = validateSchema(
+                calculatedLoanValues,
+                {
+                    monthly_surplus,
+                    installment,
+                },
+            );
+
+            return {
+                ...validatedRequest,
+                ...validatedCalculatedLoanValues,
+            };
+        });
+
+        const loanReferences = await loanReferenceRepository.insertMany(
+            validatedRequestsWithCalculatedValues,
+        );
+
+        return loanReferences;
+    },
+
     update: async (
         id: string,
         request: UpdateLoanReferenceRequest,

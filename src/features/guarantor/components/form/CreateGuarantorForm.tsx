@@ -1,8 +1,7 @@
 import { useToast } from '~/hooks/use-toast';
-import { useGuarantors } from '../../api';
-import { useCreateGuarantor } from '../../api/useCreateGuarantor';
 import type { CreateGuarantorFormSchema } from '../../types';
 import { CreateGuarantorFormInner } from './CreateGuarantorFormInner';
+import { useCreateGuarantor, useGuarantors } from '../../api/client';
 
 type CreateGuarantorFormProps = {
     setIsOpen: (isOpen: boolean) => void;

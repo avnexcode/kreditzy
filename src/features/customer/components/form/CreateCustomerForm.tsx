@@ -1,10 +1,9 @@
 'use client';
 import { useToast } from '~/hooks/use-toast';
-import { useCreateCustomer } from '../../api/useCreateCustomer';
 import type { CreateCustomerFormSchema } from '../../types';
 import { CreateCustomerFormInner } from './CreateCustomerFormInner';
 import { useEffect } from 'react';
-import { useCustomers } from '../../api';
+import { useCreateCustomer, useCustomers } from '../../api/client';
 
 type CreateCustomerFormProps = {
     setIsOpen: (isOpen: boolean) => void;

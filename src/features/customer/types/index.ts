@@ -1,3 +1,4 @@
+import { Prisma } from '@prisma/client';
 import { z } from 'zod';
 
 export const createCustomerFormSchema = z.object({
@@ -9,7 +10,8 @@ export const createCustomerFormSchema = z.object({
     national_id: z
         .string()
         .min(1, { message: 'NIK wajib diisi' })
-        .max(30, { message: 'NIK tidak boleh lebih dari 30 karakter' }),
+        .min(16, { message: 'NIK tidak sesuai' })
+        .max(16, { message: 'NIK tidak boleh lebih dari 16 karakter' }),
     id_card_address: z
         .string()
         .min(1, { message: 'Alamat KTP wajib diisi' })
@@ -35,3 +37,11 @@ export const updateCustomerFormSchema = createCustomerFormSchema;
 
 export type CreateCustomerFormSchema = z.infer<typeof createCustomerFormSchema>;
 export type UpdateCustomerFormSchema = z.infer<typeof updateCustomerFormSchema>;
+
+export type CustomerWithRelations = Prisma.CustomerGetPayload<{
+    include: {
+        guarantors: true;
+        loan_references: true;
+        credit_worthiness: true;
+    };
+}>;

@@ -18,13 +18,13 @@ export const SidebarItem = (props: SidebarItemProps) => {
 
     return (
         <SidebarMenuItem>
-            <SidebarMenuButton asChild>
+            <SidebarMenuButton asChild className="hover:bg-zinc-200">
                 <Link
                     href={props.sidebar.href}
                     className={cn(
                         'flex items-center gap-2 w-full',
                         isActive &&
-                            'bg-zinc-100 text-zinc-900 dark:bg-zinc-800 dark:text-zinc-50',
+                            'bg-zinc-200 text-zinc-900 dark:bg-zinc-800 dark:text-zinc-50',
                     )}
                 >
                     <span

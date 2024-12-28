@@ -4,7 +4,7 @@ import { EditLoanReferenceFormInner } from './EditLoanReferenceFormInner';
 import { useParams, useRouter } from 'next/navigation';
 import { EditLoanReferenceFormLayout } from '../layout/EditLoanReferenceFormLayout';
 import type { UpdateLoanReferenceFormSchema } from '../../types';
-import { useUpdateLoanReference } from '../../api';
+import { useUpdateLoanReference } from '../../api/client';
 
 export const EditLoanReferenceForm = () => {
     const params: { id: string } = useParams();

@@ -1,8 +1,8 @@
 'use client';
 import { TableBody, TableCell, TableRow } from '~/components/ui/table';
 import { GuarantorTableMenu } from './GuarantorTableMenu';
-import { useGuarantors } from '../../api';
 import { toFormatDate } from '~/utils/toFormatDate';
+import { useGuarantors } from '../../api/client';
 
 export const GuarantorTableBody = () => {
     const { data: guarantors } = useGuarantors();

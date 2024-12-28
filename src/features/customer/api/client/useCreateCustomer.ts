@@ -1,5 +1,5 @@
 import { useMutation } from '@tanstack/react-query';
-import type { CreateCustomerFormSchema } from '../types';
+import type { CreateCustomerFormSchema } from '../../types';
 import { axiosAuth } from '~/lib/axios';
 import type { ApiProps, ApiResponse } from '~/types/api';
 import { type Customer } from '@prisma/client';
