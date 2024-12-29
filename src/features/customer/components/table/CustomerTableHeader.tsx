@@ -7,8 +7,7 @@ export const CustomerTableHeader = () => {
                 <TableHead>Nama</TableHead>
                 <TableHead>NIK</TableHead>
                 <TableHead>Nomor HP</TableHead>
-                <TableHead>Dibuat</TableHead>
-                <TableHead>Diperbarui</TableHead>
+                <TableHead>Pekerjaan</TableHead>
             </TableRow>
         </TableHeader>
     );

@@ -14,6 +14,9 @@ export const publicRoutes = [
     '/api/loan-references',
     '/api/loan-references/stats/length',
     '/api/loan-references/:id',
+    '/api/credit-worthinesses',
+    '/api/credit-worthinesses/stats/length',
+    '/api/credit-worthinesses/:id',
 ];
 
 /**
@@ -40,10 +43,10 @@ export const protectedApiRoutes = ['/api/users'];
  * DEFAULT_LOGIN_REDIRECT: Default page to redirect to after a successful login
  * - '/dashboard': Redirect to the dashboard after login
  */
-export const DEFAULT_LOGIN_REDIRECT = '/dashboard';
+export const DEFAULT_LOGIN_REDIRECT = '/login';
 
 /**
  * DEFAULT_AUTH_REDIRECT: Default page to redirect to for authentication
  * - '/login': Redirect to the login page
  */
-export const DEFAULT_AUTH_REDIRECT = '/login';
+export const DEFAULT_AUTH_REDIRECT = '/dashboard';

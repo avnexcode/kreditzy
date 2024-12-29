@@ -33,6 +33,7 @@ export const CreateGuarantorFormInner = ({
             residential_address: '',
             occupation: '',
             phone: '',
+            relationship: '',
             customer_id: '',
         },
         resolver: zodResolver(createGuarantorFormSchema),
@@ -160,6 +161,24 @@ export const CreateGuarantorFormInner = ({
                                             onChange(e);
                                         }}
                                         onPaste={inputHandle.onPaste.number}
+                                        {...field}
+                                    />
+                                </FormControl>
+                                <FormMessage />
+                            </FormItem>
+                        )}
+                    />
+                </div>
+                <div>
+                    <FormField
+                        control={form.control}
+                        name="relationship"
+                        render={({ field }) => (
+                            <FormItem>
+                                <FormLabel>Hubungan Keluarga</FormLabel>
+                                <FormControl>
+                                    <Input
+                                        placeholder="Masukkan hubungan keluarga disini"
                                         {...field}
                                     />
                                 </FormControl>

@@ -1,5 +1,5 @@
-import { Guarantor } from '@prisma/client';
-import { GuarantorWithRelations } from './guarantor.model';
+import { type Guarantor } from '@prisma/client';
+import type { GuarantorWithRelations } from './guarantor.model';
 
 export const toGuarantorResponse = (guarantor: Guarantor): Guarantor => ({
     id: guarantor.id,
@@ -9,6 +9,7 @@ export const toGuarantorResponse = (guarantor: Guarantor): Guarantor => ({
     residential_address: guarantor.residential_address,
     occupation: guarantor.occupation,
     phone: guarantor.phone,
+    relationship: guarantor.relationship,
     customer_id: guarantor.customer_id,
     created_at: guarantor.created_at,
     updated_at: guarantor.updated_at,

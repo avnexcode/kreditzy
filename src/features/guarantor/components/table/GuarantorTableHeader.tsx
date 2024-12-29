@@ -6,10 +6,7 @@ export const GuarantorTableHeader = () => {
             <TableRow>
                 <TableHead>No</TableHead>
                 <TableHead>Nama</TableHead>
-                <TableHead>NIK</TableHead>
-                <TableHead>Nomor HP</TableHead>
-                <TableHead>Dibuat</TableHead>
-                <TableHead>Diperbarui</TableHead>
+                <TableHead>Nasabah</TableHead>
             </TableRow>
         </TableHeader>
     );

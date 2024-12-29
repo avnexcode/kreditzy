@@ -39,6 +39,12 @@ export const createGuarantorFormSchema = z.object({
         .max(20, {
             message: 'Nomor telepon tidak boleh lebih dari 20 karakter.',
         }),
+    relationship: z
+        .string()
+        .min(1, { message: 'Hubungan keluarga wajib diisi.' })
+        .max(100, {
+            message: 'Hubungan keluarga tidak boleh lebih dari 100 karakter.',
+        }),
     customer_id: z.string().min(1, { message: 'ID pelanggan wajib diisi.' }),
 });
 

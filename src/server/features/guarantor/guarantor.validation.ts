@@ -6,6 +6,7 @@ export const createGuarantorRequest = z.object({
     id_card_address: z.string().min(1).max(100).toLowerCase(),
     residential_address: z.string().min(1).max(100).toLowerCase(),
     occupation: z.string().min(1).max(100),
+    relationship: z.string().min(1).max(100),
     phone: z.string().min(1).max(20),
     customer_id: z.string().min(1),
 });

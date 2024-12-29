@@ -1,12 +1,10 @@
-'use client';
 import { TableBody, TableCell, TableRow } from '~/components/ui/table';
 import { LoanReferenceTableMenu } from './LoanReferenceTableMenu';
 import { toIDR } from '~/utils/convert-currency';
-import { useLoanReferences } from '../../api/client';
+import { getLoanReferences } from '../../api/server/getLoanReferences';
 
-export const LoanReferenceTableBody = () => {
-    const { data: loanReferences } = useLoanReferences();
-    console.log(loanReferences);
+export const LoanReferenceTableBody = async () => {
+    const loanReferences = await getLoanReferences();
     return (
         <TableBody>
             {loanReferences?.length === 0 && (
@@ -47,9 +45,9 @@ export const LoanReferenceTableBody = () => {
                         {toIDR(loanReference.monthly_surplus)}
                     </TableCell>
                     <TableCell>{toIDR(loanReference.installment)}</TableCell>
-                    {/* <TableCell>
+                    <TableCell>
                         <LoanReferenceTableMenu id={loanReference.id} />
-                    </TableCell> */}
+                    </TableCell>
                 </TableRow>
             ))}
         </TableBody>

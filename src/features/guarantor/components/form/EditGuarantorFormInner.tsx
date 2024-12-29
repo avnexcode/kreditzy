@@ -53,6 +53,7 @@ export const EditGuarantorFormInner = ({
                 residential_address: guarantor.residential_address,
                 occupation: guarantor.occupation,
                 phone: guarantor.phone,
+                relationship: guarantor.relationship,
                 customer_id: guarantor.customer_id,
             });
         }
@@ -180,6 +181,24 @@ export const EditGuarantorFormInner = ({
                                             onChange(e);
                                         }}
                                         onPaste={inputHandle.onPaste.number}
+                                        {...field}
+                                    />
+                                </FormControl>
+                                <FormMessage />
+                            </FormItem>
+                        )}
+                    />
+                </div>
+                <div>
+                    <FormField
+                        control={form.control}
+                        name="relationship"
+                        render={({ field }) => (
+                            <FormItem>
+                                <FormLabel>Hubungan Keluarga</FormLabel>
+                                <FormControl>
+                                    <Input
+                                        placeholder="Masukkan hubungan keluarga disini"
                                         {...field}
                                     />
                                 </FormControl>

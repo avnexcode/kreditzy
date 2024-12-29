@@ -8,7 +8,6 @@ export const TransactionBadge = () => {
             iconBackground="bg-blue-500"
             label="Total Transaksi"
             stat={0}
-            statLoading={true}
             trend={12}
             trendLabel="compared to last month"
             rootClassName="w-full"

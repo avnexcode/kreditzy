@@ -1,14 +1,16 @@
 import { ListCheck } from 'lucide-react';
 import { Badge } from '~/components/elements/Badge';
+import { getCreditWorthinessesCount } from '~/features/credit-worthiness/api/server/getCreditWorthinessesCount';
 
-export const CreditworthinessBadge = () => {
+export const CreditworthinessBadge = async () => {
+    const creditWorthinessesCount = await getCreditWorthinessesCount();
+    console.log(creditWorthinessesCount);
     return (
         <Badge
             icon={<ListCheck size={25} />}
             iconBackground="bg-pink-500"
             label="Total Status Kelayakan"
-            stat={0}
-            statLoading={true}
+            stat={creditWorthinessesCount}
             trend={12}
             trendLabel="compared to last month"
             rootClassName="w-full"

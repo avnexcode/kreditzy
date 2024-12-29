@@ -20,10 +20,10 @@ export const DashboardSkeletonContainer: React.FC<
         <Card className={`border-none shadow-none ${className}`}>
             <CardHeader>
                 <CardTitle className="text-zinc-900">
-                    <Skeleton className="w-[100px] h-[20px]" />
+                    <Skeleton className="w-1/3 h-[20px]" />
                 </CardTitle>
                 <CardDescription>
-                    <Skeleton className="w-[200px] h-[15px]" />
+                    <Skeleton className="w-1/2 h-[15px]" />
                 </CardDescription>
             </CardHeader>
             <CardContent>

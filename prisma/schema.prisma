@@ -24,19 +24,19 @@ model User {
 }
 
 model Customer {
-    id                  String             @id @default(cuid())
-    name                String             @db.VarChar(50) // nama
-    national_id         String             @unique @db.VarChar(20) // NIK
-    id_card_address     String             @db.VarChar(100) // alamat KTP
-    residential_address String             @db.VarChar(100) // alamat tinggal
-    occupation          String             @db.VarChar(100) // pekerjaan
-    phone               String             @db.VarChar(20) // nomor telepon
-    created_at          DateTime           @default(now())
-    updated_at          DateTime           @updatedAt
+    id                  String            @id @default(cuid())
+    name                String            @db.VarChar(50) // nama
+    national_id         String            @unique @db.VarChar(20) // NIK
+    id_card_address     String            @db.VarChar(100) // alamat KTP
+    residential_address String            @db.VarChar(100) // alamat tinggal
+    occupation          String            @db.VarChar(100) // pekerjaan
+    phone               String            @db.VarChar(20) // nomor telepon
+    created_at          DateTime          @default(now())
+    updated_at          DateTime          @updatedAt
     guarantors          Guarantor[]
-    loan_references     LoanReference[]
-    credit_worthiness   Creditworthiness[]
-    Transaction         Transaction[]
+    loan_references     LoanReference?
+    credit_worthiness   CreditWorthiness?
+    transaction         Transaction?
 
     @@map("customers")
 }
@@ -49,6 +49,7 @@ model Guarantor {
     residential_address String   @db.VarChar(100) // alamat tinggal
     occupation          String   @db.VarChar(100) // pekerjaan
     phone               String   @db.VarChar(20) // nomor telepon
+    relationship        String   @db.VarChar(100) // hubungan keluarga
     customer_id         String
     customer            Customer @relation(fields: [customer_id], references: [id], onDelete: Restrict)
     created_at          DateTime @default(now())
@@ -68,29 +69,30 @@ model LoanReference {
     collateral_estimate     String   @db.VarChar(100) // taksiran jaminan
     loan_term               Int // jangka waktu pinjaman (bulan)
     installment             String   @db.VarChar(100) // angsuran setiap bulan dengan bunga
-    customer_id             String
-    customer                Customer @relation(fields: [customer_id], references: [id], onDelete: Restrict)
+    customer_id             String   @unique
     created_at              DateTime @default(now())
     updated_at              DateTime @updatedAt
+    customer                Customer @relation(fields: [customer_id], references: [id])
 
     @@map("loan_references")
+}
+
+model CreditWorthiness {
+    id          String   @id @default(cuid())
+    status      Boolean
+    customer_id String   @unique
+    customer    Customer @relation(fields: [customer_id], references: [id], onDelete: Restrict)
+
+    @@map("credit_worthinesses")
 }
 
 model Transaction {
     id          String   @id @default(cuid())
     installment String   @db.VarChar(100) // angsuran setiap bulan dengan bunga
     loan_term   Int // jangka waktu pinjaman (bulan)
-    customer_id String
+    loan_amount String   @db.VarChar(100)
+    customer_id String   @unique
     customer    Customer @relation(fields: [customer_id], references: [id], onDelete: Restrict)
 
     @@map("transactions")
-}
-
-model Creditworthiness {
-    id          String   @id @default(cuid())
-    status      Boolean
-    customer_id String
-    customer    Customer @relation(fields: [customer_id], references: [id], onDelete: Restrict)
-
-    @@map("credit_worthinesses")
 }

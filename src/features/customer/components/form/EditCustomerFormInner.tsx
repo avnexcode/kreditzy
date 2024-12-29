@@ -13,10 +13,9 @@ import {
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { useEffect } from 'react';
-import { useCustomerId } from '../../api/useCustomerId';
-import { useCustomerStore } from '~/stores/useCustomerStore';
 import { Input } from '~/components/ui/input';
 import { inputHandle } from '~/utils/form-input';
+import { useCustomerId } from '../../api/client';
 
 type EditCustomerFormInnerProps = {
     customerId: string;

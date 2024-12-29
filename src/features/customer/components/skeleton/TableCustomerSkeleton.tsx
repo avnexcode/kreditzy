@@ -30,13 +30,10 @@ export const CustomerTableSkeleton = () => {
                         <TableHead>
                             <Skeleton className="h-4 w-28" />
                         </TableHead>
-                        <TableHead>
-                            <Skeleton className="h-4 w-28" />
-                        </TableHead>
                     </TableRow>
                 </TableHeader>
                 <TableBody>
-                    {[...new Array<undefined>(5)].map((_, index) => (
+                    {[...new Array<undefined>(6)].map((_, index) => (
                         <TableRow key={index}>
                             <TableCell>
                                 <Skeleton className="h-4 w-8" />

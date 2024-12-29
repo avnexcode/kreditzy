@@ -19,15 +19,12 @@ export const CustomerTableBody = () => {
                 </TableRow>
             )}
             {customers?.map((customer, index) => (
-                <TableRow key={index}>
+                <TableRow key={index} className="capitalize">
                     <TableCell>{index + 1}</TableCell>
-                    <TableCell className="capitalize">
-                        {customer.name}
-                    </TableCell>
+                    <TableCell>{customer.name}</TableCell>
                     <TableCell>{customer.national_id}</TableCell>
                     <TableCell>{customer.phone}</TableCell>
-                    <TableCell>{toFormatDate(customer.created_at)}</TableCell>
-                    <TableCell>{toFormatDate(customer.updated_at)}</TableCell>
+                    <TableCell>{customer.occupation}</TableCell>
                     <TableCell>
                         <CustomerTableMenu id={customer.id} />
                     </TableCell>

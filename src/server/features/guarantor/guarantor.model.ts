@@ -3,7 +3,7 @@ import type {
     createGuarantorRequest,
     updateGuarantorRequest,
 } from './guarantor.validation';
-import { Prisma } from '@prisma/client';
+import { type Prisma } from '@prisma/client';
 
 export type CreateGuarantorRequest = z.infer<typeof createGuarantorRequest>;
 export type UpdateGuarantorRequest = z.infer<typeof updateGuarantorRequest>;

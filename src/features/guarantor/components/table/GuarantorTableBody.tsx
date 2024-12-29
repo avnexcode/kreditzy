@@ -1,11 +1,9 @@
-'use client';
 import { TableBody, TableCell, TableRow } from '~/components/ui/table';
 import { GuarantorTableMenu } from './GuarantorTableMenu';
-import { toFormatDate } from '~/utils/toFormatDate';
-import { useGuarantors } from '../../api/client';
+import { getGuarantors } from '../../api/server';
 
-export const GuarantorTableBody = () => {
-    const { data: guarantors } = useGuarantors();
+export const GuarantorTableBody = async () => {
+    const guarantors = await getGuarantors();
     return (
         <TableBody>
             {guarantors?.length === 0 && (
@@ -19,15 +17,10 @@ export const GuarantorTableBody = () => {
                 </TableRow>
             )}
             {guarantors?.map((guarantor, index) => (
-                <TableRow key={index}>
+                <TableRow key={index} className="capitalize">
                     <TableCell>{index + 1}</TableCell>
-                    <TableCell className="capitalize">
-                        {guarantor.name}
-                    </TableCell>
-                    <TableCell>{guarantor.national_id}</TableCell>
-                    <TableCell>{guarantor.phone}</TableCell>
-                    <TableCell>{toFormatDate(guarantor.created_at)}</TableCell>
-                    <TableCell>{toFormatDate(guarantor.updated_at)}</TableCell>
+                    <TableCell>{guarantor.name}</TableCell>
+                    <TableCell>{guarantor.customer.name}</TableCell>
                     <TableCell>
                         <GuarantorTableMenu id={guarantor.id} />
                     </TableCell>

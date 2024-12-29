@@ -1,4 +1,4 @@
-import { NotFoundBackButton } from '~/components/elements/NotFoundBackButton';
+import { NotFoundBackButton } from '~/components/actions/NotFoundBackButton';
 
 const NotFoundPage = () => {
     return (
