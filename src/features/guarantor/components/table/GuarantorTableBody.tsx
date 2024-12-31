@@ -1,9 +1,15 @@
+'use client';
 import { TableBody, TableCell, TableRow } from '~/components/ui/table';
 import { GuarantorTableMenu } from './GuarantorTableMenu';
-import { getGuarantors } from '../../api/server';
+import { useGuarantors } from '../../api/client';
+import { GuarantorTableBodySkeleton } from '../skeleton/table/GuarantorTableBodySkeleton';
 
-export const GuarantorTableBody = async () => {
-    const guarantors = await getGuarantors();
+export const GuarantorTableBody = () => {
+    const { data: guarantors, isLoading: isGuarantorsLoading } =
+        useGuarantors();
+    if (isGuarantorsLoading) {
+        return <GuarantorTableBodySkeleton />;
+    }
     return (
         <TableBody>
             {guarantors?.length === 0 && (
@@ -21,6 +27,7 @@ export const GuarantorTableBody = async () => {
                     <TableCell>{index + 1}</TableCell>
                     <TableCell>{guarantor.name}</TableCell>
                     <TableCell>{guarantor.customer.name}</TableCell>
+                    <TableCell>{guarantor.relationship}</TableCell>
                     <TableCell>
                         <GuarantorTableMenu id={guarantor.id} />
                     </TableCell>

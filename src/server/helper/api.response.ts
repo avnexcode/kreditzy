@@ -24,11 +24,14 @@ export class ApiResponse {
         error: string,
         stack?: Array<Record<string, unknown>>,
     ): NextResponse<IApiErrorResponse> {
-        return NextResponse.json({
-            status: false,
-            statusCode,
-            error,
-            stack,
-        });
+        return NextResponse.json(
+            {
+                status: false,
+                statusCode,
+                error,
+                stack,
+            },
+            { status: statusCode },
+        );
     }
 }

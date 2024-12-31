@@ -1,15 +1,7 @@
-import {
-    Card,
-    CardContent,
-    CardDescription,
-    CardFooter,
-    CardHeader,
-    CardTitle,
-} from '~/components/ui/card';
+import { Card, CardContent, CardFooter } from '~/components/ui/card';
 import { Loader2 } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { Button } from '~/components/ui/button';
-import { useCustomerStore } from '~/stores/useCustomerStore';
 
 type EditCustomerFormLayoutProps = {
     children: React.ReactNode;
@@ -23,26 +15,13 @@ export const EditCustomerFormLayout = ({
     isPending,
 }: EditCustomerFormLayoutProps) => {
     const router = useRouter();
-    const { setId } = useCustomerStore();
 
     return (
         <Card className="border-none shadow-none">
-            <CardHeader>
-                <CardTitle>Form Edit</CardTitle>
-                <CardDescription>Card Description</CardDescription>
-            </CardHeader>
-
             <CardContent>{children}</CardContent>
 
             <CardFooter className="place-content-end gap-5 pt-5">
-                <Button
-                    onClick={() => {
-                        setId('');
-                        router.back();
-                    }}
-                >
-                    Batal
-                </Button>
+                <Button onClick={() => router.back()}>Batal</Button>
                 <Button form={form_id} disabled={isPending}>
                     {isPending ? (
                         <>

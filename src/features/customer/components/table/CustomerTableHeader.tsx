@@ -3,11 +3,12 @@ export const CustomerTableHeader = () => {
     return (
         <TableHeader>
             <TableRow>
-                <TableHead>No</TableHead>
-                <TableHead>Nama</TableHead>
-                <TableHead>NIK</TableHead>
-                <TableHead>Nomor HP</TableHead>
-                <TableHead>Pekerjaan</TableHead>
+                <TableHead className="w-5">No</TableHead>
+                <TableHead className="w-40">Nama</TableHead>
+                <TableHead className="w-36">NIK</TableHead>
+                <TableHead className="w-36">Nomor HP</TableHead>
+                <TableHead className="w-36">Pekerjaan</TableHead>
+                <TableHead className="w-8"></TableHead>
             </TableRow>
         </TableHeader>
     );

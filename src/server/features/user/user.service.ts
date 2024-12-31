@@ -1,6 +1,6 @@
 import { userRepository } from './user.repository';
 import { NotFoundException } from '~/server/helper/error.exception';
-import type { SafeUserResponse } from './user.model';
+import type { SafeUserResponse, UpdateUserRequest } from './user.model';
 import { toUserResponse } from '../../response/user.response';
 
 export const userService = {
@@ -34,16 +34,16 @@ export const userService = {
 
     update: async (
         id: string,
-        userData: Partial<SafeUserResponse>,
+        request: UpdateUserRequest,
     ): Promise<SafeUserResponse> => {
         await userService.getById(id);
-        const user = await userRepository.updateOnce(id, userData);
+        const user = await userRepository.update(id, request);
         return toUserResponse(user);
     },
 
-    deleteOnce: async (id: string): Promise<{ id: string }> => {
+    delete: async (id: string): Promise<{ id: string }> => {
         await userService.getById(id);
-        await userRepository.deleteOnce(id);
+        await userRepository.delete(id);
         return { id };
     },
 };

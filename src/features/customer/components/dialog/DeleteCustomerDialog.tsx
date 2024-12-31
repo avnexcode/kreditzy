@@ -34,6 +34,7 @@ export const DeleteCustomerDialog = (props: DeleteCustomerDialogProps) => {
             onError: async error => {
                 toast({
                     title: 'Error',
+                    variant: 'destructive',
                     description:
                         error.message ??
                         error.response?.data.error ??

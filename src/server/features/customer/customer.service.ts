@@ -1,10 +1,12 @@
+import { type Customer } from '@prisma/client';
+import { customerRepository } from './customer.repository';
 import { validateSchema } from '~/server/service/validation.service';
 import type {
     CreateCustomerRequest,
     CustomerWithRelations,
     UpdateCustomerRequest,
 } from './customer.model';
-import { customerRepository } from './customer.repository';
+
 import {
     createCustomerRequest,
     updateCustomerRequest,
@@ -13,7 +15,7 @@ import {
     BadRequestException,
     NotFoundException,
 } from '~/server/helper/error.exception';
-import { type Customer } from '@prisma/client';
+
 import {
     toCustomerResponse,
     toCustomerWithRelationsResponse,
@@ -34,7 +36,9 @@ export const customerService = {
         const customer = await customerRepository.findUniqueId(id);
 
         if (!customer) {
-            throw new NotFoundException(`Customer with id ${id} not found`);
+            throw new NotFoundException(
+                `Nasabah dengan id ${id} tidak ditemukan`,
+            );
         }
 
         return toCustomerWithRelationsResponse(customer);
@@ -56,10 +60,10 @@ export const customerService = {
         );
 
         if (nationalIdExists !== 0) {
-            throw new BadRequestException('National id already used');
+            throw new BadRequestException('NIK sudah digunakan');
         }
 
-        const customer = await customerRepository.insertOnce(validatedRequest);
+        const customer = await customerRepository.insert(validatedRequest);
 
         return toCustomerResponse(customer!);
     },
@@ -83,13 +87,10 @@ export const customerService = {
             customerWithNationalIdExists.id !== id &&
             customerWithNationalIdExists.national_id === request.national_id
         ) {
-            throw new BadRequestException('National id already used');
+            throw new BadRequestException('NIK sudah digunakan');
         }
 
-        const customer = await customerRepository.updateOnce(
-            id,
-            validatedRequest,
-        );
+        const customer = await customerRepository.update(id, validatedRequest);
 
         return toCustomerResponse(customer!);
     },
@@ -97,7 +98,7 @@ export const customerService = {
     delete: async (id: string): Promise<{ id: string }> => {
         await customerService.getById(id);
 
-        await customerRepository.deleteOnce(id);
+        await customerRepository.delete(id);
 
         return { id };
     },

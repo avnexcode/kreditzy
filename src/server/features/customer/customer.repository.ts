@@ -11,7 +11,7 @@ export const customerRepository = {
         const customers = await db.customer.findMany({
             include: {
                 guarantors: true,
-                loan_references: true,
+                loan_reference: true,
                 credit_worthiness: true,
             },
         });
@@ -28,7 +28,7 @@ export const customerRepository = {
             where: { id },
             include: {
                 guarantors: true,
-                loan_references: true,
+                loan_reference: true,
                 credit_worthiness: true,
             },
         });
@@ -43,7 +43,7 @@ export const customerRepository = {
             where: { national_id },
             include: {
                 guarantors: true,
-                loan_references: true,
+                loan_reference: true,
                 credit_worthiness: true,
             },
         });
@@ -57,7 +57,7 @@ export const customerRepository = {
         return countCustomers;
     },
 
-    insertOnce: async (
+    insert: async (
         request: CreateCustomerRequest,
     ): Promise<Customer | null> => {
         const customer = await db.customer.create({ data: { ...request } });
@@ -65,7 +65,7 @@ export const customerRepository = {
         return customer;
     },
 
-    updateOnce: async (
+    update: async (
         id: string,
         request: UpdateCustomerRequest,
     ): Promise<Customer | null> => {
@@ -77,7 +77,7 @@ export const customerRepository = {
         return customer;
     },
 
-    deleteOnce: async (id: string): Promise<Customer | null> => {
+    delete: async (id: string): Promise<Customer | null> => {
         const customer = await db.customer.delete({ where: { id } });
         return customer;
     },

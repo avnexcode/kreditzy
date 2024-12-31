@@ -9,32 +9,33 @@ import {
 } from './routes';
 import Logging from './helpers/Logging';
 
-export default auth(async req => {
-    const { nextUrl } = req;
-    const isLoggedIn = !!req.auth;
+const isRouteMatch = (pathname: string, route: string) => {
+    if (pathname === route) return true;
+    if (route.includes(':id')) {
+        const routePattern = new RegExp(
+            '^' + route.replace(':id', '[^/]+') + '$',
+        );
+        return routePattern.test(pathname);
+    }
+    if (route.endsWith('/*')) {
+        const baseRoute = route.slice(0, -2);
+        return pathname.startsWith(baseRoute);
+    }
+    return false;
+};
+
+const middleware = auth(async request => {
+    const { nextUrl } = request;
+    const isLoggedIn = !!request.auth;
+
     Logging.info({ pathname: nextUrl.pathname });
-    Logging.info({ auth: req.auth });
     Logging.info({ isLoggedIn });
 
     const isApiAuthRoute = nextUrl.pathname.startsWith(apiAuthPrefix);
-    // const isPublicRoute = publicRoutes.includes(nextUrl.pathname);
-    const isPublicRoute = publicRoutes.some(route => {
-        if (nextUrl.pathname === route) {
-            return true;
-        }
-        if (route.includes(':id')) {
-            const routePattern = new RegExp(
-                '^' + route.replace(':id', '[^/]+') + '$',
-            );
-            return routePattern.test(nextUrl.pathname);
-        }
-        if (route.endsWith('/*')) {
-            const baseRoute = route.slice(0, -2);
-            return nextUrl.pathname.startsWith(baseRoute);
-        }
+    const isPublicRoute = publicRoutes.some(route =>
+        isRouteMatch(nextUrl.pathname, route),
+    );
 
-        return false;
-    });
     const isAuthRoute = authRoutes.includes(nextUrl.pathname);
 
     if (isApiAuthRoute) {
@@ -63,6 +64,8 @@ export default auth(async req => {
 
     return NextResponse.next();
 });
+
+export default middleware;
 
 export const config = {
     matcher: ['/((?!.+\\.[\\w]+$|_next).*)', '/', '/(api|trpc)(.*)'],

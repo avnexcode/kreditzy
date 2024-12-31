@@ -61,8 +61,7 @@ export const guarantorService = {
             throw new BadRequestException('National id already used');
         }
 
-        const guarantor =
-            await guarantorRepository.insertOnce(validatedRequest);
+        const guarantor = await guarantorRepository.insert(validatedRequest);
 
         return toGuarantorResponse(guarantor!);
     },
@@ -89,7 +88,7 @@ export const guarantorService = {
             throw new BadRequestException('National id already used');
         }
 
-        const guarantor = await guarantorRepository.updateOnce(
+        const guarantor = await guarantorRepository.update(
             id,
             validatedRequest,
         );
@@ -100,7 +99,7 @@ export const guarantorService = {
     delete: async (id: string): Promise<{ id: string }> => {
         await guarantorService.getById(id);
 
-        await guarantorRepository.deleteOnce(id);
+        await guarantorRepository.delete(id);
 
         return { id };
     },

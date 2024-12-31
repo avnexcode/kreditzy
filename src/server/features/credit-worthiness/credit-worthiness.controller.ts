@@ -18,16 +18,17 @@ import type {
     UpdateCreditworthinessRequest,
 } from './credit-worthiness.model';
 import { creditWorthinessService } from './credit-worthiness.service';
+import { BadRequestException } from '~/server/helper/error.exception';
 
 export const creditWorthinessController = {
     GET: async (): Promise<
         NextResponse<IApiResponse<CreditWorthinessWithRelations[]>>
     > => {
         try {
-            const data = await customerService.getAll();
+            const data = await creditWorthinessService.getAll();
             return ApiResponse.success(
                 data,
-                createMessageGetSuccess('Customers'),
+                createMessageGetSuccess('Credit worthinesses'),
             );
         } catch (error) {
             return ErrorFilter.catch(error);
@@ -41,10 +42,13 @@ export const creditWorthinessController = {
             const params = await context.params;
             const id = params?.id;
 
-            const data = await customerService.getById(id);
+            const data = await creditWorthinessService.getById(id);
             return ApiResponse.success(
                 data,
-                createMessageGetUniqueSuccess('Customer', `id : ${id}`),
+                createMessageGetUniqueSuccess(
+                    'Credit worthiness',
+                    `id : ${id}`,
+                ),
             );
         } catch (error) {
             return ErrorFilter.catch(error);
@@ -55,7 +59,7 @@ export const creditWorthinessController = {
             const data = await creditWorthinessService.countAll();
             return ApiResponse.success(
                 data,
-                createMessageGetLengthSuccess('Customers'),
+                createMessageGetLengthSuccess('Credit worthinesses'),
             );
         } catch (error) {
             return ErrorFilter.catch(error);
@@ -67,10 +71,10 @@ export const creditWorthinessController = {
         try {
             const requestBody =
                 (await request.json()) as CreateCreditworthinessRequest;
-            const data = await customerService.create(requestBody);
-            return ApiResponse.success(
+            const data = await creditWorthinessService.create(requestBody);
+            return ApiResponse.created(
                 data,
-                createMessagePostSuccess('Customer'),
+                createMessagePostSuccess('Credit worthiness'),
             );
         } catch (error) {
             return ErrorFilter.catch(error);
@@ -83,13 +87,24 @@ export const creditWorthinessController = {
         try {
             const requestBody =
                 (await request.json()) as UpdateCreditworthinessRequest;
+            if (
+                !(
+                    requestBody.status &&
+                    requestBody.customer_id &&
+                    requestBody.loan_reference_id
+                )
+            ) {
+                throw new BadRequestException(
+                    'Data yang dibutuhkan tidak lengkap',
+                );
+            }
             const params = await context.params;
             const id = params?.id;
-            const data = await customerService.update(id, requestBody);
+            const data = await creditWorthinessService.update(id, requestBody);
 
             return ApiResponse.success(
                 data,
-                createMessagePutSuccess('Customer'),
+                createMessagePutSuccess('Credit worthiness'),
             );
         } catch (error) {
             return ErrorFilter.catch(error);
@@ -104,11 +119,11 @@ export const creditWorthinessController = {
                 (await request.json()) as UpdateCreditworthinessRequest;
             const params = await context.params;
             const id = params?.id;
-            const data = await customerService.update(id, requestBody);
+            const data = await creditWorthinessService.update(id, requestBody);
 
             return ApiResponse.success(
                 data,
-                createMessagePatchSuccess('Customer'),
+                createMessagePatchSuccess('Credit worthiness'),
             );
         } catch (error) {
             return ErrorFilter.catch(error);
@@ -121,10 +136,10 @@ export const creditWorthinessController = {
         try {
             const params = await context.params;
             const id = params.id;
-            const data = await customerService.delete(id);
+            const data = await creditWorthinessService.delete(id);
             return ApiResponse.success(
                 data,
-                createMessageDeleteSuccess('Customers'),
+                createMessageDeleteSuccess('Credit worthiness'),
             );
         } catch (error) {
             return ErrorFilter.catch(error);

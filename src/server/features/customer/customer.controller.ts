@@ -18,12 +18,16 @@ import type {
     CustomerWithRelations,
     UpdateCustomerRequest,
 } from './customer.model';
+import { BadRequestException } from '~/server/helper/error.exception';
+import { auth } from '~/server/config/auth';
 
 export const customerController = {
     GET: async (): Promise<
         NextResponse<IApiResponse<CustomerWithRelations[]>>
     > => {
         try {
+            const session = await auth();
+            console.log({ session });
             const data = await customerService.getAll();
             return ApiResponse.success(
                 data,
@@ -33,11 +37,14 @@ export const customerController = {
             return ErrorFilter.catch(error);
         }
     },
+
     GET_ID: async (
         request: NextRequest,
         context: { params: Promise<{ id: string }> },
     ): Promise<NextResponse<IApiResponse<CustomerWithRelations>>> => {
         try {
+            const session = await auth();
+            console.log({ session });
             const params = await context.params;
             const id = params?.id;
 
@@ -50,8 +57,11 @@ export const customerController = {
             return ErrorFilter.catch(error);
         }
     },
+
     GET_LENGTH: async (): Promise<NextResponse<IApiResponse<number>>> => {
         try {
+            const session = await auth();
+            console.log({ session });
             const data = await customerService.countAll();
             return ApiResponse.success(
                 data,
@@ -61,6 +71,7 @@ export const customerController = {
             return ErrorFilter.catch(error);
         }
     },
+
     POST: async (
         request: NextRequest,
     ): Promise<NextResponse<IApiResponse<Customer>>> => {
@@ -75,12 +86,27 @@ export const customerController = {
             return ErrorFilter.catch(error);
         }
     },
+
     PUT: async (
         request: NextRequest,
         context: { params: Promise<{ id: string }> },
     ): Promise<NextResponse<IApiResponse<Customer>>> => {
         try {
             const requestBody = (await request.json()) as UpdateCustomerRequest;
+            if (
+                !(
+                    requestBody.name &&
+                    requestBody.national_id &&
+                    requestBody.id_card_address &&
+                    requestBody.residential_address &&
+                    requestBody.residential_address &&
+                    requestBody.phone
+                )
+            ) {
+                throw new BadRequestException(
+                    'Data yang dibutuhkan tidak lengkap',
+                );
+            }
             const params = await context.params;
             const id = params?.id;
             const data = await customerService.update(id, requestBody);
@@ -93,6 +119,7 @@ export const customerController = {
             return ErrorFilter.catch(error);
         }
     },
+
     PATCH: async (
         request: NextRequest,
         context: { params: Promise<{ id: string }> },
@@ -111,6 +138,7 @@ export const customerController = {
             return ErrorFilter.catch(error);
         }
     },
+
     DELETE: async (
         request: NextRequest,
         context: { params: Promise<{ id: string }> },
@@ -121,7 +149,7 @@ export const customerController = {
             const data = await customerService.delete(id);
             return ApiResponse.success(
                 data,
-                createMessageDeleteSuccess('Customers'),
+                createMessageDeleteSuccess('Customer'),
             );
         } catch (error) {
             return ErrorFilter.catch(error);

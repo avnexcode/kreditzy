@@ -18,7 +18,7 @@ export const DashboardSkeletonContainer: React.FC<
 > = ({ children, className }) => {
     return (
         <Card className={`border-none shadow-none ${className}`}>
-            <CardHeader>
+            <CardHeader className="gap-y-3">
                 <CardTitle className="text-zinc-900">
                     <Skeleton className="w-1/3 h-[20px]" />
                 </CardTitle>

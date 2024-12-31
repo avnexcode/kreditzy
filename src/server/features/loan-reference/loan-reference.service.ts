@@ -2,8 +2,15 @@ import { type LoanReference } from '@prisma/client';
 import { loanReferenceRepository } from './loan-reference.repository';
 import { toLoanReferenceWithRelationsResponse } from './loan-reference.response';
 import { validateSchema } from '~/server/service/validation.service';
-import { NotFoundException } from '~/server/helper/error.exception';
-import { getInstallment, getMonthlySurplus } from '~/server/utils/decision';
+import {
+    BadRequestException,
+    NotFoundException,
+} from '~/server/helper/error.exception';
+import {
+    getCreditWorthiness,
+    getInstallment,
+    getMonthlySurplus,
+} from '~/server/utils/decision';
 import {
     calculatedLoanValues,
     createLoanReferenceRequest,
@@ -15,6 +22,8 @@ import type {
     LoanReferenceWithRelations,
     UpdateLoanReferenceRequest,
 } from './loan-reference.model';
+import { creditWorthinessService } from '../credit-worthiness/credit-worthiness.service';
+import { customerService } from '../customer/customer.service';
 
 export const loanReferenceService = {
     getAll: async (): Promise<LoanReferenceWithRelations[]> => {
@@ -59,6 +68,26 @@ export const loanReferenceService = {
             createLoanReferenceRequest,
             request,
         );
+
+        const customer = await customerService.getById(
+            validatedRequest.customer_id,
+        );
+
+        if (customer.guarantors.length === 0) {
+            throw new BadRequestException('Nasabah harus memiliki penjamin');
+        }
+
+        const loanReferenceExists =
+            await loanReferenceRepository.countUniqueCustomerId(
+                validatedRequest.customer_id,
+            );
+
+        if (loanReferenceExists !== 0) {
+            throw new BadRequestException(
+                'Nasabah ini sudah memiliki data referensi',
+            );
+        }
+
         const monthly_surplus = String(
             getMonthlySurplus(
                 Number(validatedRequest.monthly_income),
@@ -74,63 +103,29 @@ export const loanReferenceService = {
             ),
         );
 
+        const creditWorthinessStatus = getCreditWorthiness(
+            Number(monthly_surplus),
+            Number(installment),
+        );
+
         const validatedCalculatedLoanValues: CalculatedLoanValues =
             validateSchema(calculatedLoanValues, {
                 monthly_surplus,
                 installment,
             });
 
-        const loanReference = await loanReferenceRepository.insertOnce({
+        const loanReference = await loanReferenceRepository.insert({
             ...validatedRequest,
             ...validatedCalculatedLoanValues,
         });
 
-        return loanReference;
-    },
-
-    createMany: async (
-        request: CreateLoanReferenceRequest[],
-    ): Promise<{ count: number }> => {
-        const validatedRequestsWithCalculatedValues = request.map(req => {
-            const validatedRequest = validateSchema(
-                createLoanReferenceRequest,
-                req,
-            );
-
-            const monthly_surplus = String(
-                getMonthlySurplus(
-                    Number(validatedRequest.monthly_income),
-                    Number(validatedRequest.monthly_expenses),
-                ),
-            );
-
-            const installment = String(
-                getInstallment(
-                    Number(validatedRequest.requested_loan_amount),
-                    Number(validatedRequest.loan_term),
-                    1,
-                ),
-            );
-
-            const validatedCalculatedLoanValues = validateSchema(
-                calculatedLoanValues,
-                {
-                    monthly_surplus,
-                    installment,
-                },
-            );
-
-            return {
-                ...validatedRequest,
-                ...validatedCalculatedLoanValues,
-            };
+        await creditWorthinessService.create({
+            status: creditWorthinessStatus,
+            customer_id: validatedRequest.customer_id,
+            loan_reference_id: loanReference.id,
         });
 
-        const loanReferences = await loanReferenceRepository.insertMany(
-            validatedRequestsWithCalculatedValues,
-        );
-
-        return loanReferences;
+        return loanReference;
     },
 
     update: async (
@@ -151,6 +146,14 @@ export const loanReferenceService = {
             request,
         );
 
+        const customer = await customerService.getById(
+            validatedRequest.customer_id ?? '',
+        );
+
+        if (customer.guarantors.length === 0) {
+            throw new BadRequestException('Nasabah harus memiliki penjamin');
+        }
+
         const monthly_surplus = String(
             getMonthlySurplus(
                 Number(validatedRequest.monthly_income),
@@ -166,15 +169,26 @@ export const loanReferenceService = {
             ),
         );
 
+        const creditWorthinessStatus = getCreditWorthiness(
+            Number(monthly_surplus),
+            Number(installment),
+        );
+
         const validatedCalculatedLoanValues: CalculatedLoanValues =
             validateSchema(calculatedLoanValues, {
                 monthly_surplus,
                 installment,
             });
 
-        const loanReference = await loanReferenceRepository.updateOnce(id, {
+        const loanReference = await loanReferenceRepository.update(id, {
             ...validatedRequest,
             ...validatedCalculatedLoanValues,
+        });
+
+        await creditWorthinessService.create({
+            status: creditWorthinessStatus,
+            customer_id: customer.id,
+            loan_reference_id: loanReference.id,
         });
 
         return loanReference;
@@ -190,7 +204,7 @@ export const loanReferenceService = {
             );
         }
 
-        await loanReferenceRepository.deleteOnce(id);
+        await loanReferenceRepository.delete(id);
 
         return { id };
     },

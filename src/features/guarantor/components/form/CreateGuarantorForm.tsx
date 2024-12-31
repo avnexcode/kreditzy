@@ -14,6 +14,7 @@ export const CreateGuarantorForm = ({
 }: CreateGuarantorFormProps) => {
     const { refetch: refetchGuarantors } = useGuarantors();
     const { toast } = useToast();
+
     const { mutate: createGuarantor, isPending: isCreateGuarantorPending } =
         useCreateGuarantor({
             onMutate: async () => {
@@ -42,6 +43,7 @@ export const CreateGuarantorForm = ({
 
     const onSubmit = (values: CreateGuarantorFormSchema) =>
         createGuarantor(values);
+
     return (
         <CreateGuarantorFormInner
             form_id="create-guarantor-form"

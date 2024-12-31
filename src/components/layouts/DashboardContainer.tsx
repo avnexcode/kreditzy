@@ -21,7 +21,7 @@ export const DashboardContainer: React.FC<DashboardContainerProps> = ({
 }) => {
     return (
         <Card className={`border-none shadow-none ${className}`}>
-            <CardHeader>
+            <CardHeader className="capitalize">
                 <CardTitle className="text-zinc-900">{props.title}</CardTitle>
                 <CardDescription>{props.description}</CardDescription>
             </CardHeader>

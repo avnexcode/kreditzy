@@ -43,7 +43,15 @@ export const loanReferenceRepository = {
         return countLoanReference;
     },
 
-    insertOnce: async (
+    countUniqueCustomerId: async (customer_id: string): Promise<number> => {
+        const countLoanReference = await db.loanReference.count({
+            where: { customer_id },
+        });
+
+        return countLoanReference;
+    },
+
+    insert: async (
         request: CreateLoanReferenceRequest & CalculatedLoanValues,
     ): Promise<LoanReference> => {
         const loanReference = await db.loanReference.create({
@@ -53,17 +61,7 @@ export const loanReferenceRepository = {
         return loanReference;
     },
 
-    insertMany: async (
-        request: (CreateLoanReferenceRequest & CalculatedLoanValues)[],
-    ): Promise<{ count: number }> => {
-        const loanReferences = await db.loanReference.createMany({
-            data: request,
-        });
-
-        return loanReferences;
-    },
-
-    updateOnce: async (
+    update: async (
         id: string,
         request: UpdateLoanReferenceRequest & CalculatedLoanValues,
     ): Promise<LoanReference> => {
@@ -75,7 +73,7 @@ export const loanReferenceRepository = {
         return loanReference;
     },
 
-    deleteOnce: async (id: string): Promise<LoanReference> => {
+    delete: async (id: string): Promise<LoanReference> => {
         const loanReference = await db.loanReference.delete({ where: { id } });
 
         return loanReference;

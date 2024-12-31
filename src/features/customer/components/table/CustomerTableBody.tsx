@@ -1,11 +1,14 @@
 'use client';
 import { TableBody, TableCell, TableRow } from '~/components/ui/table';
-import { toFormatDate } from '~/utils/toFormatDate';
 import { CustomerTableMenu } from './CustomerTableMenu';
 import { useCustomers } from '../../api/client';
+import { CustomerTableBodySkeleton } from '../skeleton/table/CustomerTableBodySkeleton';
 
 export const CustomerTableBody = () => {
-    const { data: customers } = useCustomers();
+    const { data: customers, isLoading: isCustomersLoading } = useCustomers();
+    if (isCustomersLoading) {
+        return <CustomerTableBodySkeleton />;
+    }
     return (
         <TableBody>
             {customers?.length === 0 && (
@@ -20,12 +23,12 @@ export const CustomerTableBody = () => {
             )}
             {customers?.map((customer, index) => (
                 <TableRow key={index} className="capitalize">
-                    <TableCell>{index + 1}</TableCell>
-                    <TableCell>{customer.name}</TableCell>
-                    <TableCell>{customer.national_id}</TableCell>
-                    <TableCell>{customer.phone}</TableCell>
-                    <TableCell>{customer.occupation}</TableCell>
-                    <TableCell>
+                    <TableCell className="5">{index + 1}</TableCell>
+                    <TableCell className="40">{customer.name}</TableCell>
+                    <TableCell className="36">{customer.national_id}</TableCell>
+                    <TableCell className="36">{customer.phone}</TableCell>
+                    <TableCell className="36">{customer.occupation}</TableCell>
+                    <TableCell className="8">
                         <CustomerTableMenu id={customer.id} />
                     </TableCell>
                 </TableRow>

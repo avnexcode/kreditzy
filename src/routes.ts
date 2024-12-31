@@ -4,6 +4,7 @@
  */
 export const publicRoutes = [
     '/',
+    '/api',
     '/api/users',
     '/api/customers',
     '/api/customers/stats/length',
@@ -37,16 +38,16 @@ export const apiAuthPrefix = '/api/auth';
  * protectedApiRoutes: Array of API routes that require token authorization
  * - '/users': Users API endpoint
  */
-export const protectedApiRoutes = ['/api/users'];
-
-/**
- * DEFAULT_LOGIN_REDIRECT: Default page to redirect to after a successful login
- * - '/dashboard': Redirect to the dashboard after login
- */
-export const DEFAULT_LOGIN_REDIRECT = '/login';
+// export const protectedApiRoutes = ['/api/users'];
 
 /**
  * DEFAULT_AUTH_REDIRECT: Default page to redirect to for authentication
  * - '/login': Redirect to the login page
+ */
+export const DEFAULT_LOGIN_REDIRECT = '/login';
+
+/**
+ * DEFAULT_LOGIN_REDIRECT: Default page to redirect to after a successful login
+ * - '/dashboard': Redirect to the dashboard after login
  */
 export const DEFAULT_AUTH_REDIRECT = '/dashboard';

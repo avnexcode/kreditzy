@@ -11,11 +11,12 @@ datasource db {
 model User {
     id           String   @id @default(cuid())
     username     String   @unique @db.VarChar(100)
-    name         String
-    email        String   @unique
+    name         String   @db.VarChar(100)
+    email        String   @unique @db.VarChar(100)
     password     String?  @db.VarChar(150)
     access_token String?  @db.VarChar(255)
     image        String?
+    phone        String?  @db.VarChar(20)
     provider     String
     created_at   DateTime @default(now())
     updated_at   DateTime @updatedAt
@@ -34,7 +35,7 @@ model Customer {
     created_at          DateTime          @default(now())
     updated_at          DateTime          @updatedAt
     guarantors          Guarantor[]
-    loan_references     LoanReference?
+    loan_reference      LoanReference?
     credit_worthiness   CreditWorthiness?
     transaction         Transaction?
 
@@ -51,7 +52,7 @@ model Guarantor {
     phone               String   @db.VarChar(20) // nomor telepon
     relationship        String   @db.VarChar(100) // hubungan keluarga
     customer_id         String
-    customer            Customer @relation(fields: [customer_id], references: [id], onDelete: Restrict)
+    customer            Customer @relation(fields: [customer_id], references: [id], onDelete: Cascade)
     created_at          DateTime @default(now())
     updated_at          DateTime @updatedAt
 
@@ -59,29 +60,32 @@ model Guarantor {
 }
 
 model LoanReference {
-    id                      String   @id @default(cuid())
-    monthly_income          String   @db.VarChar(100) // pendapatan bulanan
-    monthly_expenses        String   @db.VarChar(100) // pengeluaran bulanan
-    monthly_surplus         String   @db.VarChar(100)
+    id                      String            @id @default(cuid())
+    monthly_income          String            @db.VarChar(100) // pendapatan bulanan
+    monthly_expenses        String            @db.VarChar(100) // pengeluaran bulanan
+    monthly_surplus         String            @db.VarChar(100)
     employment_status       Boolean // status pekerjaan tetap/tidak tetap
     previous_credit_history Boolean // riwayat kredit sebelumnya
-    requested_loan_amount   String   @db.VarChar(100) // jumlah pinjaman yang diajukan
-    collateral_estimate     String   @db.VarChar(100) // taksiran jaminan
+    requested_loan_amount   String            @db.VarChar(100) // jumlah pinjaman yang diajukan
+    collateral_estimate     String            @db.VarChar(100) // taksiran jaminan
     loan_term               Int // jangka waktu pinjaman (bulan)
-    installment             String   @db.VarChar(100) // angsuran setiap bulan dengan bunga
-    customer_id             String   @unique
-    created_at              DateTime @default(now())
-    updated_at              DateTime @updatedAt
-    customer                Customer @relation(fields: [customer_id], references: [id])
+    installment             String            @db.VarChar(100) // angsuran setiap bulan dengan bunga
+    customer_id             String            @unique
+    created_at              DateTime          @default(now())
+    updated_at              DateTime          @updatedAt
+    customer                Customer          @relation(fields: [customer_id], references: [id], onDelete: Cascade)
+    credit_worthiness       CreditWorthiness?
 
     @@map("loan_references")
 }
 
 model CreditWorthiness {
-    id          String   @id @default(cuid())
-    status      Boolean
-    customer_id String   @unique
-    customer    Customer @relation(fields: [customer_id], references: [id], onDelete: Restrict)
+    id                String        @id @default(cuid())
+    status            Boolean
+    customer_id       String        @unique
+    loan_reference_id String        @unique
+    customer          Customer      @relation(fields: [customer_id], references: [id], onDelete: Cascade)
+    loan_reference    LoanReference @relation(fields: [loan_reference_id], references: [id], onDelete: Cascade)
 
     @@map("credit_worthinesses")
 }

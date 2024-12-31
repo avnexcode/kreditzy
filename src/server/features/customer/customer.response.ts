@@ -1,5 +1,5 @@
-import { Customer } from '@prisma/client';
-import { CustomerWithRelations } from './customer.model';
+import { type Customer } from '@prisma/client';
+import type { CustomerWithRelations } from './customer.model';
 
 export const toCustomerResponse = (customer: Customer): Customer => ({
     id: customer.id,
@@ -18,6 +18,6 @@ export const toCustomerWithRelationsResponse = (
 ): CustomerWithRelations => ({
     ...toCustomerResponse(customer),
     guarantors: customer.guarantors,
-    loan_references: customer.loan_references,
+    loan_reference: customer.loan_reference,
     credit_worthiness: customer.credit_worthiness,
 });

@@ -32,13 +32,14 @@ export const authService = {
             10,
         );
 
-        const user = await userRepository.insertOnce({
+        const user = await userRepository.insert({
             ...validatedRequest,
             password: passwordHashed,
         });
 
         return toUserResponse(user);
     },
+
     login: async (request: LoginRequest): Promise<SafeUserResponse> => {
         const validatedRequest: LoginRequest = validateSchema(
             loginRequest,

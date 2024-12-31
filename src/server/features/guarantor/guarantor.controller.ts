@@ -18,6 +18,7 @@ import type {
     UpdateGuarantorRequest,
 } from './guarantor.model';
 import { guarantorService } from './guarantor.service';
+import { BadRequestException } from '~/server/helper/error.exception';
 
 export const guarantorController = {
     GET: async (): Promise<
@@ -83,6 +84,21 @@ export const guarantorController = {
         try {
             const requestBody =
                 (await request.json()) as UpdateGuarantorRequest;
+            if (
+                !(
+                    requestBody.name &&
+                    requestBody.national_id &&
+                    requestBody.id_card_address &&
+                    requestBody.residential_address &&
+                    requestBody.residential_address &&
+                    requestBody.phone &&
+                    requestBody.customer_id
+                )
+            ) {
+                throw new BadRequestException(
+                    'Data yang dibutuhkan tidak lengkap',
+                );
+            }
             const params = await context.params;
             const id = params?.id;
             const data = await guarantorService.update(id, requestBody);

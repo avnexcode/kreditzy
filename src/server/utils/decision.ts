@@ -1,3 +1,5 @@
+import { LoanReference } from '@prisma/client';
+
 export const getMonthlySurplus = (
     monthly_income: number,
     monthly_expenses: number,
@@ -11,4 +13,14 @@ export const getInstallment = (
     const baseInstallment = requested_loan_amount / loan_term;
     const interestAmount = requested_loan_amount * (interest_rate / 100);
     return Math.ceil((baseInstallment + interestAmount) / 100) * 100;
+};
+
+export const getCreditWorthiness = (
+    monthly_surplus: number,
+    installment: number,
+) => {
+    if (monthly_surplus > installment) {
+        return true;
+    }
+    return false;
 };

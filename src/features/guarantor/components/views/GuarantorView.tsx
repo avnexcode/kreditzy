@@ -5,7 +5,7 @@ import {
     CardHeader,
     CardTitle,
 } from '~/components/ui/card';
-import { GuarantorCard } from '~/features/guarantor/components/Card/GuarantorCard';
+import { GuarantorCard } from '~/features/guarantor/components/card/GuarantorCard';
 import { renderElements } from '~/utils/render-elements';
 import type { GuarantorWithRelations } from '../../types';
 

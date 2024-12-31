@@ -41,7 +41,7 @@ export type UpdateCustomerFormSchema = z.infer<typeof updateCustomerFormSchema>;
 export type CustomerWithRelations = Prisma.CustomerGetPayload<{
     include: {
         guarantors: true;
-        loan_references: true;
+        loan_reference: true;
         credit_worthiness: true;
     };
 }>;

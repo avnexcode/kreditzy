@@ -1,7 +1,7 @@
-import { H1 } from '~/components/elements/Heading';
+import { GuarantorPageSkeleton } from '~/features/guarantor/components/skeleton/pages/GuarantorPageSkeleton';
 
 const DashboardGuarantorLoading = () => {
-    return <H1>Loading...</H1>;
+    return <GuarantorPageSkeleton />;
 };
 
 export default DashboardGuarantorLoading;

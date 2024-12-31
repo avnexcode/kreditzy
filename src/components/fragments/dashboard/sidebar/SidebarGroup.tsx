@@ -53,12 +53,12 @@ export const SidebarGroupList = () => {
             list: [
                 {
                     title: 'profile',
-                    href: '/setting/profile',
+                    href: '/settings/profile',
                     icon: <UserPen size={20} />,
                 },
                 {
-                    title: 'password',
-                    href: '/setting/password',
+                    title: 'reset password',
+                    href: '/settings/reset-password',
                     icon: <KeyRound size={20} />,
                 },
             ],

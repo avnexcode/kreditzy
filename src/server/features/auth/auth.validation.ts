@@ -7,35 +7,24 @@ const allowedEmailProviders: string[] = [
 ];
 
 export const registerRequest = z.object({
-    name: z
-        .string()
-        .min(1, { message: 'Name is required.' })
-        .trim()
-        .toLowerCase(),
+    name: z.string().min(1).trim().toLowerCase(),
     email: z
         .string()
-        .min(1, { message: 'Email is required.' })
-        .email({ message: 'Please enter a valid email address.' })
+        .min(1)
+        .email()
         .trim()
         .toLowerCase()
-        .refine(
-            email => {
-                const domain = email.split('@')[1];
-                return allowedEmailProviders.includes(domain!);
-            },
-            { message: 'Please enter a valid email provider.' },
-        ),
+        .refine(email => {
+            const domain = email.split('@')[1];
+            return allowedEmailProviders.includes(domain!);
+        }),
     password: z
         .string()
-        .min(1, { message: 'Password is required.' })
-        .min(8, { message: 'Password must be at least 8 characters long.' })
-        .max(100, { message: 'Password must not exceed 100 characters.' })
+        .min(1)
+        .min(8)
+        .max(100)
         .regex(
             /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]/,
-            {
-                message:
-                    'Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character.',
-            },
         )
         .optional(),
     provider: z.string(),
@@ -45,19 +34,13 @@ export const registerRequest = z.object({
 export const loginRequest = z.object({
     email: z
         .string()
-        .min(1, { message: 'Email is required.' })
-        .email({ message: 'Please enter a valid email address.' })
+        .min(1)
+        .email()
         .trim()
         .toLowerCase()
-        .refine(
-            email => {
-                const domain = email.split('@')[1];
-                return allowedEmailProviders.includes(domain!);
-            },
-            { message: 'Please enter a valid email provider.' },
-        ),
-    password: z
-        .string()
-        .min(1, { message: 'Password is required.' })
-        .min(8, { message: 'Password must be at least 8 characters long.' }),
+        .refine(email => {
+            const domain = email.split('@')[1];
+            return allowedEmailProviders.includes(domain!);
+        }),
+    password: z.string().min(1).min(8),
 });

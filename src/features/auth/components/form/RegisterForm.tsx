@@ -1,6 +1,6 @@
 'use client';
 import { useToast } from '~/hooks/use-toast';
-import { useRegister } from '../../api';
+import { useRegister } from '../../api/client';
 import { type RegisterFormSchema } from '../../types';
 import { RegisterFormLayout } from '../layout/RegisterFormLayout';
 import { RegisterFormInner } from './RegisterFormInner';

@@ -5,6 +5,8 @@ export const toUserResponse = (user: User): Omit<User, 'password'> => ({
     username: user.username,
     name: user.name,
     email: user.email,
+    phone: user.phone,
+    provider: user.provider,
     image: user.image,
     access_token: user.access_token,
     created_at: user.created_at,

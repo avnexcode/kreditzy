@@ -2,6 +2,7 @@ import { type User } from '@prisma/client';
 import { db } from '~/server/db/prisma';
 import type { RegisterRequest } from '../auth/auth.model';
 import { v4 as uuid } from 'uuid';
+import type { UpdateUserRequest } from './user.model';
 
 export const userRepository = {
     findMany: async (): Promise<User[]> => {
@@ -30,7 +31,7 @@ export const userRepository = {
         return userCount;
     },
 
-    insertOnce: async (request: RegisterRequest): Promise<User> => {
+    insert: async (request: RegisterRequest): Promise<User> => {
         const id = uuid();
         const username = `user-${id.slice(0, 8)}`;
 
@@ -40,7 +41,7 @@ export const userRepository = {
         return user;
     },
 
-    updateOnce: async (id: string, request: Partial<User>): Promise<User> => {
+    update: async (id: string, request: UpdateUserRequest): Promise<User> => {
         const user = await db.user.update({
             where: { id },
             data: { ...request },
@@ -48,7 +49,7 @@ export const userRepository = {
         return user;
     },
 
-    deleteOnce: async (id: string): Promise<User> => {
+    delete: async (id: string): Promise<User> => {
         const user = await db.user.delete({ where: { id } });
         return user;
     },

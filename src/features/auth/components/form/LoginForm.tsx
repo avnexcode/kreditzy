@@ -1,6 +1,6 @@
 'use client';
 import { useToast } from '~/hooks/use-toast';
-import { useLogin } from '../../api';
+import { useLogin } from '../../api/client';
 import { type LoginFormSchema } from '../../types';
 import { LoginFormLayout } from '../layout/LoginFormLayout';
 import { LoginFormInner } from './LoginFormInner';

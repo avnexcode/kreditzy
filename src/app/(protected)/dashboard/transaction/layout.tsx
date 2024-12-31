@@ -1,6 +1,6 @@
 import { type Metadata } from 'next';
 import { Suspense } from 'react';
-import { CustomerTableSkeleton } from '~/features/customer/components/skeleton/TableCustomerSkeleton';
+import { CustomerTableSkeleton } from '~/features/customer/components/skeleton/table/CustomerTableSkeleton';
 
 export const metadata: Metadata = {
     title: 'Dashboard - Transaction',

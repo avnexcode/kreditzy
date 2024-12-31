@@ -6,6 +6,7 @@ declare module 'next-auth' {
             access_token: string;
         } & DefaultSession['user'];
     }
+
     interface User extends DefaultSession.user {
         access_token: string;
         image: string;

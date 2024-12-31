@@ -10,6 +10,9 @@ import {
     FormMessage,
 } from '~/components/ui/form';
 import { Input } from '~/components/ui/input';
+import { useState } from 'react';
+import { VisiblePasswordButton } from '../button/VisiblePasswordButton';
+import { ValidatedPasswordList } from '../validation/ValidatedPasswordList';
 
 type RegisterFormInnerProps = {
     form_id: string;
@@ -28,6 +31,29 @@ export const RegisterFormInner = (props: RegisterFormInnerProps) => {
         },
         resolver: zodResolver(registerFormSchema),
     });
+
+    const [visiblePassword, setVisiblePassword] = useState<boolean>(false);
+
+    const passwordValidation = {
+        lowercase: /(?=.*[a-z])/.test(form.watch('password')),
+        uppercase: /(?=.*[A-Z])/.test(form.watch('password')),
+        number: /(?=.*\d)/.test(form.watch('password')),
+        symbol: /(?=.*[@$!%*?&])/.test(form.watch('password')),
+        minLength: form.watch('password').length >= 8,
+    };
+
+    const validationRules = [
+        { label: 'Uppercase letter', isValid: passwordValidation.uppercase },
+        { label: 'Lowercase letter', isValid: passwordValidation.lowercase },
+        {
+            label: 'Number and symbol',
+            isValid: passwordValidation.number && passwordValidation.symbol,
+        },
+        {
+            label: 'At least 8 characters',
+            isValid: passwordValidation.minLength,
+        },
+    ];
 
     return (
         <Form {...form}>
@@ -79,16 +105,31 @@ export const RegisterFormInner = (props: RegisterFormInnerProps) => {
                         control={form.control}
                         name="password"
                         render={({ field }) => (
-                            <FormItem>
+                            <FormItem className="relative">
                                 <FormLabel>Password</FormLabel>
                                 <FormControl>
                                     <Input
-                                        type="text"
+                                        type={
+                                            visiblePassword
+                                                ? 'text'
+                                                : 'password'
+                                        }
                                         placeholder="Enter your password"
                                         {...field}
                                     />
                                 </FormControl>
+                                <VisiblePasswordButton
+                                    setVisiblePassword={setVisiblePassword}
+                                    visiblePassword={visiblePassword}
+                                />
                                 <FormMessage />
+                                <div className="grid items-center justify-center py-4">
+                                    <ValidatedPasswordList
+                                        validationRules={validationRules}
+                                        columns={2}
+                                        className="grid grid-cols-2 gap-28"
+                                    />
+                                </div>
                             </FormItem>
                         )}
                     />
@@ -102,7 +143,11 @@ export const RegisterFormInner = (props: RegisterFormInnerProps) => {
                                 <FormLabel>Confirm Password</FormLabel>
                                 <FormControl>
                                     <Input
-                                        type="text"
+                                        type={
+                                            visiblePassword
+                                                ? 'text'
+                                                : 'password'
+                                        }
                                         placeholder="Confirm your password"
                                         {...field}
                                     />

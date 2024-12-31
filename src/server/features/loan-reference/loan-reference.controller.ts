@@ -18,6 +18,7 @@ import type {
     UpdateLoanReferenceRequest,
 } from './loan-reference.model';
 import { loanReferenceService } from './loan-reference.service';
+import { BadRequestException } from '~/server/helper/error.exception';
 
 export const loanReferenceController = {
     GET: async (): Promise<
@@ -33,6 +34,7 @@ export const loanReferenceController = {
             return ErrorFilter.catch(error);
         }
     },
+
     GET_ID: async (
         request: NextRequest,
         context: { params: Promise<{ id: string }> },
@@ -50,6 +52,7 @@ export const loanReferenceController = {
             return ErrorFilter.catch(error);
         }
     },
+
     GET_LENGTH: async (): Promise<NextResponse<IApiResponse<number>>> => {
         try {
             const data = await loanReferenceService.countAll();
@@ -61,6 +64,7 @@ export const loanReferenceController = {
             return ErrorFilter.catch(error);
         }
     },
+
     POST: async (
         request: NextRequest,
     ): Promise<NextResponse<IApiResponse<LoanReference>>> => {
@@ -76,21 +80,7 @@ export const loanReferenceController = {
             return ErrorFilter.catch(error);
         }
     },
-    POST_MANY: async (
-        request: NextRequest,
-    ): Promise<NextResponse<IApiResponse<{ count: number }>>> => {
-        try {
-            const requestBody =
-                (await request.json()) as CreateLoanReferenceRequest[];
-            const data = await loanReferenceService.createMany(requestBody);
-            return ApiResponse.success(
-                data,
-                createMessagePostSuccess('Loan references'),
-            );
-        } catch (error) {
-            return ErrorFilter.catch(error);
-        }
-    },
+
     PUT: async (
         request: NextRequest,
         context: { params: Promise<{ id: string }> },
@@ -98,6 +88,22 @@ export const loanReferenceController = {
         try {
             const requestBody =
                 (await request.json()) as UpdateLoanReferenceRequest;
+            if (
+                !(
+                    requestBody.monthly_income &&
+                    requestBody.monthly_expenses &&
+                    requestBody.employment_status &&
+                    requestBody.previous_credit_history &&
+                    requestBody.requested_loan_amount &&
+                    requestBody.collateral_estimate &&
+                    requestBody.loan_term &&
+                    requestBody.customer_id
+                )
+            ) {
+                throw new BadRequestException(
+                    'Data yang dibutuhkan tidak lengkap',
+                );
+            }
             const params = await context.params;
             const id = params?.id;
             const data = await loanReferenceService.update(id, requestBody);
@@ -110,6 +116,7 @@ export const loanReferenceController = {
             return ErrorFilter.catch(error);
         }
     },
+
     PATCH: async (
         request: NextRequest,
         context: { params: Promise<{ id: string }> },
@@ -129,6 +136,7 @@ export const loanReferenceController = {
             return ErrorFilter.catch(error);
         }
     },
+
     DELETE: async (
         request: NextRequest,
         context: { params: Promise<{ id: string }> },

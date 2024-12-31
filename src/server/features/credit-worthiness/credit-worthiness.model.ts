@@ -5,15 +5,16 @@ import type {
     updateCreditWorthinessRequest,
 } from './credit-worthiness.validation';
 
-export type CreditWorthinessWithRelations = Prisma.CreditWorthinessGetPayload<{
-    include: {
-        customer: true;
-    };
-}>;
-
 export type CreateCreditworthinessRequest = z.infer<
     typeof createCreditWorthinessRequest
 >;
 export type UpdateCreditworthinessRequest = z.infer<
     typeof updateCreditWorthinessRequest
 >;
+
+export type CreditWorthinessWithRelations = Prisma.CreditWorthinessGetPayload<{
+    include: {
+        customer: true;
+        loan_reference: true;
+    };
+}>;

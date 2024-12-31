@@ -10,14 +10,16 @@ import { Input } from '~/components/ui/input';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { loginFormSchema, type LoginFormSchema } from '../../types';
+import { useState } from 'react';
+import { VisiblePasswordButton } from '../button/VisiblePasswordButton';
 
 type LoginFormInnerProps = {
     form_id: string;
     onSubmit: (values: LoginFormSchema) => void;
 };
 
-export const LoginFormInner = (props: LoginFormInnerProps) => {
-    const { form_id, onSubmit } = props;
+export const LoginFormInner = ({ form_id, onSubmit }: LoginFormInnerProps) => {
+    const [visiblePassword, setVisiblePassword] = useState<boolean>(false);
 
     const form = useForm<LoginFormSchema>({
         defaultValues: {
@@ -58,15 +60,23 @@ export const LoginFormInner = (props: LoginFormInnerProps) => {
                         control={form.control}
                         name="password"
                         render={({ field }) => (
-                            <FormItem>
+                            <FormItem className="relative">
                                 <FormLabel>Password</FormLabel>
                                 <FormControl>
                                     <Input
-                                        type="password"
+                                        type={
+                                            visiblePassword
+                                                ? 'text'
+                                                : 'password'
+                                        }
                                         placeholder="Enter your password"
                                         {...field}
                                     />
                                 </FormControl>
+                                <VisiblePasswordButton
+                                    setVisiblePassword={setVisiblePassword}
+                                    visiblePassword={visiblePassword}
+                                />
                                 <FormMessage />
                             </FormItem>
                         )}

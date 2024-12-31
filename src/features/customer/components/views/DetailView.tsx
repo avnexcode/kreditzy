@@ -24,7 +24,7 @@ export const DetailView = async (props: DetailViewProps) => {
             <Separator orientation="horizontal" />
             <LoanReferenceView
                 loanReference={
-                    customer?.loan_references as LoanReferenceWithRelations
+                    customer?.loan_reference as LoanReferenceWithRelations
                 }
             />
             <Separator orientation="horizontal" />

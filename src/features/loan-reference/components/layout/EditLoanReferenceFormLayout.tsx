@@ -1,11 +1,4 @@
-import {
-    Card,
-    CardContent,
-    CardDescription,
-    CardFooter,
-    CardHeader,
-    CardTitle,
-} from '~/components/ui/card';
+import { Card, CardContent, CardFooter } from '~/components/ui/card';
 import { Loader2 } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { Button } from '~/components/ui/button';
@@ -25,11 +18,6 @@ export const EditLoanReferenceFormLayout = ({
 
     return (
         <Card className="border-none shadow-none">
-            <CardHeader>
-                <CardTitle>Form Edit</CardTitle>
-                <CardDescription>Card Description</CardDescription>
-            </CardHeader>
-
             <CardContent>{children}</CardContent>
 
             <CardFooter className="place-content-end gap-5 pt-5">

@@ -53,7 +53,7 @@ export const guarantorRepository = {
         return countguarantors;
     },
 
-    insertOnce: async (
+    insert: async (
         request: CreateGuarantorRequest,
     ): Promise<Guarantor | null> => {
         const guarantor = await db.guarantor.create({ data: { ...request } });
@@ -61,7 +61,7 @@ export const guarantorRepository = {
         return guarantor;
     },
 
-    updateOnce: async (
+    update: async (
         id: string,
         request: UpdateGuarantorRequest,
     ): Promise<Guarantor | null> => {
@@ -73,7 +73,7 @@ export const guarantorRepository = {
         return guarantor;
     },
 
-    deleteOnce: async (id: string): Promise<Guarantor | null> => {
+    delete: async (id: string): Promise<Guarantor | null> => {
         const guarantor = await db.guarantor.delete({ where: { id } });
         return guarantor;
     },
