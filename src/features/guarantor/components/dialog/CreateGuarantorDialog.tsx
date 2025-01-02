@@ -11,6 +11,7 @@ import {
 import { Button } from '~/components/ui/button';
 import { useState } from 'react';
 import { CreateGuarantorForm } from '../form/CreateGuarantorForm';
+import { CirclePlus } from 'lucide-react';
 
 export const CreateGuarantorDialog = () => {
     const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -19,7 +20,10 @@ export const CreateGuarantorDialog = () => {
     return (
         <Dialog open={isOpen} onOpenChange={setIsOpen}>
             <DialogTrigger asChild>
-                <Button variant={'default'}>Tambah</Button>
+                <Button variant={'default'}>
+                    <CirclePlus size={48} strokeWidth={3} />
+                    Add
+                </Button>
             </DialogTrigger>
             <DialogContent className="max-w-4xl max-h-screen overflow-auto">
                 <DialogHeader>
@@ -36,9 +40,9 @@ export const CreateGuarantorDialog = () => {
                     setIsPending={setIsPending}
                 />
                 <DialogFooter className="pt-10">
-                    <Button onClick={() => setIsOpen(false)}>Batal</Button>
+                    <Button onClick={() => setIsOpen(false)}>Cancel</Button>
                     <Button form="create-guarantor-form" disabled={isPending}>
-                        {isPending ? 'Menambahkan...' : 'Tambahkan'}
+                        {isPending ? 'Adding...' : 'Add'}
                     </Button>
                 </DialogFooter>
             </DialogContent>

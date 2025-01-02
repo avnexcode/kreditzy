@@ -11,6 +11,7 @@ import {
 import { Button } from '~/components/ui/button';
 import { useState } from 'react';
 import { CreateLoanReferenceForm } from '../form/CreateLoanReferenceForm';
+import { CirclePlus } from 'lucide-react';
 
 export const CreateLoanReferenceDialog = () => {
     const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -18,7 +19,10 @@ export const CreateLoanReferenceDialog = () => {
     return (
         <Dialog open={isOpen} onOpenChange={setIsOpen}>
             <DialogTrigger asChild>
-                <Button variant={'default'}>Tambah</Button>
+                <Button variant={'default'}>
+                    <CirclePlus size={48} strokeWidth={3} />
+                    Add
+                </Button>
             </DialogTrigger>
             <DialogContent className="max-w-4xl max-h-screen overflow-auto">
                 <DialogHeader>
@@ -35,12 +39,12 @@ export const CreateLoanReferenceDialog = () => {
                     setIsPending={setIsPending}
                 />
                 <DialogFooter className="pt-10">
-                    <Button onClick={() => setIsOpen(false)}>Batal</Button>
+                    <Button onClick={() => setIsOpen(false)}>Cancel</Button>
                     <Button
                         form="create-loan-reference-form"
                         disabled={isPending}
                     >
-                        {isPending ? 'Menambahkan...' : 'Tambahkan'}
+                        {isPending ? 'Adding...' : 'Add'}
                     </Button>
                 </DialogFooter>
             </DialogContent>

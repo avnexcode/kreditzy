@@ -1,10 +1,10 @@
-import { DashboardContainer } from '~/components/layouts/DashboardContainer';
 import { EditProfileForm } from '../components/form/EditProfileForm';
+import { SettingsContainer } from '~/components/layouts/SettingsContainer';
 
 export const SettingsProfilePage = () => {
     return (
-        <DashboardContainer title="Settings - Profile" description="">
+        <SettingsContainer title="Profile" description="">
             <EditProfileForm />
-        </DashboardContainer>
+        </SettingsContainer>
     );
 };

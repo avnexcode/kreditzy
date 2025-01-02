@@ -1,5 +1,4 @@
 import { DashboardContainer } from '~/components/layouts/DashboardContainer';
-import { H1 } from '~/components/elements/Heading';
 import { LoanReferenceView } from '../components/views/LoanReferenceView';
 import { getLoanReferenceById } from '../api/server/getLoanReferenceById';
 
@@ -15,10 +14,7 @@ export const DashboardDetailLoanReferencePage = async (
     const { id } = await props.params;
     const loanReference = await getLoanReferenceById(id);
     return (
-        <DashboardContainer
-            title="Dashboard - Detail Data Referensi"
-            description=""
-        >
+        <DashboardContainer title="Detail Data Referensi" description="">
             <LoanReferenceView loanReference={loanReference} />
         </DashboardContainer>
     );

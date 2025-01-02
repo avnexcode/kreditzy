@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import type { ApiResponse } from '~/types/api';
-import type { SafeUserResponse } from '../types';
+import type { SafeUserResponse } from '../../types';
 import { axiosAuth } from '~/lib/axios';
 
 export const useUsers = () => {

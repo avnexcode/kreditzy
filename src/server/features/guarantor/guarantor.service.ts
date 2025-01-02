@@ -34,7 +34,7 @@ export const guarantorService = {
         const guarantor = await guarantorRepository.findUniqueId(id);
 
         if (!guarantor) {
-            throw new NotFoundException(`guarantor with id ${id} not found`);
+            throw new NotFoundException(`Guarantor with id ${id} not found`);
         }
 
         return toGuarantorWithRelationsResponse(guarantor);
@@ -58,7 +58,7 @@ export const guarantorService = {
             );
 
         if (nationalIdExists !== 0) {
-            throw new BadRequestException('National id already used');
+            throw new BadRequestException('National id already exists');
         }
 
         const guarantor = await guarantorRepository.insert(validatedRequest);
@@ -85,7 +85,7 @@ export const guarantorService = {
             guarantorWithNationalIdExists.id !== id &&
             request.national_id === guarantorWithNationalIdExists.national_id
         ) {
-            throw new BadRequestException('National id already used');
+            throw new BadRequestException('National id already exists');
         }
 
         const guarantor = await guarantorRepository.update(

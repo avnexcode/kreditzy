@@ -57,9 +57,7 @@ export const customerRepository = {
         return countCustomers;
     },
 
-    insert: async (
-        request: CreateCustomerRequest,
-    ): Promise<Customer | null> => {
+    insert: async (request: CreateCustomerRequest): Promise<Customer> => {
         const customer = await db.customer.create({ data: { ...request } });
 
         return customer;
@@ -68,7 +66,7 @@ export const customerRepository = {
     update: async (
         id: string,
         request: UpdateCustomerRequest,
-    ): Promise<Customer | null> => {
+    ): Promise<Customer> => {
         const customer = await db.customer.update({
             where: { id },
             data: { ...request },

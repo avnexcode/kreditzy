@@ -1,4 +1,4 @@
-import { Prisma } from '@prisma/client';
+import { type Prisma } from '@prisma/client';
 import { z } from 'zod';
 
 export const createCustomerFormSchema = z.object({
@@ -33,6 +33,7 @@ export const createCustomerFormSchema = z.object({
         message: 'Nomor telepon tidak boleh lebih dari 20 karakter',
     }),
 });
+
 export const updateCustomerFormSchema = createCustomerFormSchema;
 
 export type CreateCustomerFormSchema = z.infer<typeof createCustomerFormSchema>;

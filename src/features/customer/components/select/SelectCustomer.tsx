@@ -1,4 +1,3 @@
-import type { FieldValues, Path, UseFormReturn } from 'react-hook-form';
 import {
     FormControl,
     FormField,
@@ -13,7 +12,9 @@ import {
     SelectTrigger,
     SelectValue,
 } from '~/components/ui/select';
+import type { FieldValues, Path, UseFormReturn } from 'react-hook-form';
 import { useCustomers } from '../../api/client';
+import { Skeleton } from '~/components/ui/skeleton';
 
 type SelectCustomerProps<T extends FieldValues> = {
     form: UseFormReturn<T>;
@@ -26,7 +27,16 @@ export const SelectCustomer = <T extends FieldValues>({
     name,
     label,
 }: SelectCustomerProps<T>) => {
-    const { data: customers } = useCustomers();
+    const { data: customers, isLoading: isCustomersLoading } = useCustomers();
+
+    if (isCustomersLoading) {
+        return (
+            <div className="space-y-4">
+                <Skeleton className="h-5 w-44" />
+                <Skeleton className="h-9 w-full" />
+            </div>
+        );
+    }
 
     return (
         <FormField

@@ -6,6 +6,7 @@ export const toUserResponse = (user: User): SafeUserResponse => ({
     username: user.username,
     name: user.name,
     email: user.email,
+    phone: user.phone,
     image: user.image,
     provider: user.provider,
     access_token: user.access_token,

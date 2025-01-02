@@ -16,6 +16,7 @@ import { useEffect } from 'react';
 import { Input } from '~/components/ui/input';
 import { inputHandle } from '~/utils/form-input';
 import { useCustomerId } from '../../api/client';
+import { EditCustomerFormInnerSkeleton } from '../skeleton/form/EditCustomerFormInnerSkeleton';
 
 type EditCustomerFormInnerProps = {
     customerId: string;
@@ -28,7 +29,8 @@ export const EditCustomerFormInner = ({
     form_id,
     onSubmit,
 }: EditCustomerFormInnerProps) => {
-    const { data: customer } = useCustomerId(customerId);
+    const { data: customer, isLoading: isCustomerLoading } =
+        useCustomerId(customerId);
 
     const form = useForm<UpdateCustomerFormSchema>({
         defaultValues: {
@@ -54,6 +56,10 @@ export const EditCustomerFormInner = ({
             });
         }
     }, [form, customer]);
+
+    if (isCustomerLoading) {
+        return <EditCustomerFormInnerSkeleton />;
+    }
 
     return (
         <Form {...form}>

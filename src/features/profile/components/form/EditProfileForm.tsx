@@ -9,7 +9,6 @@ import { useDebouncedCallback } from 'use-debounce';
 
 export const EditProfileForm = () => {
     const { toast } = useToast();
-
     const { data: session } = useSession();
 
     const { mutate: updateProfile, isPending: isUpdateProfilePending } =

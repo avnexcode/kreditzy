@@ -1,9 +1,10 @@
 import { DashboardSkeletonContainer } from '~/components/layouts/DashboardSkeletonContainer';
+import { EditCustomerFormSkeleton } from '../form/EditCustomerFormSkeleton';
 
 export const EditCustomerPageSkeleton = () => {
     return (
         <DashboardSkeletonContainer>
-            <h1>Edit Customer Loading...</h1>
+            <EditCustomerFormSkeleton />
         </DashboardSkeletonContainer>
     );
 };

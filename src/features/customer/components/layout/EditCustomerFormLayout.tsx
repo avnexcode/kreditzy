@@ -21,15 +21,15 @@ export const EditCustomerFormLayout = ({
             <CardContent>{children}</CardContent>
 
             <CardFooter className="place-content-end gap-5 pt-5">
-                <Button onClick={() => router.back()}>Batal</Button>
+                <Button onClick={() => router.back()}>Cancel</Button>
                 <Button form={form_id} disabled={isPending}>
                     {isPending ? (
                         <>
                             <Loader2 className="animate-spin" />
-                            Memperbarui...
+                            Updating...
                         </>
                     ) : (
-                        'Perbarui'
+                        'Update'
                     )}
                 </Button>
             </CardFooter>

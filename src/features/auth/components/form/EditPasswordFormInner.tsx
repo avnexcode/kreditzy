@@ -58,7 +58,7 @@ export const EditPasswordFormInner = (props: EditPasswordFormInnerProps) => {
             <form
                 id={form_id}
                 onSubmit={form.handleSubmit(onSubmit)}
-                className="flex flex-col gap-4 w-full"
+                className="flex flex-col gap-5 w-full"
             >
                 <div>
                     <FormField

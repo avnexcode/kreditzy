@@ -74,7 +74,7 @@ export const loanReferenceService = {
         );
 
         if (customer.guarantors.length === 0) {
-            throw new BadRequestException('Nasabah harus memiliki penjamin');
+            throw new BadRequestException('Customer must have a guarantor');
         }
 
         const loanReferenceExists =
@@ -88,24 +88,15 @@ export const loanReferenceService = {
             );
         }
 
-        const monthly_surplus = String(
-            getMonthlySurplus(
-                Number(validatedRequest.monthly_income),
-                Number(validatedRequest.monthly_expenses),
-            ),
+        const monthly_surplus = getMonthlySurplus(
+            validatedRequest.monthly_income,
+            validatedRequest.monthly_expenses,
         );
 
-        const installment = String(
-            getInstallment(
-                Number(validatedRequest.requested_loan_amount),
-                Number(validatedRequest.loan_term),
-                1,
-            ),
-        );
-
-        const creditWorthinessStatus = getCreditWorthiness(
-            Number(monthly_surplus),
-            Number(installment),
+        const installment = getInstallment(
+            validatedRequest.requested_loan_amount,
+            validatedRequest.loan_term,
+            1,
         );
 
         const validatedCalculatedLoanValues: CalculatedLoanValues =
@@ -118,6 +109,8 @@ export const loanReferenceService = {
             ...validatedRequest,
             ...validatedCalculatedLoanValues,
         });
+
+        const creditWorthinessStatus = getCreditWorthiness(loanReference);
 
         await creditWorthinessService.create({
             status: creditWorthinessStatus,
@@ -137,7 +130,7 @@ export const loanReferenceService = {
 
         if (loanReferenceExists === 0) {
             throw new NotFoundException(
-                `Not found loan reference with id = ${id}.`,
+                `Loan reference with id : ${id} not found`,
             );
         }
 
@@ -151,27 +144,18 @@ export const loanReferenceService = {
         );
 
         if (customer.guarantors.length === 0) {
-            throw new BadRequestException('Nasabah harus memiliki penjamin');
+            throw new BadRequestException('Customer must have a guarantor');
         }
 
-        const monthly_surplus = String(
-            getMonthlySurplus(
-                Number(validatedRequest.monthly_income),
-                Number(validatedRequest.monthly_expenses),
-            ),
+        const monthly_surplus = getMonthlySurplus(
+            validatedRequest.monthly_income ?? '',
+            validatedRequest.monthly_expenses ?? '',
         );
 
-        const installment = String(
-            getInstallment(
-                Number(validatedRequest.requested_loan_amount),
-                Number(validatedRequest.loan_term),
-                1,
-            ),
-        );
-
-        const creditWorthinessStatus = getCreditWorthiness(
-            Number(monthly_surplus),
-            Number(installment),
+        const installment = getInstallment(
+            validatedRequest.requested_loan_amount ?? '',
+            validatedRequest.loan_term ?? '',
+            1,
         );
 
         const validatedCalculatedLoanValues: CalculatedLoanValues =
@@ -185,7 +169,14 @@ export const loanReferenceService = {
             ...validatedCalculatedLoanValues,
         });
 
-        await creditWorthinessService.create({
+        const creditWorthiness =
+            await creditWorthinessService.getByLoanReferenceId(
+                loanReference.id,
+            );
+
+        const creditWorthinessStatus = getCreditWorthiness(loanReference);
+
+        await creditWorthinessService.update(creditWorthiness.id, {
             status: creditWorthinessStatus,
             customer_id: customer.id,
             loan_reference_id: loanReference.id,
@@ -200,7 +191,7 @@ export const loanReferenceService = {
 
         if (loanReferenceExists === 0) {
             throw new NotFoundException(
-                `Not found loan reference with id = ${id}.`,
+                `Loan reference with id : ${id} not found`,
             );
         }
 

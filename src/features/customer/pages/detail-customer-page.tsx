@@ -13,7 +13,7 @@ export const DashboardDetailCustomerPage = async (
     const { id } = await props.params;
 
     return (
-        <DashboardContainer title="Dashboard - Detail Nasabah" description="">
+        <DashboardContainer title="Detail Nasabah" description="">
             <DetailView id={id} />
         </DashboardContainer>
     );

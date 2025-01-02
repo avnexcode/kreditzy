@@ -14,10 +14,7 @@ export const DashboardDetailGuarantorPage = async (
     const { id } = await props.params;
     const guarantor = await getGuarantorById(id);
     return (
-        <DashboardContainer
-            title="Dashboard - Detail Penjamin Nasabah"
-            description=""
-        >
+        <DashboardContainer title="Detail Penjamin Nasabah" description="">
             <GuarantorCard guarantor={guarantor} />
         </DashboardContainer>
     );

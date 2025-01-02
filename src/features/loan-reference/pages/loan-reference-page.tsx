@@ -5,7 +5,7 @@ import { CreateLoanReferenceDialog } from '../components/dialog/CreateLoanRefere
 
 export const DashboardLoanReferencePage = () => {
     return (
-        <DashboardContainer title="Dashboard - Data Referensi" description="">
+        <DashboardContainer title="Data Referensi Nasabah" description="">
             <nav className="flex gap-5 mb-5">
                 <Input placeholder="search" />
                 <CreateLoanReferenceDialog />

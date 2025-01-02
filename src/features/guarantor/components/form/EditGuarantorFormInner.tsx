@@ -17,6 +17,7 @@ import { Input } from '~/components/ui/input';
 import { inputHandle } from '~/utils/form-input';
 import { SelectCustomer } from '~/features/customer/components/select/SelectCustomer';
 import { useGuarantorId } from '../../api/client';
+import { EditGuarantorFormInnerSkeleton } from '../skeleton/form/EditGuarantorFormInnerSkeleton';
 
 type EditGuarantorFormInnerProps = {
     guarantorId: string;
@@ -29,7 +30,8 @@ export const EditGuarantorFormInner = ({
     form_id,
     onSubmit,
 }: EditGuarantorFormInnerProps) => {
-    const { data: guarantor } = useGuarantorId(guarantorId);
+    const { data: guarantor, isLoading: isGuarantorLoading } =
+        useGuarantorId(guarantorId);
 
     const form = useForm<UpdateGuarantorFormSchema>({
         defaultValues: {
@@ -39,6 +41,7 @@ export const EditGuarantorFormInner = ({
             residential_address: '',
             occupation: '',
             phone: '',
+            relationship: '',
             customer_id: '',
         },
         resolver: zodResolver(updateGuarantorFormSchema),
@@ -58,6 +61,10 @@ export const EditGuarantorFormInner = ({
             });
         }
     }, [form, guarantor]);
+
+    if (isGuarantorLoading) {
+        return <EditGuarantorFormInnerSkeleton />;
+    }
 
     return (
         <Form {...form}>

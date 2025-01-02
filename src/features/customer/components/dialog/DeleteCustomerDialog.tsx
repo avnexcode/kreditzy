@@ -69,10 +69,10 @@ export const DeleteCustomerDialog = (props: DeleteCustomerDialogProps) => {
                         {isDeleteCustomerPending ? (
                             <>
                                 <Loader2 className="animate-spin" />
-                                Menghapus...
+                                Deleting...
                             </>
                         ) : (
-                            'Lanjutkan'
+                            'Delete'
                         )}
                     </AlertDialogAction>
                 </AlertDialogFooter>

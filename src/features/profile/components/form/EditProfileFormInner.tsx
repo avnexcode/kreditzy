@@ -1,9 +1,3 @@
-import { useForm } from 'react-hook-form';
-import {
-    updateProfileFormSchema,
-    type UpdateProfileFormSchema,
-} from '../../types';
-import { zodResolver } from '@hookform/resolvers/zod';
 import {
     Form,
     FormControl,
@@ -12,10 +6,17 @@ import {
     FormLabel,
     FormMessage,
 } from '~/components/ui/form';
+import {
+    updateProfileFormSchema,
+    type UpdateProfileFormSchema,
+} from '../../types';
+import { useForm } from 'react-hook-form';
 import { inputHandle } from '~/utils/form-input';
 import { Input } from '~/components/ui/input';
-import { useUserId } from '~/features/user/api/client/useUserId';
+import { useUserId } from '~/features/user/api/client';
 import { useEffect } from 'react';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { EditProfileFormInnerSkeleton } from '../skeleton/form/EditProfileFormInnerSkeleton';
 
 type EditProfileFormInnerProps = {
     userId: string;
@@ -28,7 +29,7 @@ export const EditProfileFormInner = ({
     form_id,
     onSubmit,
 }: EditProfileFormInnerProps) => {
-    const { data: user } = useUserId(userId);
+    const { data: user, isLoading: isUserLoading } = useUserId(userId);
 
     const form = useForm<UpdateProfileFormSchema>({
         defaultValues: {
@@ -50,6 +51,10 @@ export const EditProfileFormInner = ({
             });
         }
     }, [form, user]);
+
+    if (isUserLoading) {
+        return <EditProfileFormInnerSkeleton />;
+    }
 
     return (
         <Form {...form}>

@@ -3,7 +3,7 @@ import { DashboardContainer } from '~/components/layouts/DashboardContainer';
 
 export const DashboardEditCustomerPage = () => {
     return (
-        <DashboardContainer title="Dashboard - Edit Customer" description="">
+        <DashboardContainer title="Edit Customer" description="">
             <EditCustomerForm />
         </DashboardContainer>
     );

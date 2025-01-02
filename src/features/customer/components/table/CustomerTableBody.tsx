@@ -23,12 +23,16 @@ export const CustomerTableBody = () => {
             )}
             {customers?.map((customer, index) => (
                 <TableRow key={index} className="capitalize">
-                    <TableCell className="5">{index + 1}</TableCell>
-                    <TableCell className="40">{customer.name}</TableCell>
-                    <TableCell className="36">{customer.national_id}</TableCell>
-                    <TableCell className="36">{customer.phone}</TableCell>
-                    <TableCell className="36">{customer.occupation}</TableCell>
-                    <TableCell className="8">
+                    <TableCell className="w-5">{index + 1}</TableCell>
+                    <TableCell className="w-40">{customer.name}</TableCell>
+                    <TableCell className="w-36">
+                        {customer.national_id}
+                    </TableCell>
+                    <TableCell className="w-36">{customer.phone}</TableCell>
+                    <TableCell className="w-36">
+                        {customer.occupation}
+                    </TableCell>
+                    <TableCell className="w-8">
                         <CustomerTableMenu id={customer.id} />
                     </TableCell>
                 </TableRow>

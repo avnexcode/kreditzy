@@ -5,7 +5,7 @@ import { DashboardContainer } from '~/components/layouts/DashboardContainer';
 
 export const DashboardCustomerPage = () => {
     return (
-        <DashboardContainer title="Dashboard - Nasabah" description="">
+        <DashboardContainer title="Nasabah" description="">
             <nav className="flex gap-5 mb-5">
                 <Input placeholder="search" />
                 <CreateCustomerDialog />

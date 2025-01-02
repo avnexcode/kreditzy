@@ -17,9 +17,7 @@ export const EditPasswordFormLayout = ({
             <CardContent>{children}</CardContent>
             <CardFooter className="place-content-end pt-5">
                 <Button form={form_id} disabled={isPending}>
-                    {isPending
-                        ? 'Memperbarui password...'
-                        : 'Perbarui password'}
+                    {isPending ? 'Updating password...' : 'Update password'}
                 </Button>
             </CardFooter>
         </Card>

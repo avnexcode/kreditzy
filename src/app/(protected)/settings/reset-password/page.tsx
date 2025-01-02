@@ -1,1 +1,1 @@
-export { SettingsPasswordPage as default } from '~/features/auth/pages/reset-password-form';
+export { SettingsPasswordPage as default } from '~/features/auth/pages/reset-password-page';

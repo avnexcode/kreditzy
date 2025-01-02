@@ -3,7 +3,7 @@ import { BadgeList } from '../components/badges/BadgeList';
 
 export const DashboardPage = async () => {
     return (
-        <DashboardContainer title="Dashboard" description="">
+        <DashboardContainer>
             <BadgeList />
         </DashboardContainer>
     );

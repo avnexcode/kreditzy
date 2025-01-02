@@ -26,7 +26,35 @@ export const creditWorthinessService = {
 
         if (!creditWorthiness) {
             throw new NotFoundException(
-                `Kelayakan kredit dengan id ${id} tidak ditemukan`,
+                `Credit woorthiness with id : ${id} not found`,
+            );
+        }
+        return creditWorthiness;
+    },
+
+    getByCustomerId: async (
+        customer_id: string,
+    ): Promise<CreditWorthinessWithRelations> => {
+        const creditWorthiness =
+            await creditWorthinessRepository.findUniqueId(customer_id);
+
+        if (!creditWorthiness) {
+            throw new NotFoundException(
+                `Credit woorthiness with customer id : ${customer_id} not found`,
+            );
+        }
+        return creditWorthiness;
+    },
+
+    getByLoanReferenceId: async (
+        loan_reference_id: string,
+    ): Promise<CreditWorthinessWithRelations> => {
+        const creditWorthiness =
+            await creditWorthinessRepository.findUniqueId(loan_reference_id);
+
+        if (!creditWorthiness) {
+            throw new NotFoundException(
+                `Credit woorthiness with loan reference id : ${loan_reference_id} not found`,
             );
         }
         return creditWorthiness;

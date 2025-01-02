@@ -32,6 +32,20 @@ export const creditWorthinessRepository = {
         return creditWorthiness;
     },
 
+    findUniqueCustomerId: async (customer_id: string) => {
+        const creditWorthiness = await db.creditWorthiness.findUnique({
+            where: { customer_id },
+        });
+        return creditWorthiness;
+    },
+
+    findUniqueLoanReferenceId: async (loan_reference_id: string) => {
+        const creditWorthiness = await db.creditWorthiness.findUnique({
+            where: { loan_reference_id },
+        });
+        return creditWorthiness;
+    },
+
     countMany: async (): Promise<number> => {
         const creditWorthinessesCount = await db.creditWorthiness.count();
 

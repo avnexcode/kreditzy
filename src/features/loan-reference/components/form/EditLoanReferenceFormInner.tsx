@@ -25,6 +25,7 @@ import {
 import { toIDR } from '~/utils/convert-currency';
 import { SelectCustomer } from '~/features/customer/components/select/SelectCustomer';
 import { useLoanReferenceId } from '../../api/client';
+import { EditLoanReferenceFormInnerSkeleton } from '../skeleton/form/EditLoanReferenceFormInnerSkeleton';
 
 type EditLoanReferenceFormInnerProps = {
     loanReferenceId: string;
@@ -37,7 +38,9 @@ export const EditLoanReferenceFormInner = ({
     form_id,
     onSubmit,
 }: EditLoanReferenceFormInnerProps) => {
-    const { data: loanReference } = useLoanReferenceId(loanReferenceId);
+    const { data: loanReference, isLoading: isLoanReferenceLoading } =
+        useLoanReferenceId(loanReferenceId);
+
     const form = useForm<UpdateLoanReferenceFormSchema>({
         defaultValues: {
             customer_id: '',
@@ -66,6 +69,10 @@ export const EditLoanReferenceFormInner = ({
             });
         }
     }, [form, loanReference]);
+
+    if (isLoanReferenceLoading) {
+        return <EditLoanReferenceFormInnerSkeleton />;
+    }
 
     return (
         <Form {...form}>
