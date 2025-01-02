@@ -3,7 +3,10 @@ import { EditLoanReferenceForm } from '../components/form/EditLoanReferenceForm'
 
 export const DashboardEditLoanReferencePage = () => {
     return (
-        <DashboardContainer title="Edit Data Referensi" description="">
+        <DashboardContainer
+            title="Edit Data Referensi"
+            description="Perbarui data referensi nasabah berdasarkan data yang sesuai"
+        >
             <EditLoanReferenceForm />
         </DashboardContainer>
     );

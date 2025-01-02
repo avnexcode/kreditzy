@@ -5,7 +5,10 @@ import { DashboardContainer } from '~/components/layouts/DashboardContainer';
 
 export const DashboardGuarantorPage = () => {
     return (
-        <DashboardContainer title="Penjamin Nasabah" description="">
+        <DashboardContainer
+            title="Penjamin Nasabah"
+            description="Kelola data penjamin dari nasabah anda"
+        >
             <nav className="flex gap-5 mb-5">
                 <Input placeholder="search" />
                 <CreateGuarantorDialog />

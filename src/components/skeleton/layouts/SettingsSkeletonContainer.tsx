@@ -5,16 +5,16 @@ import {
     CardHeader,
     CardTitle,
 } from '~/components/ui/card';
-import { PageContainer } from './PageContainer';
-import { Skeleton } from '../ui/skeleton';
+import { PageContainer } from '../../layouts/PageContainer';
+import { Skeleton } from '../../ui/skeleton';
 
-type DashboardSkeletonContainerProps = {
+type SettingsSkeletonContainerProps = {
     children: React.ReactNode;
     className?: string;
 };
 
-export const DashboardSkeletonContainer: React.FC<
-    DashboardSkeletonContainerProps
+export const SettingsSkeletonContainer: React.FC<
+    SettingsSkeletonContainerProps
 > = ({ children, className }) => {
     return (
         <Card className={`border-none shadow-none ${className}`}>

@@ -5,7 +5,7 @@ import { LoanReferenceTableHeader } from './LoanReferenceTableHeader';
 export const LoanReferenceTable = () => {
     return (
         <Table>
-            <TableCaption>A list of your recent invoices.</TableCaption>
+            <TableCaption>Daftar referensi pinjaman terbaru anda.</TableCaption>
             <LoanReferenceTableHeader />
             <LoanReferenceTableBody />
         </Table>

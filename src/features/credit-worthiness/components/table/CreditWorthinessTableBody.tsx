@@ -1,9 +1,16 @@
 'use client';
 import { TableBody, TableCell, TableRow } from '~/components/ui/table';
 import { useCreditWorthinesses } from '../../api/client';
+import { CreditWorthinessTableBodySkeleton } from '../skeleton/table/CreditWorthinessTableBodySkeleton';
 
 export const CreditWorthinessTableBody = () => {
-    const { data: creditWorthinesses } = useCreditWorthinesses();
+    const { data: creditWorthinesses, isLoading: isCreditWorthinessesLoading } =
+        useCreditWorthinesses();
+
+    if (isCreditWorthinessesLoading) {
+        return <CreditWorthinessTableBodySkeleton />;
+    }
+
     return (
         <TableBody>
             {creditWorthinesses?.length === 0 && (

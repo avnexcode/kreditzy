@@ -5,16 +5,19 @@ export const GuarantorTableHeaderSkeleton = () => {
         <TableHeader>
             <TableRow>
                 <TableHead>
-                    <Skeleton className="h-4 w-8" />
+                    <Skeleton className="h-4 w-full" />
                 </TableHead>
                 <TableHead>
-                    <Skeleton className="h-4 w-24" />
+                    <Skeleton className="h-4 w-36" />
                 </TableHead>
                 <TableHead>
-                    <Skeleton className="h-4 w-32" />
+                    <Skeleton className="h-4 w-36" />
                 </TableHead>
                 <TableHead>
-                    <Skeleton className="h-4 w-28" />
+                    <Skeleton className="h-4 w-36" />
+                </TableHead>
+                <TableHead>
+                    <Skeleton className="h-4 w-full" />
                 </TableHead>
             </TableRow>
         </TableHeader>

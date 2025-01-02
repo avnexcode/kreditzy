@@ -5,20 +5,20 @@ export const GuarantorTableBodySkeleton = () => {
         <TableBody>
             {[...new Array<undefined>(5)].map((_, index) => (
                 <TableRow key={index}>
-                    <TableCell className="w-5">
-                        <Skeleton className="h-4 2-full" />
+                    <TableCell>
+                        <Skeleton className="h-4 w-full" />
                     </TableCell>
-                    <TableCell className="w-40">
-                        <Skeleton className="h-4 2-full" />
+                    <TableCell>
+                        <Skeleton className="h-4 w-full" />
                     </TableCell>
-                    <TableCell className="w-40">
-                        <Skeleton className="h-4 2-full" />
+                    <TableCell>
+                        <Skeleton className="h-4 w-full" />
                     </TableCell>
-                    <TableCell className="w-40">
-                        <Skeleton className="h-4 2-full" />
+                    <TableCell>
+                        <Skeleton className="h-4 w-full" />
                     </TableCell>
-                    <TableCell className="w-6">
-                        <Skeleton className="h-4 2-full" />
+                    <TableCell>
+                        <Skeleton className="h-4 w-full" />
                     </TableCell>
                 </TableRow>
             ))}

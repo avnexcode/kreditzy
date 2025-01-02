@@ -6,25 +6,25 @@ export const LoanReferenceTableBodySkeleton = () => {
         <TableBody>
             {[...new Array<undefined>(5)].map((_, index) => (
                 <TableRow key={index}>
-                    <TableCell className="w-5">
+                    <TableCell>
                         <Skeleton className="h-4 2-full" />
                     </TableCell>
-                    <TableCell className="w-40">
+                    <TableCell>
                         <Skeleton className="h-4 2-full" />
                     </TableCell>
-                    <TableCell className="w-40">
+                    <TableCell>
                         <Skeleton className="h-4 2-full" />
                     </TableCell>
-                    <TableCell className="w-40">
+                    <TableCell>
                         <Skeleton className="h-4 2-full" />
                     </TableCell>
-                    <TableCell className="w-40">
+                    <TableCell>
                         <Skeleton className="h-4 2-full" />
                     </TableCell>
-                    <TableCell className="w-40">
+                    <TableCell>
                         <Skeleton className="h-4 2-full" />
                     </TableCell>
-                    <TableCell className="w-6">
+                    <TableCell>
                         <Skeleton className="h-4 2-full" />
                     </TableCell>
                 </TableRow>

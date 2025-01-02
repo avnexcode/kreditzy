@@ -6,22 +6,22 @@ export const CustomerTableBodySkeleton = () => {
         <TableBody>
             {[...new Array<undefined>(5)].map((_, index) => (
                 <TableRow key={index}>
-                    <TableCell className="w-5">
+                    <TableCell>
                         <Skeleton className="h-4 w-full" />
                     </TableCell>
-                    <TableCell className="w-40">
+                    <TableCell>
                         <Skeleton className="h-4 w-full" />
                     </TableCell>
-                    <TableCell className="w-36">
+                    <TableCell>
                         <Skeleton className="h-4 w-full" />
                     </TableCell>
-                    <TableCell className="w-36">
+                    <TableCell>
                         <Skeleton className="h-4 w-full" />
                     </TableCell>
-                    <TableCell className="w-36">
+                    <TableCell>
                         <Skeleton className="h-4 w-full" />
                     </TableCell>
-                    <TableCell className="w-8">
+                    <TableCell>
                         <Skeleton className="h-4 w-full" />
                     </TableCell>
                 </TableRow>

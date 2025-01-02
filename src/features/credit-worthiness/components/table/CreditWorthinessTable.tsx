@@ -5,9 +5,7 @@ import { CreditWorthinessTableHeader } from './CreditWorthinessTableHeader';
 export const CreditWorthinessTable = () => {
     return (
         <Table>
-            <TableCaption>
-                A list of your recent credit worthiness.
-            </TableCaption>
+            <TableCaption>Daftar kelayakan kredit terbaru anda.</TableCaption>
             <CreditWorthinessTableBody />
             <CreditWorthinessTableHeader />
         </Table>

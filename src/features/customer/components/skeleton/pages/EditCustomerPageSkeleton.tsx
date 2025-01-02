@@ -1,4 +1,4 @@
-import { DashboardSkeletonContainer } from '~/components/layouts/DashboardSkeletonContainer';
+import { DashboardSkeletonContainer } from '~/components/skeleton/layouts/DashboardSkeletonContainer';
 import { EditCustomerFormSkeleton } from '../form/EditCustomerFormSkeleton';
 
 export const EditCustomerPageSkeleton = () => {

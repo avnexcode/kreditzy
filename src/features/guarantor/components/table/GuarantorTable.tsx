@@ -7,7 +7,7 @@ export const GuarantorTable = () => {
         <Table>
             <GuarantorTableHeader />
             <GuarantorTableBody />
-            <TableCaption>A list of your recent guarantors.</TableCaption>
+            <TableCaption>Daftar penjamin terbaru Anda.</TableCaption>
         </Table>
     );
 };

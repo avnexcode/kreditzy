@@ -5,7 +5,7 @@ import { CustomerTableBody } from './CustomerTableBody';
 export const CustomerTable = () => {
     return (
         <Table>
-            <TableCaption>Daftar seluruh nasabah.</TableCaption>
+            <TableCaption>Daftar nasabah terbaru anda.</TableCaption>
             <CustomerTableHeader />
             <CustomerTableBody />
         </Table>

@@ -1,9 +1,10 @@
-import { DashboardSkeletonContainer } from '~/components/layouts/DashboardSkeletonContainer';
+import { DashboardSkeletonContainer } from '~/components/skeleton/layouts/DashboardSkeletonContainer';
+import { DetailViewSkeleton } from '../views/DetailViewSkeleton';
 
 export const DetailCustomerPageSkeleton = () => {
     return (
         <DashboardSkeletonContainer>
-            <h1>Detail Customer Loading... </h1>
+            <DetailViewSkeleton />
         </DashboardSkeletonContainer>
     );
 };

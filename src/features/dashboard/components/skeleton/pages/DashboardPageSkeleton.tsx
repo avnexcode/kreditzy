@@ -1,5 +1,5 @@
-import { DashboardSkeletonContainer } from '~/components/layouts/DashboardSkeletonContainer';
-import BadgeSkeleton from '~/components/skeleton/BadgeSkeleton';
+import { DashboardSkeletonContainer } from '~/components/skeleton/layouts/DashboardSkeletonContainer';
+import BadgeSkeleton from '~/features/dashboard/components/skeleton/badge/BadgeSkeleton';
 
 export const DashboardPageSkeleton = () => {
     return (

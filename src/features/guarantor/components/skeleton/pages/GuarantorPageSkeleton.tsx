@@ -1,4 +1,4 @@
-import { DashboardSkeletonContainer } from '~/components/layouts/DashboardSkeletonContainer';
+import { DashboardSkeletonContainer } from '~/components/skeleton/layouts/DashboardSkeletonContainer';
 import { GuarantorTableSkeleton } from '../table/GuarantorTableSkeleton';
 import { Skeleton } from '~/components/ui/skeleton';
 

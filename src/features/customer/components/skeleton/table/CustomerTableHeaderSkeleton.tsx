@@ -6,10 +6,10 @@ export const CustomerTableHeaderSkeleton = () => {
         <TableHeader>
             <TableRow>
                 <TableHead>
-                    <Skeleton className="h-4 w-5" />
+                    <Skeleton className="h-4 w-8" />
                 </TableHead>
                 <TableHead>
-                    <Skeleton className="h-4 w-40" />
+                    <Skeleton className="h-4 w-36" />
                 </TableHead>
                 <TableHead>
                     <Skeleton className="h-4 w-36" />

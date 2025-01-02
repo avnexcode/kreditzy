@@ -1,7 +1,1 @@
-import { CustomerPageSkeleton } from '~/features/customer/components/skeleton/pages/CustomerPageSkeleton';
-
-const DashboardCustomerLoading = () => {
-    return <CustomerPageSkeleton />;
-};
-
-export default DashboardCustomerLoading;
+export { CustomerPageSkeleton as default } from '~/features/customer/components/skeleton/pages/CustomerPageSkeleton';

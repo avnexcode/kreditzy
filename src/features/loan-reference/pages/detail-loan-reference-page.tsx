@@ -13,8 +13,12 @@ export const DashboardDetailLoanReferencePage = async (
 ) => {
     const { id } = await props.params;
     const loanReference = await getLoanReferenceById(id);
+
     return (
-        <DashboardContainer title="Detail Data Referensi" description="">
+        <DashboardContainer
+            title="Detail Data Referensi"
+            description="Detail data referensi nasabah beserta nama nasabah"
+        >
             <LoanReferenceView loanReference={loanReference} />
         </DashboardContainer>
     );
