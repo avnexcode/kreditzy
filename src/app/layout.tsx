@@ -4,6 +4,7 @@ import '~/styles/globals.css';
 import { type Metadata } from 'next';
 import { Providers } from '~/components/layouts/Providers';
 import { Toaster } from '~/components/ui/toaster';
+import ErrorBoundary from '~/components/actions/ErrorBoundary';
 
 const poppins = Poppins({
     weight: ['400', '500', '600', '700'],
@@ -24,7 +25,9 @@ const RootLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
     return (
         <html lang="en" className={`${poppins.variable}`}>
             <body>
-                <Providers>{children}</Providers>
+                <ErrorBoundary>
+                    <Providers>{children}</Providers>
+                </ErrorBoundary>
                 <Toaster />
             </body>
         </html>

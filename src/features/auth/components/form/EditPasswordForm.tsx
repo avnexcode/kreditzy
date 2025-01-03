@@ -3,7 +3,7 @@ import { useToast } from '~/hooks/use-toast';
 import { EditPasswordFormLayout } from '../layout/EditPasswordFormLayout';
 import { EditPasswordFormInner } from './EditPasswordFormInner';
 import { useDebouncedCallback } from 'use-debounce';
-import { useUpdatePassword } from '../../api/client/useUpdatePassword';
+import { useUpdatePassword } from '../../api/client';
 import { signOut, useSession } from 'next-auth/react';
 import { type UpdatePasswordSchema } from '../../types';
 

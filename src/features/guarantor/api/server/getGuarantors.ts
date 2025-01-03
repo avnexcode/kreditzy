@@ -10,7 +10,6 @@ export const getGuarantors = async () => {
             );
         return response.data.data;
     } catch (error) {
-        console.log(`🚀 - getGuarantors : `, error);
-        throw new Error('Failed to fetch guarantors data');
+        throw error;
     }
 };

@@ -8,14 +8,14 @@ declare module 'next-auth' {
     }
 
     interface User extends DefaultSession.user {
-        access_token: string;
         image: string;
-        provider: string;
+        access_token?: string;
+        provider?: string;
     }
 
     interface JWT {
-        access_token: string;
         image: string;
+        access_token: string;
         provider: string;
     }
 }

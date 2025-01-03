@@ -10,6 +10,6 @@ export const getLoanReferences = async () => {
             );
         return response.data.data;
     } catch (error) {
-        throw new Error('');
+        throw error;
     }
 };

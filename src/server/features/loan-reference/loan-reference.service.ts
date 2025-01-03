@@ -10,7 +10,7 @@ import {
     getCreditWorthiness,
     getInstallment,
     getMonthlySurplus,
-} from '~/server/utils/decision';
+} from '~/server/lib/decision-tree';
 import {
     calculatedLoanValues,
     createLoanReferenceRequest,

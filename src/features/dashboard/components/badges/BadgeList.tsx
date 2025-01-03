@@ -4,7 +4,7 @@ import { GuarantorBadge } from './GuarantorBadge';
 import { LoanReferenceBadge } from './LoanReferenceBadge';
 import { TransactionBadge } from './TransactionBadge';
 
-export const BadgeList = () => {
+export const BadgeList = async () => {
     return (
         <div className="grid grid-cols-1 lg:grid-cols-2 2xl:grid-cols-4 gap-y-12 gap-x-5">
             <CustomerBadge />

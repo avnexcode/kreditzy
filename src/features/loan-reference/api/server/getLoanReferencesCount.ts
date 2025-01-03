@@ -8,7 +8,6 @@ export const getLoanReferencesCount = async () => {
         );
         return response.data.data;
     } catch (error) {
-        console.log(`🚀 - getLoanReferencesCount : `, error);
-        throw new Error('Failed to fetch loan references count');
+        throw error;
     }
 };

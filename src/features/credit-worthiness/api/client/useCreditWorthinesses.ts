@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import { axiosAuth } from '~/lib/axios';
-import { CreditWorthinessWithRelations } from '~/server/features/credit-worthiness/credit-worthiness.model';
-import { ApiResponse } from '~/types/api';
+import type { ApiResponse } from '~/types/api';
+import type { CreditWorthinessWithRelations } from '../../types';
 
 export const useCreditWorthinesses = () => {
     return useQuery({

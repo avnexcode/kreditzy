@@ -8,7 +8,6 @@ export const getCustomersCount = async () => {
         );
         return response.data.data;
     } catch (error) {
-        console.log(`🚀 - getCustomersCount : `, error);
-        throw new Error('Failed to fetch customers count');
+        throw error;
     }
 };

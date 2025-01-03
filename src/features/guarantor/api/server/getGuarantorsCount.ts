@@ -8,7 +8,6 @@ export const getGuarantorsCount = async () => {
         );
         return response.data.data;
     } catch (error) {
-        console.log(`🚀 - getGuarantorsCount : `, error);
-        throw new Error('Failed to fetch guarantors count');
+        throw error;
     }
 };
