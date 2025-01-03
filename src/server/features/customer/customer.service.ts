@@ -6,7 +6,6 @@ import type {
     CustomerWithRelations,
     UpdateCustomerRequest,
 } from './customer.model';
-
 import {
     createCustomerRequest,
     updateCustomerRequest,
@@ -15,7 +14,6 @@ import {
     BadRequestException,
     NotFoundException,
 } from '~/server/helper/error.exception';
-
 import {
     toCustomerResponse,
     toCustomerWithRelationsResponse,
@@ -71,6 +69,7 @@ export const customerService = {
         request: UpdateCustomerRequest,
     ): Promise<Customer> => {
         await customerService.getById(id);
+
         const validatedRequest: UpdateCustomerRequest = validateSchema(
             updateCustomerRequest,
             request,

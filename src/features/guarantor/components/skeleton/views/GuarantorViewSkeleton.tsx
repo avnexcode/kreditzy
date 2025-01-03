@@ -12,7 +12,7 @@ export const GuarantorViewSkeleton = () => {
             <CardContent>
                 <div className="space-y-6">
                     {[...Array<undefined>(1)].map((_, i) => (
-                        <GuarantorCardSkeleton key={i} />
+                        <GuarantorCardSkeleton customerName={false} key={i} />
                     ))}
                 </div>
             </CardContent>

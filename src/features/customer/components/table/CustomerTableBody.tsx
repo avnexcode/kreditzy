@@ -6,9 +6,11 @@ import { CustomerTableBodySkeleton } from '../skeleton/table/CustomerTableBodySk
 
 export const CustomerTableBody = () => {
     const { data: customers, isLoading: isCustomersLoading } = useCustomers();
+
     if (isCustomersLoading) {
         return <CustomerTableBodySkeleton />;
     }
+
     return (
         <TableBody>
             {customers?.length === 0 && (

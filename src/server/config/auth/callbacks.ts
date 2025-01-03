@@ -22,12 +22,7 @@ export const callbacks: NextAuthConfig['callbacks'] = {
 
     authorized: async ({ auth, request }) => {
         const isLoggedIn = !!auth?.user;
-        const { pathname } = request.nextUrl;
-
-        console.info({
-            pathname,
-            isLoggedIn,
-        });
+        // const { pathname } = request.nextUrl;
 
         return isLoggedIn;
     },

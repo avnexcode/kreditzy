@@ -18,6 +18,7 @@ export const customerRepository = {
 
         return customers;
     },
+
     countMany: async (): Promise<number> => {
         const countCustomers = await db.customer.count();
         return countCustomers;
@@ -47,6 +48,7 @@ export const customerRepository = {
                 credit_worthiness: true,
             },
         });
+
         return customer;
     },
 

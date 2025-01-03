@@ -1,7 +1,11 @@
 import { DetailCardItemSkeleton } from '~/components/skeleton/elements/DetailCardItemSkeleton';
 import { Skeleton } from '~/components/ui/skeleton';
 
-export const GuarantorCardSkeleton = () => {
+type GuarantorCardSkeletonProps = {
+    customerName: boolean;
+};
+
+export const GuarantorCardSkeleton = (props: GuarantorCardSkeletonProps) => {
     return (
         <div className="border rounded-lg p-4">
             <div className="flex justify-end items-center text-md capitalize w-full pb-5">
@@ -20,9 +24,9 @@ export const GuarantorCardSkeleton = () => {
                     ))}
                 </div>
             </div>
-            <div className="pt-10 xl:pt-5">
+            <div className="pt-10">
                 <div className="w-full flex flex-col gap-y-5 md:flex-row justify-end gap-x-10 text-gray-500 text-sm">
-                    <Skeleton className="h-4 w-64" />
+                    {props.customerName && <Skeleton className="h-4 w-64" />}
                     <div className="w-full flex flex-col md:flex-row gap-y-5 gap-x-10 justify-end">
                         {[...Array<undefined>(2)].map((_, index) => (
                             <Skeleton key={index} className="h-4 w-32" />

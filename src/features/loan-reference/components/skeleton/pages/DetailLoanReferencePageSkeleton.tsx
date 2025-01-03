@@ -1,10 +1,10 @@
 import { DashboardSkeletonContainer } from '~/components/skeleton/layouts/DashboardSkeletonContainer';
-import { GuarantorCardSkeleton } from '../card/GuarantorCardSkeleton';
+import { LoanReferenceViewSkeleton } from '../views/LoanReferenceViewSkeleton';
 
-export const DetailGuarantorPageSkeleton = () => {
+export const DetailLoanReferencePageSkeleton = () => {
     return (
         <DashboardSkeletonContainer>
-            <GuarantorCardSkeleton customerName={true} />
+            <LoanReferenceViewSkeleton customerName={true} />
         </DashboardSkeletonContainer>
     );
 };

@@ -16,6 +16,7 @@ import { CirclePlus } from 'lucide-react';
 export const CreateCustomerDialog = () => {
     const [isOpen, setIsOpen] = useState<boolean>(false);
     const [isPending, setIsPending] = useState<boolean>(false);
+
     return (
         <Dialog open={isOpen} onOpenChange={setIsOpen}>
             <DialogTrigger asChild>

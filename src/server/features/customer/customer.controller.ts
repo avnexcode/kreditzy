@@ -19,15 +19,12 @@ import type {
     UpdateCustomerRequest,
 } from './customer.model';
 import { BadRequestException } from '~/server/helper/error.exception';
-import { auth } from '~/server/config/auth';
 
 export const customerController = {
     GET: async (): Promise<
         NextResponse<IApiResponse<CustomerWithRelations[]>>
     > => {
         try {
-            const session = await auth();
-            console.log({ session });
             const data = await customerService.getAll();
             return ApiResponse.success(
                 data,
@@ -43,8 +40,6 @@ export const customerController = {
         context: { params: Promise<{ id: string }> },
     ): Promise<NextResponse<IApiResponse<CustomerWithRelations>>> => {
         try {
-            const session = await auth();
-            console.log({ session });
             const params = await context.params;
             const id = params?.id;
 
@@ -60,8 +55,6 @@ export const customerController = {
 
     GET_LENGTH: async (): Promise<NextResponse<IApiResponse<number>>> => {
         try {
-            const session = await auth();
-            console.log({ session });
             const data = await customerService.countAll();
             return ApiResponse.success(
                 data,
@@ -103,10 +96,9 @@ export const customerController = {
                     requestBody.phone
                 )
             ) {
-                throw new BadRequestException(
-                    'Data yang dibutuhkan tidak lengkap',
-                );
+                throw new BadRequestException('Required fields are missing');
             }
+
             const params = await context.params;
             const id = params?.id;
             const data = await customerService.update(id, requestBody);

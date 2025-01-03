@@ -1,7 +1,1 @@
-import { EditCustomerPageSkeleton } from '~/features/customer/components/skeleton/pages/EditCustomerPageSkeleton';
-
-const DashboardEditCustomerLoading = () => {
-    return <EditCustomerPageSkeleton />;
-};
-
-export default DashboardEditCustomerLoading;
+export { EditCustomerPageSkeleton as default } from '~/features/customer/components/skeleton/pages/EditCustomerPageSkeleton';
