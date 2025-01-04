@@ -95,9 +95,7 @@ export const guarantorController = {
                     requestBody.customer_id
                 )
             ) {
-                throw new BadRequestException(
-                    'Data yang dibutuhkan tidak lengkap',
-                );
+                throw new BadRequestException('Required fields are missing');
             }
             const params = await context.params;
             const id = params?.id;

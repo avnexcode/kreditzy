@@ -34,6 +34,7 @@ export const creditWorthinessController = {
             return ErrorFilter.catch(error);
         }
     },
+
     GET_ID: async (
         request: NextRequest,
         context: { params: Promise<{ id: string }> },
@@ -54,6 +55,7 @@ export const creditWorthinessController = {
             return ErrorFilter.catch(error);
         }
     },
+
     GET_LENGTH: async (): Promise<NextResponse<IApiResponse<number>>> => {
         try {
             const data = await creditWorthinessService.countAll();
@@ -65,6 +67,7 @@ export const creditWorthinessController = {
             return ErrorFilter.catch(error);
         }
     },
+
     POST: async (
         request: NextRequest,
     ): Promise<NextResponse<IApiResponse<CreditWorthiness>>> => {
@@ -80,6 +83,7 @@ export const creditWorthinessController = {
             return ErrorFilter.catch(error);
         }
     },
+
     PUT: async (
         request: NextRequest,
         context: { params: Promise<{ id: string }> },
@@ -94,9 +98,7 @@ export const creditWorthinessController = {
                     requestBody.loan_reference_id
                 )
             ) {
-                throw new BadRequestException(
-                    'Data yang dibutuhkan tidak lengkap',
-                );
+                throw new BadRequestException('Required fields are missing');
             }
             const params = await context.params;
             const id = params?.id;
@@ -110,6 +112,7 @@ export const creditWorthinessController = {
             return ErrorFilter.catch(error);
         }
     },
+
     PATCH: async (
         request: NextRequest,
         context: { params: Promise<{ id: string }> },
@@ -129,6 +132,7 @@ export const creditWorthinessController = {
             return ErrorFilter.catch(error);
         }
     },
+
     DELETE: async (
         request: NextRequest,
         context: { params: Promise<{ id: string }> },

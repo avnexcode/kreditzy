@@ -50,11 +50,13 @@ export const creditWorthinessService = {
         loan_reference_id: string,
     ): Promise<CreditWorthinessWithRelations> => {
         const creditWorthiness =
-            await creditWorthinessRepository.findUniqueId(loan_reference_id);
+            await creditWorthinessRepository.findUniqueLoanReferenceId(
+                loan_reference_id,
+            );
 
         if (!creditWorthiness) {
             throw new NotFoundException(
-                `Credit woorthiness with loan reference id : ${loan_reference_id} not found`,
+                `Credit worthiness with loan reference id : ${loan_reference_id} not found`,
             );
         }
         return creditWorthiness;

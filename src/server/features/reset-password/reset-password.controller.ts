@@ -21,9 +21,7 @@ export const resetPasswordController = {
             console.log({ requestBody });
 
             if (!(requestBody.password && requestBody.new_password)) {
-                throw new BadRequestException(
-                    'Password and new password required',
-                );
+                throw new BadRequestException('Required fields are missing');
             }
 
             const data = await resetPasswordService.updatePassword(

@@ -88,22 +88,22 @@ export const loanReferenceController = {
         try {
             const requestBody =
                 (await request.json()) as UpdateLoanReferenceRequest;
+
             if (
                 !(
                     requestBody.monthly_income &&
                     requestBody.monthly_expenses &&
-                    requestBody.employment_status &&
-                    requestBody.previous_credit_history &&
                     requestBody.requested_loan_amount &&
                     requestBody.collateral_estimate &&
                     requestBody.loan_term &&
                     requestBody.customer_id
-                )
+                ) &&
+                requestBody.employment_status === undefined &&
+                requestBody.previous_credit_history === undefined
             ) {
-                throw new BadRequestException(
-                    'Data yang dibutuhkan tidak lengkap',
-                );
+                throw new BadRequestException('Required fields are missing');
             }
+
             const params = await context.params;
             const id = params?.id;
             const data = await loanReferenceService.update(id, requestBody);

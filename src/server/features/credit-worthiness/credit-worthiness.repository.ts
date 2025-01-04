@@ -35,14 +35,24 @@ export const creditWorthinessRepository = {
     findUniqueCustomerId: async (customer_id: string) => {
         const creditWorthiness = await db.creditWorthiness.findUnique({
             where: { customer_id },
+            include: {
+                customer: true,
+                loan_reference: true,
+            },
         });
+
         return creditWorthiness;
     },
 
     findUniqueLoanReferenceId: async (loan_reference_id: string) => {
         const creditWorthiness = await db.creditWorthiness.findUnique({
             where: { loan_reference_id },
+            include: {
+                customer: true,
+                loan_reference: true,
+            },
         });
+
         return creditWorthiness;
     },
 
