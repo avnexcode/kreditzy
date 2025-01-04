@@ -1,7 +1,8 @@
 import { type NextAuthConfig } from 'next-auth';
 
 export const callbacks: NextAuthConfig['callbacks'] = {
-    jwt: ({ token, account, profile, user }) => {
+    jwt: ({ token, account, user }) => {
+        // params { profile }
         if (account?.provider === 'credentials') {
             token.id = user.id;
             token.access_token = user.access_token;
@@ -20,7 +21,8 @@ export const callbacks: NextAuthConfig['callbacks'] = {
         return session;
     },
 
-    authorized: async ({ auth, request }) => {
+    authorized: async ({ auth }) => {
+        // params { request }
         const isLoggedIn = !!auth?.user;
         // const { pathname } = request.nextUrl;
 

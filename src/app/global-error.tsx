@@ -6,7 +6,7 @@ type GlobalErrorProps = {
     reset: () => void;
 };
 
-const GlobalError = ({ error, reset }: GlobalErrorProps) => {
+const GlobalError = ({ reset }: GlobalErrorProps) => {
     return (
         <html>
             <body>

@@ -18,11 +18,10 @@ export const Heading = ({
     className = '',
     variant = 'h1',
 }: HeadingProps) => {
-    const Tag = variant as keyof JSX.IntrinsicElements;
     return (
-        <Tag className={`title ${variantStyles[variant]} ${className}`.trim()}>
+        <h1 className={`title ${variantStyles[variant]} ${className}`.trim()}>
             {children}
-        </Tag>
+        </h1>
     );
 };
 

@@ -14,7 +14,8 @@ export const providers: NextAuthConfig['providers'] = [
             },
         },
 
-        authorize: async (credentials, req) => {
+        authorize: async credentials => {
+            // params req after credentials
             if (!credentials?.email || !credentials?.password) {
                 throw new BadRequestException(
                     'Email and password are required',

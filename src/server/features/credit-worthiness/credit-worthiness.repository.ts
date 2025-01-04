@@ -4,7 +4,7 @@ import type {
     CreditWorthinessWithRelations,
     UpdateCreditworthinessRequest,
 } from './credit-worthiness.model';
-import { CreditWorthiness } from '@prisma/client';
+import { type CreditWorthiness } from '@prisma/client';
 
 export const creditWorthinessRepository = {
     findMany: async (): Promise<CreditWorthinessWithRelations[]> => {
