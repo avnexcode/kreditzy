@@ -1,6 +1,6 @@
 'use client';
 import { BetweenHorizontalEnd } from 'lucide-react';
-import { Badge } from '~/components/elements/Badge';
+import { Badge } from '~/features/dashboard/components/badges/DashboardBadge';
 import { useLoanReferencesCount } from '~/features/loan-reference/api/client';
 import BadgeSkeleton from '../skeleton/badge/BadgeSkeleton';
 

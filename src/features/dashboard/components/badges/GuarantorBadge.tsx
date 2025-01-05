@@ -1,6 +1,6 @@
 'use client';
 import { ShieldCheck } from 'lucide-react';
-import { Badge } from '~/components/elements/Badge';
+import { Badge } from '~/features/dashboard/components/badges/DashboardBadge';
 import { useGuarantorsCount } from '~/features/guarantor/api/client';
 import BadgeSkeleton from '../skeleton/badge/BadgeSkeleton';
 

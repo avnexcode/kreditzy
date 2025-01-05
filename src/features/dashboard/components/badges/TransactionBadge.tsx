@@ -1,5 +1,5 @@
 import { NotebookText } from 'lucide-react';
-import { Badge } from '~/components/elements/Badge';
+import { Badge } from '~/features/dashboard/components/badges/DashboardBadge';
 
 export const TransactionBadge = () => {
     return (

@@ -1,6 +1,6 @@
 'use client';
 import { Users } from 'lucide-react';
-import { Badge } from '~/components/elements/Badge';
+import { Badge } from '~/features/dashboard/components/badges/DashboardBadge';
 import { useCustomersCount } from '~/features/customer/api/client';
 import BadgeSkeleton from '../skeleton/badge/BadgeSkeleton';
 
