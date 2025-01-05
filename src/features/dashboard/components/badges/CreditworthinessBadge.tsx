@@ -1,6 +1,6 @@
 'use client';
 import { ListCheck } from 'lucide-react';
-import { Badge } from '~/features/dashboard/components/badges/DashboardBadge';
+import { DashboardBadge } from '~/features/dashboard/components/badges/DashboardBadge';
 import { useCreditWorthinessCount } from '~/features/credit-worthiness/api/client';
 import BadgeSkeleton from '../skeleton/badge/BadgeSkeleton';
 
@@ -15,7 +15,7 @@ export const CreditworthinessBadge = () => {
     }
 
     return (
-        <Badge
+        <DashboardBadge
             icon={<ListCheck size={25} />}
             iconBackground="bg-pink-500"
             label="Total Status Kelayakan"

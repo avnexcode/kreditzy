@@ -1,6 +1,6 @@
 'use client';
 import { BetweenHorizontalEnd } from 'lucide-react';
-import { Badge } from '~/features/dashboard/components/badges/DashboardBadge';
+import { DashboardBadge } from '~/features/dashboard/components/badges/DashboardBadge';
 import { useLoanReferencesCount } from '~/features/loan-reference/api/client';
 import BadgeSkeleton from '../skeleton/badge/BadgeSkeleton';
 
@@ -15,7 +15,7 @@ export const LoanReferenceBadge = () => {
     }
 
     return (
-        <Badge
+        <DashboardBadge
             icon={<BetweenHorizontalEnd size={25} />}
             iconBackground="bg-pink-500"
             label="Total Data Referensi"

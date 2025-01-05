@@ -1,9 +1,9 @@
 import { NotebookText } from 'lucide-react';
-import { Badge } from '~/features/dashboard/components/badges/DashboardBadge';
+import { DashboardBadge } from '~/features/dashboard/components/badges/DashboardBadge';
 
 export const TransactionBadge = () => {
     return (
-        <Badge
+        <DashboardBadge
             icon={<NotebookText size={25} />}
             iconBackground="bg-blue-500"
             label="Total Transaksi"

@@ -1,6 +1,6 @@
 'use client';
 import { Users } from 'lucide-react';
-import { Badge } from '~/features/dashboard/components/badges/DashboardBadge';
+import { DashboardBadge } from '~/features/dashboard/components/badges/DashboardBadge';
 import { useCustomersCount } from '~/features/customer/api/client';
 import BadgeSkeleton from '../skeleton/badge/BadgeSkeleton';
 
@@ -13,7 +13,7 @@ export const CustomerBadge = () => {
     }
 
     return (
-        <Badge
+        <DashboardBadge
             icon={<Users size={25} />}
             iconBackground="bg-pink-500"
             label="Total Nasabah"

@@ -1,6 +1,6 @@
 'use client';
 import { ShieldCheck } from 'lucide-react';
-import { Badge } from '~/features/dashboard/components/badges/DashboardBadge';
+import { DashboardBadge } from '~/features/dashboard/components/badges/DashboardBadge';
 import { useGuarantorsCount } from '~/features/guarantor/api/client';
 import BadgeSkeleton from '../skeleton/badge/BadgeSkeleton';
 
@@ -13,7 +13,7 @@ export const GuarantorBadge = () => {
     }
 
     return (
-        <Badge
+        <DashboardBadge
             icon={<ShieldCheck size={25} />}
             iconBackground="bg-green-500"
             label="Total Penjamin"

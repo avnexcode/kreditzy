@@ -17,7 +17,7 @@ interface BadgeProps {
     trendClassName?: string;
 }
 
-export function Badge({
+export function DashboardBadge({
     icon,
     iconBackground = 'bg-blue-500',
     label,
@@ -81,4 +81,4 @@ export function Badge({
     );
 }
 
-export default Badge;
+export default DashboardBadge;
