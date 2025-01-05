@@ -4,6 +4,7 @@ import { LoanReferenceTableMenu } from './LoanReferenceTableMenu';
 import { toIDR } from '~/utils/convert-currency';
 import { useLoanReferences } from '../../api/client';
 import { LoanReferenceTableBodySkeleton } from '../skeleton/table/LoanReferenceTableBodySkeleton';
+import { renderElements } from '~/utils/render-elements';
 
 export const LoanReferenceTableBody = () => {
     const { data: loanReferences, isLoading: isLoanReferencesLoading } =
@@ -23,23 +24,28 @@ export const LoanReferenceTableBody = () => {
                     </TableCell>
                 </TableRow>
             )}
-            {loanReferences?.map((loanReference, index) => (
-                <TableRow key={index} className="capitalize">
-                    <TableCell>{index + 1}</TableCell>
-                    <TableCell>{loanReference.customer.name}</TableCell>
-                    <TableCell>
-                        {toIDR(loanReference.monthly_surplus)}
-                    </TableCell>
-                    <TableCell>
-                        {toIDR(loanReference.requested_loan_amount)}
-                    </TableCell>
-                    <TableCell>{loanReference.loan_term} Bulan</TableCell>
-                    <TableCell>{toIDR(loanReference.installment)}</TableCell>
-                    <TableCell>
-                        <LoanReferenceTableMenu id={loanReference.id} />
-                    </TableCell>
-                </TableRow>
-            ))}
+            {renderElements({
+                of: loanReferences,
+                render: (loanReference, index) => (
+                    <TableRow key={index} className="capitalize">
+                        <TableCell>{index + 1}</TableCell>
+                        <TableCell>{loanReference.customer.name}</TableCell>
+                        <TableCell>
+                            {toIDR(loanReference.monthly_surplus)}
+                        </TableCell>
+                        <TableCell>
+                            {toIDR(loanReference.requested_loan_amount)}
+                        </TableCell>
+                        <TableCell>{loanReference.loan_term} Bulan</TableCell>
+                        <TableCell>
+                            {toIDR(loanReference.installment)}
+                        </TableCell>
+                        <TableCell>
+                            <LoanReferenceTableMenu id={loanReference.id} />
+                        </TableCell>
+                    </TableRow>
+                ),
+            })}
         </TableBody>
     );
 };

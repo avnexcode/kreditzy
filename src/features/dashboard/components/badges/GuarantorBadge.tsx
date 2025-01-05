@@ -1,9 +1,16 @@
+'use client';
 import { ShieldCheck } from 'lucide-react';
 import { Badge } from '~/components/elements/Badge';
-import { getGuarantorsCount } from '~/features/guarantor/api/server';
+import { useGuarantorsCount } from '~/features/guarantor/api/client';
+import BadgeSkeleton from '../skeleton/badge/BadgeSkeleton';
 
-export const GuarantorBadge = async () => {
-    const guarantorsCount = await getGuarantorsCount();
+export const GuarantorBadge = () => {
+    const { data: guarantorsCount, isLoading: isGuarantorsCountLoading } =
+        useGuarantorsCount();
+
+    if (isGuarantorsCountLoading) {
+        return <BadgeSkeleton />;
+    }
 
     return (
         <Badge

@@ -18,6 +18,7 @@ export const guarantorRepository = {
     },
     countMany: async (): Promise<number> => {
         const countguarantors = await db.guarantor.count();
+
         return countguarantors;
     },
 

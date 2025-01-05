@@ -42,6 +42,7 @@ export const customerService = {
 
     countAll: async (): Promise<number> => {
         const countCustomers = await customerRepository.countMany();
+
         return countCustomers;
     },
 

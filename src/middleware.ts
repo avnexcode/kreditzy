@@ -7,7 +7,6 @@ import {
     DEFAULT_LOGIN_REDIRECT,
     publicRoutes,
 } from './routes';
-import Logging from './helpers/Logging';
 
 const isRouteMatch = (pathname: string, route: string) => {
     if (pathname === route) return true;
@@ -27,9 +26,6 @@ const isRouteMatch = (pathname: string, route: string) => {
 const middleware = auth(async request => {
     const { nextUrl } = request;
     const isLoggedIn = !!request.auth;
-
-    Logging.info({ pathname: nextUrl.pathname });
-    Logging.info({ isLoggedIn });
 
     const isApiAuthRoute = nextUrl.pathname.startsWith(apiAuthPrefix);
     const isPublicRoute = publicRoutes.some(route =>

@@ -1,5 +1,6 @@
-import { cn } from '~/lib/utils';
 import { type ReactNode } from 'react';
+import { cn } from '~/lib/utils';
+import { Card, CardContent, CardFooter } from '~/components/ui/card';
 
 interface BadgeProps {
     icon: ReactNode;
@@ -24,7 +25,6 @@ export function Badge({
     statLoading,
     trend,
     trendLabel,
-    error,
     rootClassName,
     iconWrapperClassName,
     statsClassName,
@@ -37,59 +37,48 @@ export function Badge({
         : '';
 
     return (
-        <div
-            className={cn(
-                'relative flex flex-col bg-clip-border rounded-xl bg-white text-gray-700 shadow-md',
-                error && 'border border-red-200',
-                rootClassName,
-            )}
-        >
-            {/* Icon Section */}
+        <Card className={cn('relative bg-white text-gray-700', rootClassName)}>
             <div
                 className={cn(
-                    'bg-clip-border mx-4 rounded-xl overflow-hidden shadow-lg absolute -mt-4',
+                    'bg-clip-border mx-4 rounded-xl overflow-hidden shadow-lg absolute -mt-4 z-10',
                     'grid h-16 w-16 place-items-center',
-                    error ? 'bg-red-500' : iconBackground,
+                    iconBackground,
                     iconWrapperClassName,
                 )}
             >
                 {icon}
             </div>
 
-            {/* Stats Section */}
-            <div className={cn('p-4 text-right', statsClassName)}>
-                <p className="block antialiased font-sans text-sm leading-normal font-normal text-blue-gray-600">
+            <CardContent className={cn('p-4 text-right', statsClassName)}>
+                <p className="block antialiased text-sm leading-normal font-normal text-blue-gray-600">
                     {label}
                 </p>
-                {error ? (
-                    <p className="text-sm text-red-500 mt-1">{error}</p>
-                ) : (
-                    <h4 className="block antialiased tracking-normal font-sans text-2xl font-semibold leading-snug text-blue-gray-900">
-                        {statLoading ? (
-                            <span className="inline-block w-16 h-8 bg-gray-200 rounded animate-pulse" />
-                        ) : !stat ? (
-                            '--'
-                        ) : (
-                            stat
-                        )}
-                    </h4>
-                )}
-            </div>
+                <h4 className="block antialiased tracking-normal text-2xl font-semibold leading-snug text-blue-gray-900">
+                    {statLoading ? (
+                        <span className="inline-block w-16 h-8 bg-gray-200 rounded animate-pulse" />
+                    ) : !stat ? (
+                        '--'
+                    ) : (
+                        stat
+                    )}
+                </h4>
+            </CardContent>
 
-            {/* Trend Section - Only show if no error and trend exists */}
-            {!error && trend !== undefined && trendLabel && (
-                <div
+            {trend !== undefined && trendLabel && (
+                <CardFooter
                     className={cn(
                         'border-t border-blue-gray-50 p-4',
                         trendClassName,
                     )}
                 >
-                    <p className="block antialiased font-sans text-base leading-relaxed font-normal text-blue-gray-600">
+                    <p className="block antialiased text-base leading-relaxed font-normal text-blue-gray-600">
                         <strong className={trendColor}>{trend}%</strong>
                         &nbsp;{trendLabel}
                     </p>
-                </div>
+                </CardFooter>
             )}
-        </div>
+        </Card>
     );
 }
+
+export default Badge;

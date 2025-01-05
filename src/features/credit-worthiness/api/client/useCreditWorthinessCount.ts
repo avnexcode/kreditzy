@@ -2,12 +2,12 @@ import { useQuery } from '@tanstack/react-query';
 import { axiosAuth } from '~/lib/axios';
 import type { ApiResponse } from '~/types/api';
 
-export const useLoanReferencesCount = () => {
+export const useCreditWorthinessCount = () => {
     return useQuery({
-        queryKey: ['loan-references', 'count'],
+        queryKey: ['credit-worthiness', 'count'],
         queryFn: async () => {
             const response = await axiosAuth.get<ApiResponse<number>>(
-                '/loan-references/stats/length',
+                '/credit-worthinesses/stats/length',
             );
             return response.data.data;
         },

@@ -4,7 +4,7 @@ import type { ApiResponse } from '~/types/api';
 
 export const useGuarantorsCount = () => {
     return useQuery({
-        queryKey: ['guarantors'],
+        queryKey: ['guarantors', 'count'],
         queryFn: async () => {
             const response = await axiosAuth.get<ApiResponse<number>>(
                 '/guarantors/stats/length',

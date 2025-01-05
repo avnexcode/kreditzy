@@ -1,9 +1,16 @@
+'use client';
 import { Users } from 'lucide-react';
 import { Badge } from '~/components/elements/Badge';
-import { getCustomersCount } from '~/features/customer/api/server';
+import { useCustomersCount } from '~/features/customer/api/client';
+import BadgeSkeleton from '../skeleton/badge/BadgeSkeleton';
 
-export const CustomerBadge = async () => {
-    const customersCount = await getCustomersCount();
+export const CustomerBadge = () => {
+    const { data: customersCount, isLoading: isCustomersCountLoading } =
+        useCustomersCount();
+
+    if (isCustomersCountLoading) {
+        return <BadgeSkeleton />;
+    }
 
     return (
         <Badge

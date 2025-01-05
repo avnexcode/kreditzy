@@ -18,6 +18,7 @@ type EditPasswordFormInnerProps = {
     form_id: string;
     onSubmit: (values: UpdatePasswordSchema) => void;
 };
+
 export const EditPasswordFormInner = (props: EditPasswordFormInnerProps) => {
     const { form_id, onSubmit } = props;
     const [visiblePassword, setVisiblePassword] = useState<boolean>(false);
@@ -53,6 +54,7 @@ export const EditPasswordFormInner = (props: EditPasswordFormInnerProps) => {
             isValid: passwordValidation.minLength,
         },
     ];
+
     return (
         <Form {...form}>
             <form

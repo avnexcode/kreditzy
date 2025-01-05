@@ -5,7 +5,6 @@ import type { UpdateProfileFormSchema } from '../../types';
 import { EditProfileFormLayout } from '../layout/EditProfileFormLayout';
 import { EditProfileFormInner } from './EditProfileFormInner';
 import { useSession } from 'next-auth/react';
-import { useDebouncedCallback } from 'use-debounce';
 
 export const EditProfileForm = () => {
     const { toast } = useToast();
@@ -32,10 +31,7 @@ export const EditProfileForm = () => {
             },
         });
 
-    const onSubmit = useDebouncedCallback(
-        (values: UpdateProfileFormSchema) => updateProfile(values),
-        3000,
-    );
+    const onSubmit = (values: UpdateProfileFormSchema) => updateProfile(values);
 
     return (
         <EditProfileFormLayout

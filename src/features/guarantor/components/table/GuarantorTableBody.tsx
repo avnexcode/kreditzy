@@ -3,13 +3,16 @@ import { TableBody, TableCell, TableRow } from '~/components/ui/table';
 import { GuarantorTableMenu } from './GuarantorTableMenu';
 import { useGuarantors } from '../../api/client';
 import { GuarantorTableBodySkeleton } from '../skeleton/table/GuarantorTableBodySkeleton';
+import { renderElements } from '~/utils/render-elements';
 
 export const GuarantorTableBody = () => {
     const { data: guarantors, isLoading: isGuarantorsLoading } =
         useGuarantors();
+
     if (isGuarantorsLoading) {
         return <GuarantorTableBodySkeleton />;
     }
+
     return (
         <TableBody>
             {guarantors?.length === 0 && (
@@ -22,17 +25,20 @@ export const GuarantorTableBody = () => {
                     </TableCell>
                 </TableRow>
             )}
-            {guarantors?.map((guarantor, index) => (
-                <TableRow key={index} className="capitalize">
-                    <TableCell>{index + 1}</TableCell>
-                    <TableCell>{guarantor.name}</TableCell>
-                    <TableCell>{guarantor.customer.name}</TableCell>
-                    <TableCell>{guarantor.relationship}</TableCell>
-                    <TableCell>
-                        <GuarantorTableMenu id={guarantor.id} />
-                    </TableCell>
-                </TableRow>
-            ))}
+            {renderElements({
+                of: guarantors,
+                render: (guarantor, index) => (
+                    <TableRow key={index} className="capitalize">
+                        <TableCell>{index + 1}</TableCell>
+                        <TableCell>{guarantor.name}</TableCell>
+                        <TableCell>{guarantor.customer.name}</TableCell>
+                        <TableCell>{guarantor.relationship}</TableCell>
+                        <TableCell>
+                            <GuarantorTableMenu id={guarantor.id} />
+                        </TableCell>
+                    </TableRow>
+                ),
+            })}
         </TableBody>
     );
 };

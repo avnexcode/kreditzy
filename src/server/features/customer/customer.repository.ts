@@ -21,6 +21,7 @@ export const customerRepository = {
 
     countMany: async (): Promise<number> => {
         const countCustomers = await db.customer.count();
+
         return countCustomers;
     },
 

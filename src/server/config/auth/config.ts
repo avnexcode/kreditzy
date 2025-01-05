@@ -8,6 +8,7 @@ import { session } from './session';
 import { env } from '~/config/env';
 
 export const authConfig = {
+    trustHost: true,
     session,
     secret: env.AUTH_SECRET,
     providers,
