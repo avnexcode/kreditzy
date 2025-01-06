@@ -1,7 +1,7 @@
 // Muhammad Fauzi Nur Aziz
 import { DetailCardItem } from '~/components/elements/DetailCardItem';
 import { toFormatDate } from '~/utils/toFormatDate';
-import { type GuarantorWithRelations } from '../../types';
+import { type GuarantorWithRelations } from '../types';
 
 type GuarantorCardProps = {
     guarantor: GuarantorWithRelations;
