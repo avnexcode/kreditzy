@@ -51,7 +51,7 @@ export const getInstallment = (
 // };
 
 export const getCreditWorthiness = (loanData: LoanReference): boolean => {
-    const monthlyIncome = safeParseNumber(loanData.monthly_income);
+    // const monthlyIncome = safeParseNumber(loanData.monthly_income);
     const monthlyInstallment = safeParseNumber(loanData.installment);
     const loanAmount = safeParseNumber(loanData.requested_loan_amount);
     const collateral = safeParseNumber(loanData.collateral_estimate);
@@ -69,7 +69,7 @@ export const getCreditWorthiness = (loanData: LoanReference): boolean => {
         return false;
     }
 
-    if (monthlyInstallment > monthlyIncome * 0.3) {
+    if (monthlyInstallment > surplus) {
         return false;
     }
 
