@@ -1,5 +1,5 @@
 import { DashboardContainer } from '~/components/layouts/DashboardContainer';
-import { GuarantorCard } from '../components/GuarantorCard';
+import { GuarantorCard } from '../components/card/GuarantorCard';
 import { getGuarantorById } from '../api/server';
 
 type DashboardDetailGuarantorPageProps = {
