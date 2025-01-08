@@ -121,6 +121,72 @@ export const loanReferenceService = {
         return loanReference;
     },
 
+    createMany: async (
+        requests: CreateLoanReferenceRequest[],
+    ): Promise<number> => {
+        const insertedReferences = await Promise.all(
+            requests.map(async request => {
+                const validatedRequest: CreateLoanReferenceRequest =
+                    validateSchema(createLoanReferenceRequest, request);
+
+                const customer = await customerService.getById(
+                    validatedRequest.customer_id,
+                );
+
+                if (customer.guarantors.length === 0) {
+                    throw new BadRequestException(
+                        'Customer must have a guarantor',
+                    );
+                }
+
+                const loanReferenceExists =
+                    await loanReferenceRepository.countUniqueCustomerId(
+                        validatedRequest.customer_id,
+                    );
+
+                if (loanReferenceExists !== 0) {
+                    throw new BadRequestException(
+                        'Nasabah ini sudah memiliki data referensi',
+                    );
+                }
+
+                const monthly_surplus = getMonthlySurplus(
+                    validatedRequest.monthly_income,
+                    validatedRequest.monthly_expenses,
+                );
+
+                const installment = getInstallment(
+                    validatedRequest.requested_loan_amount,
+                    validatedRequest.loan_term,
+                    1,
+                );
+
+                const validatedCalculatedLoanValues: CalculatedLoanValues =
+                    validateSchema(calculatedLoanValues, {
+                        monthly_surplus,
+                        installment,
+                    });
+
+                const loanReference = await loanReferenceRepository.insert({
+                    ...validatedRequest,
+                    ...validatedCalculatedLoanValues,
+                });
+
+                const creditWorthinessStatus =
+                    getCreditWorthiness(loanReference);
+                await creditWorthinessService.create({
+                    status: creditWorthinessStatus,
+                    customer_id: loanReference.customer_id,
+                    loan_reference_id: loanReference.id,
+                });
+
+                return loanReference;
+            }),
+        );
+
+        return insertedReferences.length;
+    },
+
     update: async (
         id: string,
         request: UpdateLoanReferenceRequest,

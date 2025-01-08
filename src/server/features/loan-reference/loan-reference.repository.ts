@@ -61,6 +61,16 @@ export const loanReferenceRepository = {
         return loanReference;
     },
 
+    insertMany: async (
+        requests: (CreateLoanReferenceRequest & CalculatedLoanValues)[],
+    ): Promise<number> => {
+        const loanReference = await db.loanReference.createMany({
+            data: { ...requests },
+        });
+
+        return loanReference.count;
+    },
+
     update: async (
         id: string,
         request: UpdateLoanReferenceRequest & CalculatedLoanValues,

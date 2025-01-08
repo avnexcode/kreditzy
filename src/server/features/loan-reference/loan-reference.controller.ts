@@ -81,6 +81,22 @@ export const loanReferenceController = {
         }
     },
 
+    POST_MANY: async (
+        request: NextRequest,
+    ): Promise<NextResponse<IApiResponse<number>>> => {
+        try {
+            const requestBody =
+                (await request.json()) as CreateLoanReferenceRequest[];
+            const data = await loanReferenceService.createMany(requestBody);
+            return ApiResponse.success(
+                data,
+                createMessagePostSuccess('Loan reference'),
+            );
+        } catch (error) {
+            return ErrorFilter.catch(error);
+        }
+    },
+
     PUT: async (
         request: NextRequest,
         context: { params: Promise<{ id: string }> },
