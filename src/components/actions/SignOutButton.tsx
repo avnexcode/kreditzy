@@ -1,7 +1,13 @@
 'use client';
 import { signOut } from 'next-auth/react';
-import { Button } from '../ui/button';
+import InteractiveHoverButton from '../ui/interactive-hover-button';
 
 export const SignOutButton = () => {
-    return <Button onClick={() => signOut()}>Logout</Button>;
+    return (
+        <InteractiveHoverButton
+            className="z-50"
+            onClick={() => signOut()}
+            text="Logout"
+        />
+    );
 };

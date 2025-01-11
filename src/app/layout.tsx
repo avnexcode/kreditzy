@@ -16,7 +16,7 @@ export const metadata: Metadata = {
     title: 'KrediTzy',
     description: "I Don't Know What I'am Building",
     icons: [
-        { rel: 'icon', url: '/kreditzycon.ico' },
+        { rel: 'icon', url: '/kreditzy-icon.png' },
         { rel: 'apple-touch-icon', url: '/apple-touch-icon.png' }, // Optional: for iOS devices
     ],
 };
