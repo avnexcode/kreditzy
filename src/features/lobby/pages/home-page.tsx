@@ -25,7 +25,13 @@ export const HomePage = () => {
                     </div>
                     <MorphingText
                         className="ml-80"
-                        texts={['Aziz', 'Petrus', 'Jigan', 'Aldy', 'Anwar']}
+                        texts={[
+                            'Aziz',
+                            'Petrus',
+                            'Jigan',
+                            'Bendot',
+                            'Ki Anwar',
+                        ]}
                     />
                 </div>
             </div>
