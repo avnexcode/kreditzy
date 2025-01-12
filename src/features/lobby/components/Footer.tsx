@@ -1,5 +1,6 @@
 import TypingAnimation from '~/components/ui/typing-animation';
 import WordRotate from '~/components/ui/word-rotate';
+import { FullnameList } from './FullnameList';
 
 export const Footer = () => {
     return (
@@ -7,16 +8,7 @@ export const Footer = () => {
             <TypingAnimation className="text-sm">
                 Create with 💖 by
             </TypingAnimation>
-            <WordRotate
-                className="font-bold text-black dark:text-white w-[300px]"
-                words={[
-                    'Muhammad Fauzi Nur Aziz',
-                    'Rafi Andrea Lesmana',
-                    'Jihan Khansa Nadhila',
-                    'Aldy Ibnu Faizal',
-                    'Alfian Anwar Shodiqi',
-                ]}
-            />
+            <FullnameList className="font-bold" />
         </footer>
     );
 };

@@ -1,7 +1,7 @@
 import { Navbar } from '~/features/lobby/components/Navbar';
 import AnimatedGridPattern from '../ui/animated-grid-pattern';
 import { cn } from '~/lib/utils';
-import { Footer } from '../elements/Footer';
+import { Footer } from '../../features/lobby/components/Footer';
 
 type LobbyContainerProps = {
     children: React.ReactNode;
