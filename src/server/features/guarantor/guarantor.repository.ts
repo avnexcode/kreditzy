@@ -2,12 +2,12 @@ import { db } from '~/server/db/prisma';
 import { type Guarantor } from '@prisma/client';
 import type {
     CreateGuarantorRequest,
-    GuarantorWithRelations,
+    GuarantorWithRelationsResponse,
     UpdateGuarantorRequest,
 } from './guarantor.model';
 
 export const guarantorRepository = {
-    findMany: async (): Promise<GuarantorWithRelations[]> => {
+    findMany: async (): Promise<GuarantorWithRelationsResponse[]> => {
         const guarantors = await db.guarantor.findMany({
             include: {
                 customer: true,
@@ -16,6 +16,7 @@ export const guarantorRepository = {
 
         return guarantors;
     },
+
     countMany: async (): Promise<number> => {
         const countguarantors = await db.guarantor.count();
 
@@ -24,7 +25,7 @@ export const guarantorRepository = {
 
     findUniqueId: async (
         id: string,
-    ): Promise<GuarantorWithRelations | null> => {
+    ): Promise<GuarantorWithRelationsResponse | null> => {
         const guarantor = await db.guarantor.findUnique({
             where: { id },
             include: {
@@ -37,7 +38,7 @@ export const guarantorRepository = {
 
     findUniqueNationalId: async (
         national_id: string,
-    ): Promise<GuarantorWithRelations | null> => {
+    ): Promise<GuarantorWithRelationsResponse | null> => {
         const guarantor = await db.guarantor.findUnique({
             where: { national_id },
             include: {

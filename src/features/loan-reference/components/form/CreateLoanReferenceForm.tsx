@@ -12,7 +12,7 @@ export const CreateLoanReferenceForm = ({
     setIsOpen,
     setIsPending,
 }: CreateLoanReferenceFormProps) => {
-    const { refetch: refetchLoanReference } = useLoanReferences();
+    const { refetch: refetchLoanReferences } = useLoanReferences();
     const { toast } = useToast();
 
     const {
@@ -23,7 +23,7 @@ export const CreateLoanReferenceForm = ({
             setIsPending(isCreateLoanReferencePending);
         },
         onSuccess: async () => {
-            await refetchLoanReference();
+            await refetchLoanReferences();
             setIsOpen(false);
             toast({
                 title: 'Success',

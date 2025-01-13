@@ -44,5 +44,6 @@ export type CustomerWithRelations = Prisma.CustomerGetPayload<{
         guarantors: true;
         loan_reference: true;
         credit_worthiness: true;
+        transaction: true;
     };
 }>;

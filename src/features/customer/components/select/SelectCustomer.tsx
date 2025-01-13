@@ -72,7 +72,7 @@ export const SelectCustomer = <T extends FieldValues>({
                             )}
                             {renderElements({
                                 of: customers,
-                                render: (customer, index) => (
+                                render: customer => (
                                     <SelectItem
                                         key={customer.id}
                                         value={customer.id}

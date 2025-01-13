@@ -14,7 +14,7 @@ import {
 } from '~/server/helper/message.response';
 import type {
     CreateGuarantorRequest,
-    GuarantorWithRelations,
+    GuarantorWithRelationsResponse,
     UpdateGuarantorRequest,
 } from './guarantor.model';
 import { guarantorService } from './guarantor.service';
@@ -22,7 +22,7 @@ import { BadRequestException } from '~/server/helper/error.exception';
 
 export const guarantorController = {
     GET: async (): Promise<
-        NextResponse<IApiResponse<GuarantorWithRelations[]>>
+        NextResponse<IApiResponse<GuarantorWithRelationsResponse[]>>
     > => {
         try {
             const data = await guarantorService.getAll();
@@ -38,7 +38,7 @@ export const guarantorController = {
     GET_ID: async (
         request: NextRequest,
         context: { params: Promise<{ id: string }> },
-    ): Promise<NextResponse<IApiResponse<GuarantorWithRelations>>> => {
+    ): Promise<NextResponse<IApiResponse<GuarantorWithRelationsResponse>>> => {
         try {
             const params = await context.params;
             const id = params?.id;

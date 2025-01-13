@@ -14,7 +14,7 @@ import {
 } from '~/server/helper/message.response';
 import type {
     CreateCreditworthinessRequest,
-    CreditWorthinessWithRelations,
+    CreditWorthinessWithRelationsResponse,
     UpdateCreditworthinessRequest,
 } from './credit-worthiness.model';
 import { creditWorthinessService } from './credit-worthiness.service';
@@ -22,7 +22,7 @@ import { BadRequestException } from '~/server/helper/error.exception';
 
 export const creditWorthinessController = {
     GET: async (): Promise<
-        NextResponse<IApiResponse<CreditWorthinessWithRelations[]>>
+        NextResponse<IApiResponse<CreditWorthinessWithRelationsResponse[]>>
     > => {
         try {
             const data = await creditWorthinessService.getAll();
@@ -38,7 +38,9 @@ export const creditWorthinessController = {
     GET_ID: async (
         request: NextRequest,
         context: { params: Promise<{ id: string }> },
-    ): Promise<NextResponse<IApiResponse<CreditWorthinessWithRelations>>> => {
+    ): Promise<
+        NextResponse<IApiResponse<CreditWorthinessWithRelationsResponse>>
+    > => {
         try {
             const params = await context.params;
             const id = params?.id;

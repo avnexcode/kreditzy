@@ -1,5 +1,4 @@
 import TypingAnimation from '~/components/ui/typing-animation';
-import WordRotate from '~/components/ui/word-rotate';
 import { FullnameList } from './FullnameList';
 
 export const Footer = () => {

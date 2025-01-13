@@ -1,5 +1,5 @@
 import { DashboardContainer } from '~/components/layouts/DashboardContainer';
-import { LoanReferenceView } from '../components/views/LoanReferenceView';
+import { LoanReferenceView } from '../components/view/LoanReferenceView';
 import { getLoanReferenceById } from '../api/server/getLoanReferenceById';
 
 type DashboardDetailLoanReferencePageProps = {

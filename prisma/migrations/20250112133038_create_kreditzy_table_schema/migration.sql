@@ -1,3 +1,6 @@
+-- CreateEnum
+CREATE TYPE "PaymentStatus" AS ENUM ('PENDING', 'PAID', 'LATE', 'DEFAULT');
+
 -- CreateTable
 CREATE TABLE "users" (
     "id" TEXT NOT NULL,
@@ -72,6 +75,8 @@ CREATE TABLE "credit_worthinesses" (
     "status" BOOLEAN NOT NULL,
     "customer_id" TEXT NOT NULL,
     "loan_reference_id" TEXT NOT NULL,
+    "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updated_at" TIMESTAMP(3) NOT NULL,
 
     CONSTRAINT "credit_worthinesses_pkey" PRIMARY KEY ("id")
 );
@@ -83,8 +88,27 @@ CREATE TABLE "transactions" (
     "loan_term" INTEGER NOT NULL,
     "loan_amount" VARCHAR(100) NOT NULL,
     "customer_id" TEXT NOT NULL,
+    "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updated_at" TIMESTAMP(3) NOT NULL,
 
     CONSTRAINT "transactions_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "payment_records" (
+    "id" TEXT NOT NULL,
+    "payment_date" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "due_date" TIMESTAMP(3) NOT NULL,
+    "amount_paid" VARCHAR(100) NOT NULL,
+    "payment_status" "PaymentStatus" NOT NULL DEFAULT 'PENDING',
+    "payment_month" INTEGER NOT NULL,
+    "transaction_id" TEXT NOT NULL,
+    "payment_method" VARCHAR(50),
+    "notes" TEXT,
+    "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updated_at" TIMESTAMP(3) NOT NULL,
+
+    CONSTRAINT "payment_records_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateIndex
@@ -125,3 +149,6 @@ ALTER TABLE "credit_worthinesses" ADD CONSTRAINT "credit_worthinesses_loan_refer
 
 -- AddForeignKey
 ALTER TABLE "transactions" ADD CONSTRAINT "transactions_customer_id_fkey" FOREIGN KEY ("customer_id") REFERENCES "customers"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "payment_records" ADD CONSTRAINT "payment_records_transaction_id_fkey" FOREIGN KEY ("transaction_id") REFERENCES "transactions"("id") ON DELETE CASCADE ON UPDATE CASCADE;

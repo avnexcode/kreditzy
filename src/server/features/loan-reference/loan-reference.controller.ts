@@ -14,7 +14,7 @@ import {
 } from '~/server/helper/message.response';
 import type {
     CreateLoanReferenceRequest,
-    LoanReferenceWithRelations,
+    LoanReferenceWithRelationsResponse,
     UpdateLoanReferenceRequest,
 } from './loan-reference.model';
 import { loanReferenceService } from './loan-reference.service';
@@ -22,7 +22,7 @@ import { BadRequestException } from '~/server/helper/error.exception';
 
 export const loanReferenceController = {
     GET: async (): Promise<
-        NextResponse<IApiResponse<LoanReferenceWithRelations[]>>
+        NextResponse<IApiResponse<LoanReferenceWithRelationsResponse[]>>
     > => {
         try {
             const data = await loanReferenceService.getAll();
@@ -38,7 +38,9 @@ export const loanReferenceController = {
     GET_ID: async (
         request: NextRequest,
         context: { params: Promise<{ id: string }> },
-    ): Promise<NextResponse<IApiResponse<LoanReferenceWithRelations>>> => {
+    ): Promise<
+        NextResponse<IApiResponse<LoanReferenceWithRelationsResponse>>
+    > => {
         try {
             const params = await context.params;
             const id = params?.id;

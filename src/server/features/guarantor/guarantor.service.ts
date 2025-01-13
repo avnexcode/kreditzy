@@ -1,7 +1,7 @@
 import { validateSchema } from '~/server/service/validation.service';
 import type {
     CreateGuarantorRequest,
-    GuarantorWithRelations,
+    GuarantorWithRelationsResponse,
     UpdateGuarantorRequest,
 } from './guarantor.model';
 import { guarantorRepository } from './guarantor.repository';
@@ -20,7 +20,7 @@ import {
 } from './guarantor.response';
 
 export const guarantorService = {
-    getAll: async (): Promise<GuarantorWithRelations[]> => {
+    getAll: async (): Promise<GuarantorWithRelationsResponse[]> => {
         const response = await guarantorRepository.findMany();
 
         const guarantors = response?.map(guarantor =>
@@ -30,7 +30,7 @@ export const guarantorService = {
         return guarantors;
     },
 
-    getById: async (id: string): Promise<GuarantorWithRelations> => {
+    getById: async (id: string): Promise<GuarantorWithRelationsResponse> => {
         const guarantor = await guarantorRepository.findUniqueId(id);
 
         if (!guarantor) {

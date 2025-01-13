@@ -14,6 +14,9 @@ export const publicRoutes = [
     '/api/credit-worthinesses',
     '/api/credit-worthinesses/stats/length',
     '/api/credit-worthinesses/:id',
+    '/api/transactions',
+    '/api/transactions/stats/length',
+    '/api/transactions/:id',
 ];
 
 export const authRoutes = ['/login', '/register', '/error'];

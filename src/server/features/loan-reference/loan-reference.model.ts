@@ -16,8 +16,10 @@ export type UpdateLoanReferenceRequest = z.infer<
 
 export type CalculatedLoanValues = z.infer<typeof calculatedLoanValues>;
 
-export type LoanReferenceWithRelations = Prisma.LoanReferenceGetPayload<{
-    include: {
-        customer: true;
-    };
-}>;
+export type LoanReferenceWithRelationsResponse =
+    Prisma.LoanReferenceGetPayload<{
+        include: {
+            customer: true;
+            credit_worthiness: true;
+        };
+    }>;

@@ -19,14 +19,14 @@ import {
 import type {
     CalculatedLoanValues,
     CreateLoanReferenceRequest,
-    LoanReferenceWithRelations,
+    LoanReferenceWithRelationsResponse,
     UpdateLoanReferenceRequest,
 } from './loan-reference.model';
 import { creditWorthinessService } from '../credit-worthiness/credit-worthiness.service';
 import { customerService } from '../customer/customer.service';
 
 export const loanReferenceService = {
-    getAll: async (): Promise<LoanReferenceWithRelations[]> => {
+    getAll: async (): Promise<LoanReferenceWithRelationsResponse[]> => {
         const response = await loanReferenceRepository.findMany();
 
         const loanReferences = response.map(loanReference =>
@@ -36,12 +36,27 @@ export const loanReferenceService = {
         return loanReferences;
     },
 
-    getById: async (id: string): Promise<LoanReferenceWithRelations> => {
+    getById: async (
+        id: string,
+    ): Promise<LoanReferenceWithRelationsResponse> => {
         const loanReference = await loanReferenceRepository.findUniqueId(id);
 
         if (!loanReference) {
             throw new NotFoundException(
                 `Not found loan reference with id = ${id}.`,
+            );
+        }
+
+        return toLoanReferenceWithRelationsResponse(loanReference);
+    },
+
+    getByCustomerId: async (customer_id: string) => {
+        const loanReference =
+            await loanReferenceRepository.findUniqueCustomerId(customer_id);
+
+        if (!loanReference) {
+            throw new NotFoundException(
+                `Not found loan reference with customer id = ${customer_id}.`,
             );
         }
 
@@ -84,7 +99,7 @@ export const loanReferenceService = {
 
         if (loanReferenceExists !== 0) {
             throw new BadRequestException(
-                'Nasabah ini sudah memiliki data referensi',
+                'This customer already has a loan reference data',
             );
         }
 

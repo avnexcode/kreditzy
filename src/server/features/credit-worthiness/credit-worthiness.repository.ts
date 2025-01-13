@@ -1,13 +1,13 @@
 import { db } from '~/server/db/prisma';
 import type {
     CreateCreditworthinessRequest,
-    CreditWorthinessWithRelations,
+    CreditWorthinessWithRelationsResponse,
     UpdateCreditworthinessRequest,
 } from './credit-worthiness.model';
 import { type CreditWorthiness } from '@prisma/client';
 
 export const creditWorthinessRepository = {
-    findMany: async (): Promise<CreditWorthinessWithRelations[]> => {
+    findMany: async (): Promise<CreditWorthinessWithRelationsResponse[]> => {
         const creditWorthinesses = await db.creditWorthiness.findMany({
             include: {
                 customer: true,
@@ -20,7 +20,7 @@ export const creditWorthinessRepository = {
 
     findUniqueId: async (
         id: string,
-    ): Promise<CreditWorthinessWithRelations | null> => {
+    ): Promise<CreditWorthinessWithRelationsResponse | null> => {
         const creditWorthiness = await db.creditWorthiness.findUnique({
             where: { id },
             include: {

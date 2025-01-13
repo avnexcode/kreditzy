@@ -1,5 +1,5 @@
 import { type Guarantor } from '@prisma/client';
-import type { GuarantorWithRelations } from './guarantor.model';
+import type { GuarantorWithRelationsResponse } from './guarantor.model';
 
 export const toGuarantorResponse = (guarantor: Guarantor): Guarantor => ({
     id: guarantor.id,
@@ -16,8 +16,8 @@ export const toGuarantorResponse = (guarantor: Guarantor): Guarantor => ({
 });
 
 export const toGuarantorWithRelationsResponse = (
-    guarantor: GuarantorWithRelations,
-): GuarantorWithRelations => ({
+    guarantor: GuarantorWithRelationsResponse,
+): GuarantorWithRelationsResponse => ({
     ...toGuarantorResponse(guarantor),
     customer: guarantor.customer,
 });

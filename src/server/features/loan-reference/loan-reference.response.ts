@@ -1,5 +1,5 @@
 import { type LoanReference } from '@prisma/client';
-import type { LoanReferenceWithRelations } from './loan-reference.model';
+import type { LoanReferenceWithRelationsResponse } from './loan-reference.model';
 
 export const toLoanReferenceResponses = (
     loanReference: LoanReference,
@@ -20,8 +20,9 @@ export const toLoanReferenceResponses = (
 });
 
 export const toLoanReferenceWithRelationsResponse = (
-    loanReference: LoanReferenceWithRelations,
-): LoanReferenceWithRelations => ({
+    loanReference: LoanReferenceWithRelationsResponse,
+): LoanReferenceWithRelationsResponse => ({
     ...toLoanReferenceResponses(loanReference),
     customer: loanReference.customer,
+    credit_worthiness: loanReference.credit_worthiness,
 });

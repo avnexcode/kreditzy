@@ -2,16 +2,17 @@ import { db } from '~/server/db/prisma';
 import type {
     CalculatedLoanValues,
     CreateLoanReferenceRequest,
-    LoanReferenceWithRelations,
+    LoanReferenceWithRelationsResponse,
     UpdateLoanReferenceRequest,
 } from './loan-reference.model';
 import { type LoanReference } from '@prisma/client';
 
 export const loanReferenceRepository = {
-    findMany: async (): Promise<LoanReferenceWithRelations[]> => {
+    findMany: async (): Promise<LoanReferenceWithRelationsResponse[]> => {
         const loanReferences = await db.loanReference.findMany({
             include: {
                 customer: true,
+                credit_worthiness: true,
             },
         });
 
@@ -20,10 +21,24 @@ export const loanReferenceRepository = {
 
     findUniqueId: async (
         id: string,
-    ): Promise<LoanReferenceWithRelations | null> => {
+    ): Promise<LoanReferenceWithRelationsResponse | null> => {
         const loanReference = await db.loanReference.findUnique({
             where: { id },
-            include: { customer: true },
+            include: { customer: true, credit_worthiness: true },
+        });
+
+        return loanReference;
+    },
+
+    findUniqueCustomerId: async (
+        customer_id: string,
+    ): Promise<LoanReferenceWithRelationsResponse | null> => {
+        const loanReference = await db.loanReference.findUnique({
+            where: { customer_id },
+            include: {
+                customer: true,
+                credit_worthiness: true,
+            },
         });
 
         return loanReference;

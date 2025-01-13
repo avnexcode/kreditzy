@@ -12,9 +12,10 @@ export type UpdateCreditworthinessRequest = z.infer<
     typeof updateCreditWorthinessRequest
 >;
 
-export type CreditWorthinessWithRelations = Prisma.CreditWorthinessGetPayload<{
-    include: {
-        customer: true;
-        loan_reference: true;
-    };
-}>;
+export type CreditWorthinessWithRelationsResponse =
+    Prisma.CreditWorthinessGetPayload<{
+        include: {
+            customer: true;
+            loan_reference: true;
+        };
+    }>;

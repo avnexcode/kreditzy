@@ -8,7 +8,7 @@ import { type Prisma } from '@prisma/client';
 export type CreateGuarantorRequest = z.infer<typeof createGuarantorRequest>;
 export type UpdateGuarantorRequest = z.infer<typeof updateGuarantorRequest>;
 
-export type GuarantorWithRelations = Prisma.GuarantorGetPayload<{
+export type GuarantorWithRelationsResponse = Prisma.GuarantorGetPayload<{
     include: {
         customer: true;
     };

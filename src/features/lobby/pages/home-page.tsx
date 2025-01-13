@@ -7,7 +7,7 @@ import Globe from '~/components/ui/globe';
 
 export const HomePage = () => {
     return (
-        <LobbyContainer className="min-h-screen max-h-screen overflow-hidden">
+        <LobbyContainer className="min-h-screen max-h-screen overflow-hidden relative">
             <div className="z-50 w-full flex justify-center items-center flex-col gap-5">
                 <div>
                     <HeroImage />
@@ -22,7 +22,7 @@ export const HomePage = () => {
                 refresh
             />
             <Meteors number={100} />
-            <Globe className="top-28 -z-50" />
+            <Globe className="-z-50 top-96" />
         </LobbyContainer>
     );
 };

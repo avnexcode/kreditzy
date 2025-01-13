@@ -15,14 +15,14 @@ import {
 } from '~/server/helper/message.response';
 import type {
     CreateCustomerRequest,
-    CustomerWithRelations,
+    CustomerWithRelationsResponse,
     UpdateCustomerRequest,
 } from './customer.model';
 import { BadRequestException } from '~/server/helper/error.exception';
 
 export const customerController = {
     GET: async (): Promise<
-        NextResponse<IApiResponse<CustomerWithRelations[]>>
+        NextResponse<IApiResponse<CustomerWithRelationsResponse[]>>
     > => {
         try {
             const data = await customerService.getAll();
@@ -38,7 +38,7 @@ export const customerController = {
     GET_ID: async (
         request: NextRequest,
         context: { params: Promise<{ id: string }> },
-    ): Promise<NextResponse<IApiResponse<CustomerWithRelations>>> => {
+    ): Promise<NextResponse<IApiResponse<CustomerWithRelationsResponse>>> => {
         try {
             const params = await context.params;
             const id = params?.id;

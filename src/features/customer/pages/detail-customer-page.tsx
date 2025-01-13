@@ -1,5 +1,5 @@
 import { DashboardContainer } from '~/components/layouts/DashboardContainer';
-import { DetailView } from '../components/views/DetailView';
+import { DetailView } from '../components/view/DetailView';
 
 type DashboardDetailCustomerPageProps = {
     params: Promise<{

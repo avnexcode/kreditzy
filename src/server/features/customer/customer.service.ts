@@ -3,7 +3,7 @@ import { customerRepository } from './customer.repository';
 import { validateSchema } from '~/server/service/validation.service';
 import type {
     CreateCustomerRequest,
-    CustomerWithRelations,
+    CustomerWithRelationsResponse,
     UpdateCustomerRequest,
 } from './customer.model';
 import {
@@ -20,7 +20,7 @@ import {
 } from './customer.response';
 
 export const customerService = {
-    getAll: async (): Promise<CustomerWithRelations[]> => {
+    getAll: async (): Promise<CustomerWithRelationsResponse[]> => {
         const response = await customerRepository.findMany();
 
         const customers = response?.map(customer =>
@@ -30,7 +30,7 @@ export const customerService = {
         return customers;
     },
 
-    getById: async (id: string): Promise<CustomerWithRelations> => {
+    getById: async (id: string): Promise<CustomerWithRelationsResponse> => {
         const customer = await customerRepository.findUniqueId(id);
 
         if (!customer) {

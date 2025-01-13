@@ -1,0 +1,27 @@
+import { Transaction } from '@prisma/client';
+import { TransactionWithRelationsResponse } from './transaction.model';
+
+export const toTransactionResponse = (
+    transaction: Transaction,
+): Transaction => ({
+    id: transaction.id,
+    loan_installment: transaction.loan_installment,
+    interest_installment: transaction.interest_installment,
+    total_installment: transaction.total_installment,
+    loan_amount: transaction.loan_amount,
+    interest_amount: transaction.interest_amount,
+    total_amount: transaction.total_amount,
+    loan_term: transaction.loan_term,
+    end_transaction: transaction.end_transaction,
+    customer_id: transaction.customer_id,
+    created_at: transaction.created_at,
+    updated_at: transaction.updated_at,
+});
+
+export const toTransactionWithRelationResponse = (
+    transaction: TransactionWithRelationsResponse,
+): TransactionWithRelationsResponse => ({
+    ...toTransactionResponse(transaction),
+    customer: transaction.customer,
+    payment_records: transaction.payment_records,
+});

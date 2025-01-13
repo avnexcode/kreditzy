@@ -3,7 +3,7 @@ import { creditWorthinessRepository } from './credit-worthiness.repository';
 import { type CreditWorthiness } from '@prisma/client';
 import type {
     CreateCreditworthinessRequest,
-    CreditWorthinessWithRelations,
+    CreditWorthinessWithRelationsResponse,
     UpdateCreditworthinessRequest,
 } from './credit-worthiness.model';
 
@@ -12,15 +12,25 @@ import {
     updateCreditWorthinessRequest,
 } from './credit-worthiness.validation';
 import { NotFoundException } from '~/server/helper/error.exception';
+import {
+    toCreditWorthinessResponse,
+    toCreditWorthinessWithRelationsResponse,
+} from './credit-worthiness.response';
 
 export const creditWorthinessService = {
-    getAll: async (): Promise<CreditWorthinessWithRelations[]> => {
-        const creditWorthiness = await creditWorthinessRepository.findMany();
+    getAll: async (): Promise<CreditWorthinessWithRelationsResponse[]> => {
+        const response = await creditWorthinessRepository.findMany();
 
-        return creditWorthiness;
+        const creditWorthinesses = response.map(creditWorthiness =>
+            toCreditWorthinessWithRelationsResponse(creditWorthiness),
+        );
+
+        return creditWorthinesses;
     },
 
-    getById: async (id: string): Promise<CreditWorthinessWithRelations> => {
+    getById: async (
+        id: string,
+    ): Promise<CreditWorthinessWithRelationsResponse> => {
         const creditWorthiness =
             await creditWorthinessRepository.findUniqueId(id);
 
@@ -29,26 +39,26 @@ export const creditWorthinessService = {
                 `Credit woorthiness with id : ${id} not found`,
             );
         }
-        return creditWorthiness;
+        return toCreditWorthinessWithRelationsResponse(creditWorthiness);
     },
 
     getByCustomerId: async (
         customer_id: string,
-    ): Promise<CreditWorthinessWithRelations> => {
+    ): Promise<CreditWorthinessWithRelationsResponse> => {
         const creditWorthiness =
-            await creditWorthinessRepository.findUniqueId(customer_id);
+            await creditWorthinessRepository.findUniqueCustomerId(customer_id);
 
         if (!creditWorthiness) {
             throw new NotFoundException(
                 `Credit woorthiness with customer id : ${customer_id} not found`,
             );
         }
-        return creditWorthiness;
+        return toCreditWorthinessWithRelationsResponse(creditWorthiness);
     },
 
     getByLoanReferenceId: async (
         loan_reference_id: string,
-    ): Promise<CreditWorthinessWithRelations> => {
+    ): Promise<CreditWorthinessWithRelationsResponse> => {
         const creditWorthiness =
             await creditWorthinessRepository.findUniqueLoanReferenceId(
                 loan_reference_id,
@@ -59,7 +69,7 @@ export const creditWorthinessService = {
                 `Credit worthiness with loan reference id : ${loan_reference_id} not found`,
             );
         }
-        return creditWorthiness;
+        return toCreditWorthinessWithRelationsResponse(creditWorthiness);
     },
 
     countAll: async (): Promise<number> => {
@@ -70,10 +80,10 @@ export const creditWorthinessService = {
     },
 
     countById: async (id: string): Promise<number> => {
-        const creditWorthiness =
+        const creditWorthinessCount =
             await creditWorthinessRepository.countUniqueId(id);
 
-        return creditWorthiness;
+        return creditWorthinessCount;
     },
 
     create: async (
@@ -87,7 +97,7 @@ export const creditWorthinessService = {
         const creditWorthiness =
             await creditWorthinessRepository.insert(validatedRequest);
 
-        return creditWorthiness;
+        return toCreditWorthinessResponse(creditWorthiness);
     },
 
     update: async (
@@ -104,7 +114,7 @@ export const creditWorthinessService = {
             validatedRequest,
         );
 
-        return creditWorthiness;
+        return toCreditWorthinessResponse(creditWorthiness);
     },
 
     delete: async (id: string): Promise<{ id: string }> => {

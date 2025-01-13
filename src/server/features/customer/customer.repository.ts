@@ -1,18 +1,19 @@
 import { db } from '~/server/db/prisma';
 import type {
     CreateCustomerRequest,
-    CustomerWithRelations,
+    CustomerWithRelationsResponse,
     UpdateCustomerRequest,
 } from './customer.model';
 import { type Customer } from '@prisma/client';
 
 export const customerRepository = {
-    findMany: async (): Promise<CustomerWithRelations[]> => {
+    findMany: async (): Promise<CustomerWithRelationsResponse[]> => {
         const customers = await db.customer.findMany({
             include: {
                 guarantors: true,
                 loan_reference: true,
                 credit_worthiness: true,
+                transaction: true,
             },
         });
 
@@ -25,13 +26,16 @@ export const customerRepository = {
         return countCustomers;
     },
 
-    findUniqueId: async (id: string): Promise<CustomerWithRelations | null> => {
+    findUniqueId: async (
+        id: string,
+    ): Promise<CustomerWithRelationsResponse | null> => {
         const customer = await db.customer.findUnique({
             where: { id },
             include: {
                 guarantors: true,
                 loan_reference: true,
                 credit_worthiness: true,
+                transaction: true,
             },
         });
 
@@ -40,13 +44,14 @@ export const customerRepository = {
 
     findUniqueNationalId: async (
         national_id: string,
-    ): Promise<CustomerWithRelations | null> => {
+    ): Promise<CustomerWithRelationsResponse | null> => {
         const customer = await db.customer.findUnique({
             where: { national_id },
             include: {
                 guarantors: true,
                 loan_reference: true,
                 credit_worthiness: true,
+                transaction: true,
             },
         });
 
