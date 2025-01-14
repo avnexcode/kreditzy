@@ -25,6 +25,56 @@ export const transactionRepository = {
         return transactionsCount;
     },
 
+    countManyPreviousMonth: async (): Promise<number> => {
+        const today = new Date();
+        const firstDayPrevMonth = new Date(
+            today.getFullYear(),
+            today.getMonth() - 1,
+            1,
+        );
+        const lastDayPrevMonth = new Date(
+            today.getFullYear(),
+            today.getMonth(),
+            0,
+        );
+
+        const countTransactions = await db.transaction.count({
+            where: {
+                created_at: {
+                    gte: firstDayPrevMonth,
+                    lte: lastDayPrevMonth,
+                },
+            },
+        });
+
+        return countTransactions;
+    },
+
+    countManyCurrentMonth: async (): Promise<number> => {
+        const today = new Date();
+        const firstDayCurrentMonth = new Date(
+            today.getFullYear(),
+            today.getMonth(),
+            1,
+        );
+        const lastDayCurrentMonth = new Date(
+            today.getFullYear(),
+            today.getMonth() + 1,
+            0,
+        );
+
+        const countTransactions = await db.transaction.count({
+            where: {
+                created_at: {
+                    gte: firstDayCurrentMonth,
+                    lte: lastDayCurrentMonth,
+                },
+            },
+        });
+
+        return countTransactions;
+    },
+
     findUniqueId: async (
         id: string,
     ): Promise<TransactionWithRelationsResponse | null> => {
@@ -44,6 +94,17 @@ export const transactionRepository = {
     ): Promise<TransactionWithRelationsResponse | null> => {
         const transaction = await db.transaction.findUnique({
             where: { customer_id },
+            include: { customer: true, payment_records: true },
+        });
+
+        return transaction;
+    },
+
+    findUniqueLoanReferenceId: async (
+        loan_reference_id: string,
+    ): Promise<TransactionWithRelationsResponse | null> => {
+        const transaction = await db.transaction.findUnique({
+            where: { loan_reference_id },
             include: { customer: true, payment_records: true },
         });
 
@@ -76,7 +137,7 @@ export const transactionRepository = {
 
     update: async (
         id: string,
-        request: UpdateTransactionRequest & LoanReferenceRequest,
+        request: UpdateTransactionRequest,
     ): Promise<Transaction> => {
         const transaction = await db.transaction.update({
             where: { id },

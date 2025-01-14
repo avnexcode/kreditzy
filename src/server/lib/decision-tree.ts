@@ -19,9 +19,11 @@ export const getInstallment = (
     const baseInstallment =
         parseValue.safeParseNumber(requested_loan_amount) /
         parseValue.safeParseNumber(loan_term);
+
     const interestAmount =
         parseValue.safeParseNumber(requested_loan_amount) *
         (interest_rate / 100);
+
     return String(Math.ceil((baseInstallment + interestAmount) / 100) * 100);
 };
 

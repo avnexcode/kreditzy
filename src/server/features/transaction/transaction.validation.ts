@@ -20,6 +20,7 @@ export const loanReferenceRequest = z.object({
     loan_amount: z.string().min(1).max(100),
     interest_amount: z.string().min(1).max(100),
     total_amount: z.string().min(1).max(100),
+    loan_reference_id: z.string().min(1),
     transaction_status: z.enum(['ACTIVE', 'PAID', 'CANCELED', 'OVERDUE']),
     end_transaction: z
         .date()

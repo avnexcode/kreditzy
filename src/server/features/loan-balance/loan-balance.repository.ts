@@ -1,1 +1,1 @@
-export const paymentRecordRepository = {};
+export const loanBalanceRepository = {};

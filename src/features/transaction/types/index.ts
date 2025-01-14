@@ -5,7 +5,11 @@ export const createTransactionFormSchema = z.object({
     customer_id: z.string(),
 });
 
-export const updateTransactionFormSchema = createTransactionFormSchema;
+export const updateTransactionFormSchema = createTransactionFormSchema.extend({
+    transaction_status: z
+        .enum(['ACTIVE', 'PAID', 'CANCELED', 'OVERDUE'])
+        .optional(),
+});
 
 export type CreateTransactionFormSchema = z.infer<
     typeof createTransactionFormSchema

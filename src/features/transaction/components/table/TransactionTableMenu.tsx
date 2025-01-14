@@ -34,6 +34,14 @@ export const TransactionTableMenu = (props: TransactionTableMenuProps) => {
                     <ScanEye />
                     Detail
                 </DropdownMenuItem>
+                <DropdownMenuItem
+                    onClick={() =>
+                        router.push(`/dashboard/transaction/${props.id}/edit`)
+                    }
+                >
+                    <Pencil />
+                    Edit
+                </DropdownMenuItem>
                 <DeleteTransactionDialog id={props.id} onClose={handleOpen} />
             </DropdownMenuContent>
         </DropdownMenu>

@@ -48,7 +48,12 @@ export function DashboardBadge({
         : '';
 
     return (
-        <Card className={cn('relative bg-white text-gray-700', rootClassName)}>
+        <Card
+            className={cn(
+                'relative bg-white text-gray-700 flex flex-col',
+                rootClassName,
+            )}
+        >
             <div
                 className={cn(
                     'bg-clip-border mx-4 rounded-xl overflow-hidden shadow-lg absolute -mt-4 z-10',
@@ -60,7 +65,9 @@ export function DashboardBadge({
                 {icon}
             </div>
 
-            <CardContent className={cn('p-4 text-right', statsClassName)}>
+            <CardContent
+                className={cn('p-4 text-right flex-none', statsClassName)}
+            >
                 <p className="block antialiased text-sm leading-normal font-normal text-blue-gray-600">
                     {label}
                 </p>
@@ -78,7 +85,7 @@ export function DashboardBadge({
             {percentage !== undefined && trend && trendLabel && (
                 <CardFooter
                     className={cn(
-                        'border-t border-blue-gray-50 p-4',
+                        'border-t border-blue-gray-50 p-4 flex-1',
                         trendClassName,
                     )}
                 >

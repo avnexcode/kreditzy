@@ -13,3 +13,15 @@ export type GuarantorWithRelationsResponse = Prisma.GuarantorGetPayload<{
         customer: true;
     };
 }>;
+
+export type GuarantorWithCustomerRelationsResponse =
+    Prisma.GuarantorGetPayload<{
+        include: {
+            customer: {
+                include: {
+                    loan_reference: true;
+                    guarantors: true;
+                };
+            };
+        };
+    }>;

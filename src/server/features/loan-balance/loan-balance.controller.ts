@@ -1,1 +1,1 @@
-export const paymentRecordController = {};
+export const loanBalanceController = {};

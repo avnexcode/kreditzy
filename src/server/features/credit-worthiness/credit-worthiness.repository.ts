@@ -75,7 +75,7 @@ export const creditWorthinessRepository = {
             0,
         );
 
-        const countCustomers = await db.creditWorthiness.count({
+        const countCreditWorthiness = await db.creditWorthiness.count({
             where: {
                 created_at: {
                     gte: firstDayPrevMonth,
@@ -84,7 +84,7 @@ export const creditWorthinessRepository = {
             },
         });
 
-        return countCustomers;
+        return countCreditWorthiness;
     },
 
     countManyCurrentMonth: async (): Promise<number> => {
@@ -100,7 +100,7 @@ export const creditWorthinessRepository = {
             0,
         );
 
-        const countCustomers = await db.creditWorthiness.count({
+        const countCreditWorthiness = await db.creditWorthiness.count({
             where: {
                 created_at: {
                     gte: firstDayCurrentMonth,
@@ -109,7 +109,7 @@ export const creditWorthinessRepository = {
             },
         });
 
-        return countCustomers;
+        return countCreditWorthiness;
     },
 
     countUniqueId: async (id: string): Promise<number> => {

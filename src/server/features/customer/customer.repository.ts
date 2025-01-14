@@ -25,6 +25,11 @@ export const customerRepository = {
         return countCustomers;
     },
 
+    countUniqueId: async (id: string): Promise<number> => {
+        const countCustomer = await db.customer.count({ where: { id } });
+        return countCustomer;
+    },
+
     countManyPreviousMonth: async (): Promise<number> => {
         const today = new Date();
         const firstDayPrevMonth = new Date(

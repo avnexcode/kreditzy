@@ -9,6 +9,7 @@ import {
 import { toIDR } from '~/utils/convert-currency';
 import { toFormatDate } from '~/utils/toFormatDate';
 import type { TransactionWithRelations } from '../../types';
+import { convertTransactionStatus } from '~/utils/convert-transaction-status';
 
 type TransactionViewProps = {
     transaction?: TransactionWithRelations | null;
@@ -33,6 +34,12 @@ export const TransactionView = ({ transaction }: TransactionViewProps) => {
                         <div className="rounded-lg">
                             <div className="grid lg:grid-cols-2 grid-cols-1 gap-4">
                                 <div className="space-y-2">
+                                    <DetailCardItem
+                                        label="status transaksi"
+                                        content={convertTransactionStatus(
+                                            transaction.transaction_status,
+                                        )}
+                                    />
                                     <DetailCardItem
                                         label="total pinjaman"
                                         content={toIDR(

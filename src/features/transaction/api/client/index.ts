@@ -4,3 +4,4 @@ export * from './useCreateTransaction';
 export * from './useDeleteTransaction';
 export * from './useUpdateTransaction';
 export * from './useTransactionsCount';
+export * from './useTransactionsStats';

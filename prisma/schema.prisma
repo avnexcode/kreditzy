@@ -73,8 +73,10 @@ model LoanReference {
     customer_id             String            @unique
     customer                Customer          @relation(fields: [customer_id], references: [id], onDelete: Cascade)
     credit_worthiness       CreditWorthiness?
+    transaction             Transaction?
     created_at              DateTime          @default(now())
     updated_at              DateTime          @updatedAt
+    transactionId           String?
 
     @@map("loan_references")
 }
@@ -104,9 +106,11 @@ model Transaction {
     transaction_status   TransactionStatus @default(ACTIVE)
     end_transaction      DateTime
     customer_id          String            @unique
+    loan_reference_id    String            @unique
+    loan_reference       LoanReference     @relation(fields: [loan_reference_id], references: [id])
     customer             Customer          @relation(fields: [customer_id], references: [id], onDelete: Restrict)
     payment_records      PaymentRecord[] // Relasi ke catatan pembayaran
-    LoanBalance          LoanBalance?
+    loan_balance         LoanBalance?
     created_at           DateTime          @default(now())
     updated_at           DateTime          @updatedAt
 
@@ -116,8 +120,8 @@ model Transaction {
 model LoanBalance {
     id                     String      @id @default(cuid())
     remaining_loan_amount  String      @db.VarChar(100) // jumlah sisa pinjaman yang harus dibayar
-    remaining_total_amount String      @db.VarChar(100) // jumlah sisa pinjaman yang harus dibayar
     interest_due           String      @db.VarChar(100) // jumlah sisa bunga yang harus dibayar
+    remaining_total_amount String      @db.VarChar(100) // jumlah sisa pinjaman + bunga yang harus dibayar
     total_paid             String      @db.VarChar(100) // total jumlah yang sudah dibayar
     last_payment_date      DateTime? // tanggal pembayaran terakhir
     next_due_date          DateTime // tanggal jatuh tempo pembayaran berikutnya

@@ -2,6 +2,7 @@ import { db } from '~/server/db/prisma';
 import { type Guarantor } from '@prisma/client';
 import type {
     CreateGuarantorRequest,
+    GuarantorWithCustomerRelationsResponse,
     GuarantorWithRelationsResponse,
     UpdateGuarantorRequest,
 } from './guarantor.model';
@@ -18,9 +19,15 @@ export const guarantorRepository = {
     },
 
     countMany: async (): Promise<number> => {
-        const countguarantors = await db.guarantor.count();
+        const countGuarantors = await db.guarantor.count();
 
-        return countguarantors;
+        return countGuarantors;
+    },
+
+    countUniqueId: async (id: string): Promise<number> => {
+        const countGuarantor = await db.guarantor.count({ where: { id } });
+
+        return countGuarantor;
     },
 
     countManyPreviousMonth: async (): Promise<number> => {
@@ -86,6 +93,24 @@ export const guarantorRepository = {
         return guarantor;
     },
 
+    findUniqueIdWithCustomerRelations: async (
+        id: string,
+    ): Promise<GuarantorWithCustomerRelationsResponse | null> => {
+        const guarantor = await db.guarantor.findUnique({
+            where: { id },
+            include: {
+                customer: {
+                    include: {
+                        loan_reference: true,
+                        guarantors: true,
+                    },
+                },
+            },
+        });
+
+        return guarantor;
+    },
+
     findUniqueNationalId: async (
         national_id: string,
     ): Promise<GuarantorWithRelationsResponse | null> => {
@@ -99,10 +124,10 @@ export const guarantorRepository = {
     },
 
     countUniqueNationalId: async (national_id: string): Promise<number> => {
-        const countguarantors = await db.guarantor.count({
+        const countGuarantors = await db.guarantor.count({
             where: { national_id },
         });
-        return countguarantors;
+        return countGuarantors;
     },
 
     insert: async (

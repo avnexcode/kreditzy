@@ -21,7 +21,7 @@ export const TransactionViewSkeleton = (
                     <div className="rounded-lg">
                         <div className="grid lg:grid-cols-2 grid-cols-1 gap-4">
                             <div className="space-y-2">
-                                {[...Array<undefined>(3)].map((_, i) => (
+                                {[...Array<undefined>(4)].map((_, i) => (
                                     <DetailCardItemSkeleton key={`left-${i}`} />
                                 ))}
                             </div>

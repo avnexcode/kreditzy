@@ -1,6 +1,7 @@
 import { validateSchema } from '~/server/service/validation.service';
 import type {
     CreateGuarantorRequest,
+    GuarantorWithCustomerRelationsResponse,
     GuarantorWithRelationsResponse,
     UpdateGuarantorRequest,
 } from './guarantor.model';
@@ -16,6 +17,7 @@ import {
 import { type Guarantor } from '@prisma/client';
 import {
     toGuarantorResponse,
+    toGuarantorWithCustomerRelationsResponse,
     toGuarantorWithRelationsResponse,
 } from './guarantor.response';
 import { StatsResponse, Trend } from '~/server/types/api';
@@ -41,10 +43,33 @@ export const guarantorService = {
         return toGuarantorWithRelationsResponse(guarantor);
     },
 
+    getByIdWithCustomerRelations: async (
+        id: string,
+    ): Promise<GuarantorWithCustomerRelationsResponse> => {
+        const guarantor =
+            await guarantorRepository.findUniqueIdWithCustomerRelations(id);
+
+        if (!guarantor) {
+            throw new NotFoundException(`Guarantor with id ${id} not found`);
+        }
+
+        return toGuarantorWithCustomerRelationsResponse(guarantor);
+    },
+
     countAll: async (): Promise<number> => {
         const countguarantors = await guarantorRepository.countMany();
 
         return countguarantors;
+    },
+
+    countExistsById: async (id: string): Promise<number> => {
+        const countGuarantor = await guarantorRepository.countUniqueId(id);
+
+        if (countGuarantor === 0) {
+            throw new NotFoundException(`Guarantor with id ${id} not found`);
+        }
+
+        return countGuarantor;
     },
 
     countAllPreviousMonth: async () => {
@@ -124,7 +149,7 @@ export const guarantorService = {
         id: string,
         request: UpdateGuarantorRequest,
     ): Promise<Guarantor> => {
-        await guarantorService.getById(id);
+        await guarantorService.countExistsById(id);
         const validatedRequest: UpdateGuarantorRequest = validateSchema(
             updateGuarantorRequest,
             request,
@@ -151,7 +176,16 @@ export const guarantorService = {
     },
 
     delete: async (id: string): Promise<{ id: string }> => {
-        await guarantorService.getById(id);
+        const guarantor =
+            await guarantorService.getByIdWithCustomerRelations(id);
+
+        if (guarantor.customer.guarantors.length === 1) {
+            if (guarantor.customer.loan_reference) {
+                throw new BadRequestException(
+                    'Customer still has reference data that requires a guarantor',
+                );
+            }
+        }
 
         await guarantorRepository.delete(id);
 

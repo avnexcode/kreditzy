@@ -5,7 +5,7 @@ import type { IApiResponse } from '~/server/interfaces/Api';
 import { ApiResponse } from '~/server/helper/api.response';
 import {
     createMessageDeleteSuccess,
-    createMessageGetLengthSuccess,
+    createMessageGetStatsSuccess,
     createMessageGetSuccess,
     createMessageGetUniqueSuccess,
     createMessagePatchSuccess,
@@ -19,6 +19,7 @@ import type {
 } from './transaction.model';
 import { transactionService } from './transaction.service';
 import { BadRequestException } from '~/server/helper/error.exception';
+import { StatsResponse } from '~/server/types/api';
 
 export const transactionController = {
     GET: async (): Promise<
@@ -55,12 +56,12 @@ export const transactionController = {
         }
     },
 
-    GET_LENGTH: async (): Promise<NextResponse<IApiResponse<number>>> => {
+    GET_STATS: async (): Promise<NextResponse<IApiResponse<StatsResponse>>> => {
         try {
-            const data = await transactionService.countAll();
+            const data = await transactionService.getStats();
             return ApiResponse.success(
                 data,
-                createMessageGetLengthSuccess('Transactions'),
+                createMessageGetStatsSuccess('Transactions'),
             );
         } catch (error) {
             return ErrorFilter.catch(error);
@@ -91,7 +92,7 @@ export const transactionController = {
             const requestBody =
                 (await request.json()) as UpdateTransactionRequest;
 
-            if (!requestBody.customer_id) {
+            if (!(requestBody.customer_id && requestBody.transaction_status)) {
                 throw new BadRequestException('Required fields are missing');
             }
 

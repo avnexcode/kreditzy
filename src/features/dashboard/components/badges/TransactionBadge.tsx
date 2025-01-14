@@ -1,14 +1,14 @@
 'use client';
 import { NotebookText } from 'lucide-react';
 import { DashboardBadge } from '~/features/dashboard/components/badges/DashboardBadge';
-import { useTransactionsCount } from '~/features/transaction/api/client';
+import { useTransactionsStats } from '~/features/transaction/api/client';
 import BadgeSkeleton from '../skeleton/badge/BadgeSkeleton';
 
 export const TransactionBadge = () => {
-    const { data: transactionsCount, isLoading: isTransactionsCountLoading } =
-        useTransactionsCount();
+    const { data: transactionsStats, isLoading: isTransactionsStatsLoading } =
+        useTransactionsStats();
 
-    if (isTransactionsCountLoading) {
+    if (isTransactionsStatsLoading) {
         return <BadgeSkeleton />;
     }
 
@@ -17,9 +17,9 @@ export const TransactionBadge = () => {
             icon={<NotebookText size={25} />}
             iconBackground="bg-blue-500"
             label="Total Transaksi"
-            stat={transactionsCount ?? 0}
-            trend={'increase'}
-            percentage={12}
+            stat={transactionsStats?.length ?? 0}
+            trend={transactionsStats?.trend}
+            percentage={transactionsStats?.percentage}
             trendLabel="compared to last month"
             rootClassName="w-full"
             iconWrapperClassName="bg-gradient-to-tr from-blue-600 to-blue-400 text-white"

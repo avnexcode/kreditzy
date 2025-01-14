@@ -39,9 +39,10 @@ export const DeleteGuarantorDialog = ({
             onError: async error => {
                 toast({
                     title: 'Error',
+                    variant: 'destructive',
                     description:
-                        error.message ??
                         error.response?.data.error ??
+                        error.message ??
                         'Terjadi kesalahan saat menghapus data',
                 });
                 onClose();

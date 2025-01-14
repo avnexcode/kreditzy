@@ -20,6 +20,7 @@ import {
 import { loanReferenceService } from '../loan-reference/loan-reference.service';
 import { creditWorthinessService } from '../credit-worthiness/credit-worthiness.service';
 import { calculateDate } from '~/server/utils/calculate-date';
+import { StatsResponse, Trend } from '~/server/types/api';
 
 export const transactionService = {
     getAll: async (): Promise<TransactionWithRelationsResponse[]> => {
@@ -57,6 +58,23 @@ export const transactionService = {
         return toTransactionWithRelationResponse(transaction);
     },
 
+    getByLoanReferenceId: async (
+        loan_reference_id: string,
+    ): Promise<TransactionWithRelationsResponse> => {
+        const transaction =
+            await transactionRepository.findUniqueLoanReferenceId(
+                loan_reference_id,
+            );
+
+        if (!transaction) {
+            throw new NotFoundException(
+                `Transaction with loan reference id ${loan_reference_id} not found`,
+            );
+        }
+
+        return toTransactionWithRelationResponse(transaction);
+    },
+
     countAll: async (): Promise<number> => {
         const transactionCount = await transactionRepository.countMany();
 
@@ -74,6 +92,60 @@ export const transactionService = {
             await transactionRepository.countUniqueCustomerId(customer_id);
 
         return transactionCount;
+    },
+
+    countAllPreviousMonth: async () => {
+        const countGuarantors =
+            await transactionRepository.countManyPreviousMonth();
+
+        return countGuarantors;
+    },
+
+    countAllCurrentMonth: async () => {
+        const countGuarantors =
+            await transactionRepository.countManyCurrentMonth();
+
+        return countGuarantors;
+    },
+
+    getTrend: async (): Promise<{
+        percentage: number;
+        trend: Trend;
+    }> => {
+        const currentMonth =
+            await transactionRepository.countManyCurrentMonth();
+
+        const previousMonth =
+            await transactionRepository.countManyPreviousMonth();
+
+        if (previousMonth === 0) {
+            return {
+                percentage: currentMonth > 0 ? 100 : 0,
+                trend: currentMonth > 0 ? 'increase' : 'same',
+            };
+        }
+
+        const percentageChange =
+            ((currentMonth - previousMonth) / previousMonth) * 100;
+
+        const trend =
+            percentageChange > 0
+                ? 'increase'
+                : percentageChange < 0
+                  ? 'decrease'
+                  : 'same';
+
+        return {
+            percentage: Number(percentageChange.toFixed(2)),
+            trend,
+        };
+    },
+
+    getStats: async (): Promise<StatsResponse> => {
+        const length = await transactionService.countAll();
+        const trend = await transactionService.getTrend();
+
+        return { length, ...trend };
     },
 
     create: async (request: CreateTransactionRequest): Promise<Transaction> => {
@@ -128,6 +200,7 @@ export const transactionService = {
             interest_amount: String(interestAmount),
             total_amount: String(totalAmount),
             loan_term: loanReference.loan_term,
+            loan_reference_id: loanReference.id,
             transaction_status: TransactionStatus.ACTIVE,
             end_transaction: calculateDate.endDate(
                 new Date(),
@@ -148,14 +221,30 @@ export const transactionService = {
         return transaction;
     },
 
-    update: async (id: string, request: UpdateTransactionRequest) => {},
+    update: async (
+        id: string,
+        request: UpdateTransactionRequest,
+    ): Promise<Transaction> => {
+        const validatedRequest: UpdateTransactionRequest = validateSchema(
+            updateTransactionRequest,
+            request,
+        );
+
+        const transaction = await transactionRepository.update(
+            id,
+            validatedRequest,
+        );
+
+        return transaction;
+    },
 
     delete: async (id: string) => {
-        const transactionExists = await transactionRepository.countUniqueId(id);
+        const transactionExists = await transactionService.getById(id);
 
-        if (transactionExists === 0) {
-            throw new NotFoundException(`Transaction with id ${id} not found`);
+        if (transactionExists.transaction_status === TransactionStatus.ACTIVE) {
+            throw new BadRequestException(`Transaction is currently active`);
         }
+
         await transactionRepository.delete(id);
 
         return { id };

@@ -1,1 +1,1 @@
-export const paymentRecordService = {};
+export const loanBalanceService = {};

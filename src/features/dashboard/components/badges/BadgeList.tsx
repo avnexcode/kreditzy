@@ -6,7 +6,7 @@ import { TransactionBadge } from './TransactionBadge';
 
 export const BadgeList = () => {
     return (
-        <div className="grid grid-cols-1 lg:grid-cols-2 2xl:grid-cols-4 gap-y-12 gap-x-5">
+        <div className="grid grid-cols-1 lg:grid-cols-2 2xl:grid-cols-3 gap-y-12 gap-x-5">
             <CustomerBadge />
             <GuarantorBadge />
             <LoanReferenceBadge />

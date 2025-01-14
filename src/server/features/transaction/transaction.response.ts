@@ -13,6 +13,8 @@ export const toTransactionResponse = (
     total_amount: transaction.total_amount,
     loan_term: transaction.loan_term,
     end_transaction: transaction.end_transaction,
+    transaction_status: transaction.transaction_status,
+    loan_reference_id: transaction.loan_reference_id,
     customer_id: transaction.customer_id,
     created_at: transaction.created_at,
     updated_at: transaction.updated_at,

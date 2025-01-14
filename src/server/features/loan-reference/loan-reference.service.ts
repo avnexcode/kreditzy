@@ -1,4 +1,4 @@
-import { type LoanReference } from '@prisma/client';
+import { TransactionStatus, type LoanReference } from '@prisma/client';
 import { loanReferenceRepository } from './loan-reference.repository';
 import { toLoanReferenceWithRelationsResponse } from './loan-reference.response';
 import { validateSchema } from '~/server/service/validation.service';
@@ -25,6 +25,7 @@ import type {
 import { creditWorthinessService } from '../credit-worthiness/credit-worthiness.service';
 import { customerService } from '../customer/customer.service';
 import { StatsResponse, Trend } from '~/server/types/api';
+import { transactionRepository } from '../transaction/transaction.repository';
 
 export const loanReferenceService = {
     getAll: async (): Promise<LoanReferenceWithRelationsResponse[]> => {
@@ -329,6 +330,19 @@ export const loanReferenceService = {
             throw new NotFoundException(
                 `Loan reference with id : ${id} not found`,
             );
+        }
+
+        const transactionExists = await transactionRepository.findUniqueId(id);
+
+        if (transactionExists) {
+            if (
+                transactionExists.transaction_status ===
+                TransactionStatus.ACTIVE
+            ) {
+                throw new BadRequestException(
+                    'This reference data is used for loan transaction reference',
+                );
+            }
         }
 
         await loanReferenceRepository.delete(id);

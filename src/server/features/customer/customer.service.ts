@@ -1,4 +1,4 @@
-import { type Customer } from '@prisma/client';
+import { TransactionStatus, type Customer } from '@prisma/client';
 import { customerRepository } from './customer.repository';
 import { validateSchema } from '~/server/service/validation.service';
 import type {
@@ -19,6 +19,7 @@ import {
     toCustomerWithRelationsResponse,
 } from './customer.response';
 import { StatsResponse, Trend } from '~/server/types/api';
+import { transactionRepository } from '../transaction/transaction.repository';
 
 export const customerService = {
     getAll: async (): Promise<CustomerWithRelationsResponse[]> => {
@@ -45,6 +46,16 @@ export const customerService = {
         const countCustomers = await customerRepository.countMany();
 
         return countCustomers;
+    },
+
+    countExistsById: async (id: string): Promise<number> => {
+        const countCustomer = await customerRepository.countUniqueId(id);
+
+        if (countCustomer === 0) {
+            throw new NotFoundException(`Customer with id : ${id} not found`);
+        }
+
+        return countCustomer;
     },
 
     countAllPreviousMonth: async () => {
@@ -121,7 +132,7 @@ export const customerService = {
         id: string,
         request: UpdateCustomerRequest,
     ): Promise<Customer> => {
-        await customerService.getById(id);
+        await customerService.countExistsById(id);
 
         const validatedRequest: UpdateCustomerRequest = validateSchema(
             updateCustomerRequest,
@@ -147,7 +158,21 @@ export const customerService = {
     },
 
     delete: async (id: string): Promise<{ id: string }> => {
-        await customerService.getById(id);
+        await customerService.countExistsById(id);
+
+        const transactionExists =
+            await transactionRepository.findUniqueCustomerId(id);
+
+        if (transactionExists) {
+            if (
+                transactionExists.transaction_status ===
+                TransactionStatus.ACTIVE
+            ) {
+                throw new BadRequestException(
+                    'Customer still has active transactions',
+                );
+            }
+        }
 
         await customerRepository.delete(id);
 
