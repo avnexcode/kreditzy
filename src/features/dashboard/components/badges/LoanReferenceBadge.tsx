@@ -1,16 +1,16 @@
 'use client';
 import { BetweenHorizontalEnd } from 'lucide-react';
 import { DashboardBadge } from '~/features/dashboard/components/badges/DashboardBadge';
-import { useLoanReferencesCount } from '~/features/loan-reference/api/client';
 import BadgeSkeleton from '../skeleton/badge/BadgeSkeleton';
+import { useLoanReferencesStats } from '~/features/loan-reference/api/client';
 
 export const LoanReferenceBadge = () => {
     const {
-        data: loanReferencesCount,
-        isLoading: isLoanReferencesCountLoading,
-    } = useLoanReferencesCount();
+        data: loanReferencesStats,
+        isLoading: isLoanReferencesStatsLoading,
+    } = useLoanReferencesStats();
 
-    if (isLoanReferencesCountLoading) {
+    if (isLoanReferencesStatsLoading) {
         return <BadgeSkeleton />;
     }
 
@@ -19,8 +19,9 @@ export const LoanReferenceBadge = () => {
             icon={<BetweenHorizontalEnd size={25} />}
             iconBackground="bg-pink-500"
             label="Total Data Referensi"
-            stat={loanReferencesCount ?? 0}
-            trend={12}
+            stat={loanReferencesStats?.length ?? 0}
+            trend={loanReferencesStats?.trend}
+            percentage={loanReferencesStats?.percentage}
             trendLabel="compared to last month"
             rootClassName="w-full"
             iconWrapperClassName="bg-gradient-to-tr from-yellow-600 to-yellow-400 text-white"

@@ -6,7 +6,7 @@ import { customerService } from './customer.service';
 import { ApiResponse } from '~/server/helper/api.response';
 import {
     createMessageDeleteSuccess,
-    createMessageGetLengthSuccess,
+    createMessageGetStatsSuccess,
     createMessageGetSuccess,
     createMessageGetUniqueSuccess,
     createMessagePatchSuccess,
@@ -19,6 +19,7 @@ import type {
     UpdateCustomerRequest,
 } from './customer.model';
 import { BadRequestException } from '~/server/helper/error.exception';
+import { StatsResponse } from '~/server/types/api';
 
 export const customerController = {
     GET: async (): Promise<
@@ -53,12 +54,12 @@ export const customerController = {
         }
     },
 
-    GET_LENGTH: async (): Promise<NextResponse<IApiResponse<number>>> => {
+    GET_STATS: async (): Promise<NextResponse<IApiResponse<StatsResponse>>> => {
         try {
-            const data = await customerService.countAll();
+            const data = await customerService.getStats();
             return ApiResponse.success(
                 data,
-                createMessageGetLengthSuccess('Customers'),
+                createMessageGetStatsSuccess('Customers'),
             );
         } catch (error) {
             return ErrorFilter.catch(error);

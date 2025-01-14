@@ -20,3 +20,16 @@ export type ApiProps = {
     onSuccess?: () => Promise<void>;
     onError?: (error: AxiosError<ApiErrorResponse>) => Promise<void>;
 };
+
+export type Trend = 'increase' | 'decrease' | 'same';
+
+export type StatsResponse = {
+    length: number;
+    trend: Trend;
+    percentage: number;
+};
+
+export type PercentageResponse = {
+    percentage: number;
+    trend: Trend;
+};

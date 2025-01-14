@@ -5,7 +5,7 @@ import type { IApiResponse } from '~/server/interfaces/Api';
 import { ApiResponse } from '~/server/helper/api.response';
 import {
     createMessageDeleteSuccess,
-    createMessageGetLengthSuccess,
+    createMessageGetStatsSuccess,
     createMessageGetSuccess,
     createMessageGetUniqueSuccess,
     createMessagePatchSuccess,
@@ -19,6 +19,7 @@ import type {
 } from './guarantor.model';
 import { guarantorService } from './guarantor.service';
 import { BadRequestException } from '~/server/helper/error.exception';
+import { StatsResponse } from '~/server/types/api';
 
 export const guarantorController = {
     GET: async (): Promise<
@@ -53,12 +54,12 @@ export const guarantorController = {
         }
     },
 
-    GET_LENGTH: async (): Promise<NextResponse<IApiResponse<number>>> => {
+    GET_STATS: async (): Promise<NextResponse<IApiResponse<StatsResponse>>> => {
         try {
-            const data = await guarantorService.countAll();
+            const data = await guarantorService.getStats();
             return ApiResponse.success(
                 data,
-                createMessageGetLengthSuccess('Guarantors'),
+                createMessageGetStatsSuccess('Guarantors'),
             );
         } catch (error) {
             return ErrorFilter.catch(error);

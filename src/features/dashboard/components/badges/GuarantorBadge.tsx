@@ -1,14 +1,14 @@
 'use client';
 import { ShieldCheck } from 'lucide-react';
 import { DashboardBadge } from '~/features/dashboard/components/badges/DashboardBadge';
-import { useGuarantorsCount } from '~/features/guarantor/api/client';
+import { useGuarantorsStats } from '~/features/guarantor/api/client';
 import BadgeSkeleton from '../skeleton/badge/BadgeSkeleton';
 
 export const GuarantorBadge = () => {
-    const { data: guarantorsCount, isLoading: isGuarantorsCountLoading } =
-        useGuarantorsCount();
+    const { data: guarantorsStats, isLoading: isGuarantorsStatsLoading } =
+        useGuarantorsStats();
 
-    if (isGuarantorsCountLoading) {
+    if (isGuarantorsStatsLoading) {
         return <BadgeSkeleton />;
     }
 
@@ -17,8 +17,9 @@ export const GuarantorBadge = () => {
             icon={<ShieldCheck size={25} />}
             iconBackground="bg-green-500"
             label="Total Penjamin"
-            stat={guarantorsCount ?? 0}
-            trend={12}
+            stat={guarantorsStats?.length ?? 0}
+            trend={guarantorsStats?.trend}
+            percentage={guarantorsStats?.percentage}
             trendLabel="compared to last month"
             rootClassName="w-full"
             iconWrapperClassName="bg-gradient-to-tr from-green-600 to-green-400 text-white"

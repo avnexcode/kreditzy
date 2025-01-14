@@ -23,6 +23,56 @@ export const guarantorRepository = {
         return countguarantors;
     },
 
+    countManyPreviousMonth: async (): Promise<number> => {
+        const today = new Date();
+        const firstDayPrevMonth = new Date(
+            today.getFullYear(),
+            today.getMonth() - 1,
+            1,
+        );
+        const lastDayPrevMonth = new Date(
+            today.getFullYear(),
+            today.getMonth(),
+            0,
+        );
+
+        const countGuarantors = await db.guarantor.count({
+            where: {
+                created_at: {
+                    gte: firstDayPrevMonth,
+                    lte: lastDayPrevMonth,
+                },
+            },
+        });
+
+        return countGuarantors;
+    },
+
+    countManyCurrentMonth: async (): Promise<number> => {
+        const today = new Date();
+        const firstDayCurrentMonth = new Date(
+            today.getFullYear(),
+            today.getMonth(),
+            1,
+        );
+        const lastDayCurrentMonth = new Date(
+            today.getFullYear(),
+            today.getMonth() + 1,
+            0,
+        );
+
+        const countGuarantors = await db.guarantor.count({
+            where: {
+                created_at: {
+                    gte: firstDayCurrentMonth,
+                    lte: lastDayCurrentMonth,
+                },
+            },
+        });
+
+        return countGuarantors;
+    },
+
     findUniqueId: async (
         id: string,
     ): Promise<GuarantorWithRelationsResponse | null> => {

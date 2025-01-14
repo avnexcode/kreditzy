@@ -6,6 +6,7 @@ import { ApiResponse } from '~/server/helper/api.response';
 import {
     createMessageDeleteSuccess,
     createMessageGetLengthSuccess,
+    createMessageGetStatsSuccess,
     createMessageGetSuccess,
     createMessageGetUniqueSuccess,
     createMessagePatchSuccess,
@@ -19,6 +20,7 @@ import type {
 } from './credit-worthiness.model';
 import { creditWorthinessService } from './credit-worthiness.service';
 import { BadRequestException } from '~/server/helper/error.exception';
+import { StatsResponse } from '~/server/types/api';
 
 export const creditWorthinessController = {
     GET: async (): Promise<
@@ -58,12 +60,12 @@ export const creditWorthinessController = {
         }
     },
 
-    GET_LENGTH: async (): Promise<NextResponse<IApiResponse<number>>> => {
+    GET_STATS: async (): Promise<NextResponse<IApiResponse<StatsResponse>>> => {
         try {
-            const data = await creditWorthinessService.countAll();
+            const data = await creditWorthinessService.getStats();
             return ApiResponse.success(
                 data,
-                createMessageGetLengthSuccess('Credit worthinesses'),
+                createMessageGetStatsSuccess('Credit worthinesses'),
             );
         } catch (error) {
             return ErrorFilter.catch(error);

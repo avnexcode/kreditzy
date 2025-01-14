@@ -15,7 +15,7 @@ export const GuarantorTableBody = () => {
 
     return (
         <TableBody>
-            {guarantors?.length === 0 && (
+            {(!guarantors || guarantors.length === 0) && (
                 <TableRow>
                     <TableCell
                         colSpan={7}
@@ -28,7 +28,7 @@ export const GuarantorTableBody = () => {
             {renderElements({
                 of: guarantors,
                 render: (guarantor, index) => (
-                    <TableRow key={index} className="capitalize">
+                    <TableRow key={guarantor.id} className="capitalize">
                         <TableCell>{index + 1}</TableCell>
                         <TableCell>{guarantor.name}</TableCell>
                         <TableCell>{guarantor.customer.name}</TableCell>

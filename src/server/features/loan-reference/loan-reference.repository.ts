@@ -50,6 +50,56 @@ export const loanReferenceRepository = {
         return countLoanReferences;
     },
 
+    countManyPreviousMonth: async (): Promise<number> => {
+        const today = new Date();
+        const firstDayPrevMonth = new Date(
+            today.getFullYear(),
+            today.getMonth() - 1,
+            1,
+        );
+        const lastDayPrevMonth = new Date(
+            today.getFullYear(),
+            today.getMonth(),
+            0,
+        );
+
+        const countLoanReferences = await db.loanReference.count({
+            where: {
+                created_at: {
+                    gte: firstDayPrevMonth,
+                    lte: lastDayPrevMonth,
+                },
+            },
+        });
+
+        return countLoanReferences;
+    },
+
+    countManyCurrentMonth: async (): Promise<number> => {
+        const today = new Date();
+        const firstDayCurrentMonth = new Date(
+            today.getFullYear(),
+            today.getMonth(),
+            1,
+        );
+        const lastDayCurrentMonth = new Date(
+            today.getFullYear(),
+            today.getMonth() + 1,
+            0,
+        );
+
+        const countLoanReferences = await db.loanReference.count({
+            where: {
+                created_at: {
+                    gte: firstDayCurrentMonth,
+                    lte: lastDayCurrentMonth,
+                },
+            },
+        });
+
+        return countLoanReferences;
+    },
+
     countUniqueId: async (id: string) => {
         const countLoanReference = await db.loanReference.count({
             where: { id },

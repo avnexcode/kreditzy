@@ -8,6 +8,7 @@ import {
 import { Ellipsis, Pencil, ScanEye } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { DeleteLoanReferenceDialog } from '../dialog/DeleteLoanReferenceDialog';
+import { useState } from 'react';
 
 type LoanReferenceTableMenuProps = {
     id: string;
@@ -15,8 +16,12 @@ type LoanReferenceTableMenuProps = {
 
 export const LoanReferenceTableMenu = (props: LoanReferenceTableMenuProps) => {
     const router = useRouter();
+    const [isOpen, setIsOpen] = useState(false);
+
+    const handleOpen = () => () => setIsOpen(false);
+
     return (
-        <DropdownMenu>
+        <DropdownMenu open={isOpen} onOpenChange={setIsOpen}>
             <DropdownMenuTrigger className="rounded-full">
                 <Ellipsis size={20} strokeWidth={2} />
             </DropdownMenuTrigger>
@@ -41,7 +46,7 @@ export const LoanReferenceTableMenu = (props: LoanReferenceTableMenuProps) => {
                     <Pencil />
                     Edit
                 </DropdownMenuItem>
-                <DeleteLoanReferenceDialog id={props.id} />
+                <DeleteLoanReferenceDialog id={props.id} onClose={handleOpen} />
             </DropdownMenuContent>
         </DropdownMenu>
     );

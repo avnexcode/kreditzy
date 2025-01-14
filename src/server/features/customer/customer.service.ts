@@ -18,6 +18,7 @@ import {
     toCustomerResponse,
     toCustomerWithRelationsResponse,
 } from './customer.response';
+import { StatsResponse, Trend } from '~/server/types/api';
 
 export const customerService = {
     getAll: async (): Promise<CustomerWithRelationsResponse[]> => {
@@ -44,6 +45,57 @@ export const customerService = {
         const countCustomers = await customerRepository.countMany();
 
         return countCustomers;
+    },
+
+    countAllPreviousMonth: async () => {
+        const countCustomers =
+            await customerRepository.countManyPreviousMonth();
+
+        return countCustomers;
+    },
+
+    countAllCurrentMonth: async () => {
+        const countCustomers = await customerRepository.countManyCurrentMonth();
+
+        return countCustomers;
+    },
+
+    getTrend: async (): Promise<{
+        percentage: number;
+        trend: Trend;
+    }> => {
+        const currentMonth = await customerRepository.countManyCurrentMonth();
+
+        const previousMonth = await customerRepository.countManyPreviousMonth();
+
+        if (previousMonth === 0) {
+            return {
+                percentage: currentMonth > 0 ? 100 : 0,
+                trend: currentMonth > 0 ? 'increase' : 'same',
+            };
+        }
+
+        const percentageChange =
+            ((currentMonth - previousMonth) / previousMonth) * 100;
+
+        const trend =
+            percentageChange > 0
+                ? 'increase'
+                : percentageChange < 0
+                  ? 'decrease'
+                  : 'same';
+
+        return {
+            percentage: Number(percentageChange.toFixed(2)),
+            trend,
+        };
+    },
+
+    getStats: async (): Promise<StatsResponse> => {
+        const length = await customerService.countAll();
+        const trend = await customerService.getTrend();
+
+        return { length, ...trend };
     },
 
     create: async (request: CreateCustomerRequest): Promise<Customer> => {

@@ -13,23 +13,31 @@ import { DropdownMenuItem } from '~/components/ui/dropdown-menu';
 import { Loader2, Trash2 } from 'lucide-react';
 import { useToast } from '~/hooks/use-toast';
 import { useCustomers, useDeleteCustomer } from '../../api/client';
+import { useGuarantors } from '~/features/guarantor/api/client';
 
 type DeleteCustomerDialogProps = {
     id: string;
+    onClose: () => void;
 };
 
-export const DeleteCustomerDialog = (props: DeleteCustomerDialogProps) => {
+export const DeleteCustomerDialog = ({
+    onClose,
+    ...props
+}: DeleteCustomerDialogProps) => {
     const { toast } = useToast();
     const { refetch: refetchCustomers } = useCustomers();
+    const { refetch: refetchGuarantors } = useGuarantors();
     const { mutate: deleteCustomer, isPending: isDeleteCustomerPending } =
         useDeleteCustomer({
             id: props.id,
             onSuccess: async () => {
                 await refetchCustomers();
+                await refetchGuarantors();
                 toast({
                     title: 'Success',
                     description: 'Berhasil menghapus data',
                 });
+                onClose();
             },
             onError: async error => {
                 toast({
@@ -40,8 +48,12 @@ export const DeleteCustomerDialog = (props: DeleteCustomerDialogProps) => {
                         error.response?.data.error ??
                         'Terjadi kesalahan saat menghapus data',
                 });
+                onClose();
             },
         });
+
+    const handleDelete = () => deleteCustomer();
+
     return (
         <AlertDialog>
             <AlertDialogTrigger asChild>
@@ -62,7 +74,7 @@ export const DeleteCustomerDialog = (props: DeleteCustomerDialogProps) => {
                 <AlertDialogFooter>
                     <AlertDialogCancel>Cancel</AlertDialogCancel>
                     <AlertDialogAction
-                        onClick={() => deleteCustomer()}
+                        onClick={handleDelete}
                         disabled={isDeleteCustomerPending}
                         className="bg-red-500"
                     >

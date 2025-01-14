@@ -93,69 +93,65 @@ model CreditWorthiness {
 }
 
 model Transaction {
-    id                   String          @id @default(cuid())
-    loan_installment     String          @db.VarChar(100) // angsuran setiap pinjaman bulan 
-    interest_installment String          @db.VarChar(100) // angsuran setiap bunga bulan 
-    total_installment    String          @db.VarChar(100) // angsuran setiap bulan dengan bunga
+    id                   String            @id @default(cuid())
+    loan_installment     String            @db.VarChar(100) // angsuran setiap pinjaman bulan 
+    interest_installment String            @db.VarChar(100) // angsuran setiap bunga bulan 
+    total_installment    String            @db.VarChar(100) // angsuran setiap bulan dengan bunga
     loan_term            Int // jangka waktu pinjaman (bulan)
-    loan_amount          String          @db.VarChar(100)
-    interest_amount      String          @db.VarChar(100)
-    total_amount         String          @db.VarChar(100)
+    loan_amount          String            @db.VarChar(100)
+    interest_amount      String            @db.VarChar(100)
+    total_amount         String            @db.VarChar(100)
+    transaction_status   TransactionStatus @default(ACTIVE)
     end_transaction      DateTime
-    customer_id          String          @unique
-    customer             Customer        @relation(fields: [customer_id], references: [id], onDelete: Restrict)
+    customer_id          String            @unique
+    customer             Customer          @relation(fields: [customer_id], references: [id], onDelete: Restrict)
     payment_records      PaymentRecord[] // Relasi ke catatan pembayaran
     LoanBalance          LoanBalance?
-    created_at           DateTime        @default(now())
-    updated_at           DateTime        @updatedAt
+    created_at           DateTime          @default(now())
+    updated_at           DateTime          @updatedAt
 
     @@map("transactions")
 }
 
 model LoanBalance {
-    id                String      @id @default(cuid())
-    remaining_amount  String      @db.VarChar(100) // jumlah sisa pinjaman yang harus dibayar
-    interest_due      String      @db.VarChar(100) // jumlah sisa bunga yang harus dibayar
-    total_paid        String      @db.VarChar(100) // total jumlah yang sudah dibayar
-    last_payment_date DateTime? // tanggal pembayaran terakhir
-    next_due_date     DateTime // tanggal jatuh tempo pembayaran berikutnya
-    status            LoanStatus  @default(ACTIVE) // status pinjaman (aktif, lunas, terlambat, atau gagal bayar)
-    transaction_id    String      @unique // relasi one-to-one dengan transaksi
-    transaction       Transaction @relation(fields: [transaction_id], references: [id], onDelete: Restrict)
-    created_at        DateTime    @default(now()) // waktu pembuatan record
-    updated_at        DateTime    @updatedAt // waktu terakhir record diupdate
+    id                     String      @id @default(cuid())
+    remaining_loan_amount  String      @db.VarChar(100) // jumlah sisa pinjaman yang harus dibayar
+    remaining_total_amount String      @db.VarChar(100) // jumlah sisa pinjaman yang harus dibayar
+    interest_due           String      @db.VarChar(100) // jumlah sisa bunga yang harus dibayar
+    total_paid             String      @db.VarChar(100) // total jumlah yang sudah dibayar
+    last_payment_date      DateTime? // tanggal pembayaran terakhir
+    next_due_date          DateTime // tanggal jatuh tempo pembayaran berikutnya
+    transaction_id         String      @unique // relasi one-to-one dengan transaksi
+    transaction            Transaction @relation(fields: [transaction_id], references: [id], onDelete: Restrict)
+    created_at             DateTime    @default(now()) // waktu pembuatan record
+    updated_at             DateTime    @updatedAt // waktu terakhir record diupdate
 
     @@map("loan_balances")
 }
 
-// Status yang mungkin untuk pinjaman
-enum LoanStatus {
-    ACTIVE // Pinjaman aktif/sedang berjalan
-    PAID // Pinjaman sudah lunas
-    OVERDUE // Pinjaman melewati jatuh tempo
-    DEFAULTED // Pinjaman gagal bayar
-}
-
 model PaymentRecord {
-    id             String        @id @default(cuid())
-    payment_date   DateTime?
-    due_date       DateTime // tanggal jatuh tempo
-    amount_paid    String        @db.VarChar(100) // jumlah yang dibayar
-    payment_status PaymentStatus @default(PENDING) // status pembayaran
-    payment_month  Int // bulan ke-berapa dari cicilan (1-n)
-    transaction_id String // referensi ke transaksi
-    transaction    Transaction   @relation(fields: [transaction_id], references: [id], onDelete: Cascade)
-    payment_method PaymentMethod @default(CASH) // metode pembayaran
-    notes          String?       @db.Text // catatan tambahan
-    created_at     DateTime      @default(now())
-    updated_at     DateTime      @updatedAt
+    id               String          @id @default(cuid())
+    payment_date     DateTime?
+    due_date         DateTime // tanggal jatuh tempo
+    amount_paid      String          @db.VarChar(100) // jumlah yang dibayar
+    payment_status   PaymentStatus   @default(PENDING) // status pembayaran
+    payment_month    Int // bulan ke-berapa dari cicilan (1-n)
+    transaction_id   String // referensi ke transaksi
+    transaction      Transaction     @relation(fields: [transaction_id], references: [id], onDelete: Cascade)
+    payment_category PaymentCategory
+    payment_method   PaymentMethod   @default(CASH) // metode pembayaran
+    notes            String?         @db.Text // catatan tambahan
+    created_at       DateTime        @default(now())
+    updated_at       DateTime        @updatedAt
 
     @@map("payment_records")
 }
 
 enum TransactionStatus {
-    PENDING
-    PAID
+    ACTIVE // Pinjaman aktif/sedang berjalan
+    PAID // Pinjaman sudah lunas
+    CANCELED //Pinjaman dibatalkan
+    OVERDUE //Pinjaman lewat jatuh tempo
 }
 
 enum PaymentStatus {
@@ -165,4 +161,10 @@ enum PaymentStatus {
 
 enum PaymentMethod {
     CASH // menunggu pembayaran
+}
+
+enum PaymentCategory {
+    LOAN
+    INTEREST
+    TOTAL
 }

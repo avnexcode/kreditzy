@@ -18,6 +18,7 @@ import {
     toGuarantorResponse,
     toGuarantorWithRelationsResponse,
 } from './guarantor.response';
+import { StatsResponse, Trend } from '~/server/types/api';
 
 export const guarantorService = {
     getAll: async (): Promise<GuarantorWithRelationsResponse[]> => {
@@ -44,6 +45,59 @@ export const guarantorService = {
         const countguarantors = await guarantorRepository.countMany();
 
         return countguarantors;
+    },
+
+    countAllPreviousMonth: async () => {
+        const countGuarantors =
+            await guarantorRepository.countManyPreviousMonth();
+
+        return countGuarantors;
+    },
+
+    countAllCurrentMonth: async () => {
+        const countGuarantors =
+            await guarantorRepository.countManyCurrentMonth();
+
+        return countGuarantors;
+    },
+
+    getTrend: async (): Promise<{
+        percentage: number;
+        trend: Trend;
+    }> => {
+        const currentMonth = await guarantorRepository.countManyCurrentMonth();
+
+        const previousMonth =
+            await guarantorRepository.countManyPreviousMonth();
+
+        if (previousMonth === 0) {
+            return {
+                percentage: currentMonth > 0 ? 100 : 0,
+                trend: currentMonth > 0 ? 'increase' : 'same',
+            };
+        }
+
+        const percentageChange =
+            ((currentMonth - previousMonth) / previousMonth) * 100;
+
+        const trend =
+            percentageChange > 0
+                ? 'increase'
+                : percentageChange < 0
+                  ? 'decrease'
+                  : 'same';
+
+        return {
+            percentage: Number(percentageChange.toFixed(2)),
+            trend,
+        };
+    },
+
+    getStats: async (): Promise<StatsResponse> => {
+        const length = await guarantorService.countAll();
+        const trend = await guarantorService.getTrend();
+
+        return { length, ...trend };
     },
 
     create: async (request: CreateGuarantorRequest): Promise<Guarantor> => {

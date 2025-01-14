@@ -16,6 +16,7 @@ import {
     toCreditWorthinessResponse,
     toCreditWorthinessWithRelationsResponse,
 } from './credit-worthiness.response';
+import { StatsResponse, Trend } from '~/server/types/api';
 
 export const creditWorthinessService = {
     getAll: async (): Promise<CreditWorthinessWithRelationsResponse[]> => {
@@ -84,6 +85,60 @@ export const creditWorthinessService = {
             await creditWorthinessRepository.countUniqueId(id);
 
         return creditWorthinessCount;
+    },
+
+    countAllPreviousMonth: async () => {
+        const countCustomers =
+            await creditWorthinessRepository.countManyPreviousMonth();
+
+        return countCustomers;
+    },
+
+    countAllCurrentMonth: async () => {
+        const countCustomers =
+            await creditWorthinessRepository.countManyCurrentMonth();
+
+        return countCustomers;
+    },
+
+    getTrend: async (): Promise<{
+        percentage: number;
+        trend: Trend;
+    }> => {
+        const currentMonth =
+            await creditWorthinessRepository.countManyCurrentMonth();
+
+        const previousMonth =
+            await creditWorthinessRepository.countManyPreviousMonth();
+
+        if (previousMonth === 0) {
+            return {
+                percentage: currentMonth > 0 ? 100 : 0,
+                trend: currentMonth > 0 ? 'increase' : 'same',
+            };
+        }
+
+        const percentageChange =
+            ((currentMonth - previousMonth) / previousMonth) * 100;
+
+        const trend =
+            percentageChange > 0
+                ? 'increase'
+                : percentageChange < 0
+                  ? 'decrease'
+                  : 'same';
+
+        return {
+            percentage: Number(percentageChange.toFixed(2)),
+            trend,
+        };
+    },
+
+    getStats: async (): Promise<StatsResponse> => {
+        const length = await creditWorthinessService.countAll();
+        const trend = await creditWorthinessService.getTrend();
+
+        return { length, ...trend };
     },
 
     create: async (

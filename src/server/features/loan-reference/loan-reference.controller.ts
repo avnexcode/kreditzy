@@ -6,6 +6,7 @@ import { ApiResponse } from '~/server/helper/api.response';
 import {
     createMessageDeleteSuccess,
     createMessageGetLengthSuccess,
+    createMessageGetStatsSuccess,
     createMessageGetSuccess,
     createMessageGetUniqueSuccess,
     createMessagePatchSuccess,
@@ -19,6 +20,7 @@ import type {
 } from './loan-reference.model';
 import { loanReferenceService } from './loan-reference.service';
 import { BadRequestException } from '~/server/helper/error.exception';
+import { StatsResponse } from '~/server/types/api';
 
 export const loanReferenceController = {
     GET: async (): Promise<
@@ -55,12 +57,12 @@ export const loanReferenceController = {
         }
     },
 
-    GET_LENGTH: async (): Promise<NextResponse<IApiResponse<number>>> => {
+    GET_STATS: async (): Promise<NextResponse<IApiResponse<StatsResponse>>> => {
         try {
-            const data = await loanReferenceService.countAll();
+            const data = await loanReferenceService.getStats();
             return ApiResponse.success(
                 data,
-                createMessageGetLengthSuccess('Loan references'),
+                createMessageGetStatsSuccess('Loan references'),
             );
         } catch (error) {
             return ErrorFilter.catch(error);

@@ -16,11 +16,13 @@ import { useDeleteTransaction, useTransactions } from '../../api/client';
 
 type DeleteTransactionDialogProps = {
     id: string;
+    onClose: () => void;
 };
 
-export const DeleteTransactionDialog = (
-    props: DeleteTransactionDialogProps,
-) => {
+export const DeleteTransactionDialog = ({
+    onClose,
+    ...props
+}: DeleteTransactionDialogProps) => {
     const { toast } = useToast();
     const { refetch: refetchTransactions } = useTransactions();
     const { mutate: deleteTransaction, isPending: isDeleteTransactionPending } =
@@ -32,6 +34,7 @@ export const DeleteTransactionDialog = (
                     title: 'Success',
                     description: 'Berhasil menghapus data transaksi',
                 });
+                onClose();
             },
             onError: async error => {
                 toast({
@@ -41,8 +44,11 @@ export const DeleteTransactionDialog = (
                         error.response?.data.error ??
                         'Terjadi kesalahan saat menghapus data',
                 });
+                onClose();
             },
         });
+
+    const handleDelete = () => deleteTransaction();
 
     return (
         <AlertDialog>
@@ -64,7 +70,7 @@ export const DeleteTransactionDialog = (
                 <AlertDialogFooter>
                     <AlertDialogCancel>Cancel</AlertDialogCancel>
                     <AlertDialogAction
-                        onClick={() => deleteTransaction()}
+                        onClick={handleDelete}
                         disabled={isDeleteTransactionPending}
                         className="bg-red-500"
                     >

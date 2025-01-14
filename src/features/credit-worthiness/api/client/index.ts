@@ -1,2 +1,2 @@
 export * from './useCreditWorthinesses';
-export * from './useCreditWorthinessCount';
+export * from './useCreditWorthinessesStats';

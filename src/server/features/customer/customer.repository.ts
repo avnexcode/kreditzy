@@ -22,6 +22,55 @@ export const customerRepository = {
 
     countMany: async (): Promise<number> => {
         const countCustomers = await db.customer.count();
+        return countCustomers;
+    },
+
+    countManyPreviousMonth: async (): Promise<number> => {
+        const today = new Date();
+        const firstDayPrevMonth = new Date(
+            today.getFullYear(),
+            today.getMonth() - 1,
+            1,
+        );
+        const lastDayPrevMonth = new Date(
+            today.getFullYear(),
+            today.getMonth(),
+            0,
+        );
+
+        const countCustomers = await db.customer.count({
+            where: {
+                created_at: {
+                    gte: firstDayPrevMonth,
+                    lte: lastDayPrevMonth,
+                },
+            },
+        });
+
+        return countCustomers;
+    },
+
+    countManyCurrentMonth: async (): Promise<number> => {
+        const today = new Date();
+        const firstDayCurrentMonth = new Date(
+            today.getFullYear(),
+            today.getMonth(),
+            1,
+        );
+        const lastDayCurrentMonth = new Date(
+            today.getFullYear(),
+            today.getMonth() + 1,
+            0,
+        );
+
+        const countCustomers = await db.customer.count({
+            where: {
+                created_at: {
+                    gte: firstDayCurrentMonth,
+                    lte: lastDayCurrentMonth,
+                },
+            },
+        });
 
         return countCustomers;
     },

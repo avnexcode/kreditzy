@@ -16,11 +16,13 @@ import { useDeleteLoanReference, useLoanReferences } from '../../api/client';
 
 type DeleteLoanReferenceDialogProps = {
     id: string;
+    onClose: () => void;
 };
 
-export const DeleteLoanReferenceDialog = (
-    props: DeleteLoanReferenceDialogProps,
-) => {
+export const DeleteLoanReferenceDialog = ({
+    onClose,
+    ...props
+}: DeleteLoanReferenceDialogProps) => {
     const { toast } = useToast();
     const { refetch: refetchLoanReferences } = useLoanReferences();
     const {
@@ -34,6 +36,7 @@ export const DeleteLoanReferenceDialog = (
                 title: 'Success',
                 description: 'Berhasil menghapus data referensi',
             });
+            onClose();
         },
         onError: async error => {
             toast({
@@ -43,8 +46,11 @@ export const DeleteLoanReferenceDialog = (
                     error.response?.data.error ??
                     'Terjadi kesalahan saat menghapus data',
             });
+            onClose();
         },
     });
+
+    const handleDelete = () => deleteLoanReference();
 
     return (
         <AlertDialog>
@@ -66,7 +72,7 @@ export const DeleteLoanReferenceDialog = (
                 <AlertDialogFooter>
                     <AlertDialogCancel>Cancel</AlertDialogCancel>
                     <AlertDialogAction
-                        onClick={() => deleteLoanReference()}
+                        onClick={handleDelete}
                         disabled={isDeleteLoanReferencePending}
                         className="bg-red-500"
                     >

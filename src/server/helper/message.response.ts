@@ -43,3 +43,15 @@ export const createMessageDeleteSuccess = (model: string): string =>
 
 export const createMessageDeleteError = (model: string): string =>
     `Failed to delete ${model}.`;
+
+export const createMessagePercentageSuccess = (model: string): string =>
+    `${model} percentage comparison calculated successfully.`;
+
+export const createMessagePercentageError = (model: string): string =>
+    `Failed to calculate percentage comparison for ${model}.`;
+
+export const createMessageGetStatsSuccess = (model: string): string =>
+    `Successfully retrieved the stats of ${model}.`;
+
+export const createMessageGetStatsError = (model: string): string =>
+    `Failed to retrieve the stats of ${model}.`;

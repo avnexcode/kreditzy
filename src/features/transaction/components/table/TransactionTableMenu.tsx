@@ -8,6 +8,7 @@ import {
 import { Ellipsis, Pencil, ScanEye } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { DeleteTransactionDialog } from '../dialog/DeleteTransactionDialog';
+import { useState } from 'react';
 
 type TransactionTableMenuProps = {
     id: string;
@@ -15,8 +16,12 @@ type TransactionTableMenuProps = {
 
 export const TransactionTableMenu = (props: TransactionTableMenuProps) => {
     const router = useRouter();
+    const [isOpen, setIsOpen] = useState(false);
+
+    const handleOpen = () => () => setIsOpen(false);
+
     return (
-        <DropdownMenu>
+        <DropdownMenu open={isOpen} onOpenChange={setIsOpen}>
             <DropdownMenuTrigger className="rounded-full">
                 <Ellipsis size={20} strokeWidth={2} />
             </DropdownMenuTrigger>
@@ -29,7 +34,7 @@ export const TransactionTableMenu = (props: TransactionTableMenuProps) => {
                     <ScanEye />
                     Detail
                 </DropdownMenuItem>
-                <DeleteTransactionDialog id={props.id} />
+                <DeleteTransactionDialog id={props.id} onClose={handleOpen} />
             </DropdownMenuContent>
         </DropdownMenu>
     );

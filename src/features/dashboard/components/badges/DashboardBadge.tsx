@@ -1,6 +1,7 @@
 import { type ReactNode } from 'react';
 import { cn } from '~/lib/utils';
 import { Card, CardContent, CardFooter } from '~/components/ui/card';
+import { Trend } from '~/types/api';
 
 interface BadgeProps {
     icon: ReactNode;
@@ -8,7 +9,8 @@ interface BadgeProps {
     label: string;
     stat: string | number;
     statLoading?: boolean;
-    trend?: number;
+    trend?: Trend;
+    percentage?: number;
     trendLabel?: string;
     error?: string;
     rootClassName?: string;
@@ -24,6 +26,7 @@ export function DashboardBadge({
     stat,
     statLoading,
     trend,
+    percentage,
     trendLabel,
     rootClassName,
     iconWrapperClassName,
@@ -31,7 +34,15 @@ export function DashboardBadge({
     trendClassName,
 }: BadgeProps) {
     const trendColor = trend
-        ? trend > 0
+        ? trend === 'increase'
+            ? 'text-green-500'
+            : trend === 'decrease'
+              ? 'text-red-500'
+              : 'text-gray-500'
+        : '';
+
+    const percentageColor = percentage
+        ? percentage > 0
             ? 'text-green-500'
             : 'text-red-500'
         : '';
@@ -64,7 +75,7 @@ export function DashboardBadge({
                 </h4>
             </CardContent>
 
-            {trend !== undefined && trendLabel && (
+            {percentage !== undefined && trend && trendLabel && (
                 <CardFooter
                     className={cn(
                         'border-t border-blue-gray-50 p-4',
@@ -72,7 +83,12 @@ export function DashboardBadge({
                     )}
                 >
                     <p className="block antialiased text-base leading-relaxed font-normal text-blue-gray-600">
-                        <strong className={trendColor}>{trend}%</strong>
+                        <span className={`capitalize ${trendColor}`}>
+                            {trend}
+                        </span>{' '}
+                        <strong className={percentageColor}>
+                            {percentage}%
+                        </strong>
                         &nbsp;{trendLabel}
                     </p>
                 </CardFooter>

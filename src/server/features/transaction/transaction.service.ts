@@ -10,7 +10,7 @@ import {
     TransactionWithRelationsResponse,
     UpdateTransactionRequest,
 } from './transaction.model';
-import { Transaction } from '@prisma/client';
+import { Transaction, TransactionStatus } from '@prisma/client';
 import { validateSchema } from '~/server/service/validation.service';
 import {
     createTransactionRequest,
@@ -128,6 +128,7 @@ export const transactionService = {
             interest_amount: String(interestAmount),
             total_amount: String(totalAmount),
             loan_term: loanReference.loan_term,
+            transaction_status: TransactionStatus.ACTIVE,
             end_transaction: calculateDate.endDate(
                 new Date(),
                 loanReference.loan_term,

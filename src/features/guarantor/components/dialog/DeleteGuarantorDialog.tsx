@@ -13,14 +13,18 @@ import { DropdownMenuItem } from '~/components/ui/dropdown-menu';
 import { Loader2, Trash2 } from 'lucide-react';
 import { useToast } from '~/hooks/use-toast';
 import { useDeleteGuarantor, useGuarantors } from '../../api/client';
-
 type DeleteGuarantorDialogProps = {
     id: string;
+    onClose: () => void;
 };
 
-export const DeleteGuarantorDialog = (props: DeleteGuarantorDialogProps) => {
+export const DeleteGuarantorDialog = ({
+    onClose,
+    ...props
+}: DeleteGuarantorDialogProps) => {
     const { toast } = useToast();
     const { refetch: refetchGuarantors } = useGuarantors();
+
     const { mutate: deleteGuarantor, isPending: isDeleteGuarantorPending } =
         useDeleteGuarantor({
             id: props.id,
@@ -30,6 +34,7 @@ export const DeleteGuarantorDialog = (props: DeleteGuarantorDialogProps) => {
                     title: 'Success',
                     description: 'Berhasil menghapus data',
                 });
+                onClose();
             },
             onError: async error => {
                 toast({
@@ -39,8 +44,12 @@ export const DeleteGuarantorDialog = (props: DeleteGuarantorDialogProps) => {
                         error.response?.data.error ??
                         'Terjadi kesalahan saat menghapus data',
                 });
+                onClose();
             },
         });
+
+    const handleDelete = () => deleteGuarantor();
+
     return (
         <AlertDialog>
             <AlertDialogTrigger asChild>
@@ -61,17 +70,17 @@ export const DeleteGuarantorDialog = (props: DeleteGuarantorDialogProps) => {
                 <AlertDialogFooter>
                     <AlertDialogCancel>Cancel</AlertDialogCancel>
                     <AlertDialogAction
-                        onClick={() => deleteGuarantor()}
+                        onClick={handleDelete}
                         disabled={isDeleteGuarantorPending}
                         className="bg-red-500"
                     >
                         {isDeleteGuarantorPending ? (
                             <>
                                 <Loader2 className="animate-spin" />
-                                Menghapus...
+                                Deleting...
                             </>
                         ) : (
-                            'Lanjutkan'
+                            'Delete'
                         )}
                     </AlertDialogAction>
                 </AlertDialogFooter>

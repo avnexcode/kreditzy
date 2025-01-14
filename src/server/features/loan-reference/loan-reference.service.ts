@@ -24,6 +24,7 @@ import type {
 } from './loan-reference.model';
 import { creditWorthinessService } from '../credit-worthiness/credit-worthiness.service';
 import { customerService } from '../customer/customer.service';
+import { StatsResponse, Trend } from '~/server/types/api';
 
 export const loanReferenceService = {
     getAll: async (): Promise<LoanReferenceWithRelationsResponse[]> => {
@@ -74,6 +75,60 @@ export const loanReferenceService = {
             await loanReferenceRepository.countUniqueId(id);
 
         return countLoanReference;
+    },
+
+    countAllPreviousMonth: async () => {
+        const countGuarantors =
+            await loanReferenceRepository.countManyPreviousMonth();
+
+        return countGuarantors;
+    },
+
+    countAllCurrentMonth: async () => {
+        const countGuarantors =
+            await loanReferenceRepository.countManyCurrentMonth();
+
+        return countGuarantors;
+    },
+
+    getTrend: async (): Promise<{
+        percentage: number;
+        trend: Trend;
+    }> => {
+        const currentMonth =
+            await loanReferenceRepository.countManyCurrentMonth();
+
+        const previousMonth =
+            await loanReferenceRepository.countManyPreviousMonth();
+
+        if (previousMonth === 0) {
+            return {
+                percentage: currentMonth > 0 ? 100 : 0,
+                trend: currentMonth > 0 ? 'increase' : 'same',
+            };
+        }
+
+        const percentageChange =
+            ((currentMonth - previousMonth) / previousMonth) * 100;
+
+        const trend =
+            percentageChange > 0
+                ? 'increase'
+                : percentageChange < 0
+                  ? 'decrease'
+                  : 'same';
+
+        return {
+            percentage: Number(percentageChange.toFixed(2)),
+            trend,
+        };
+    },
+
+    getStats: async (): Promise<StatsResponse> => {
+        const length = await loanReferenceService.countAll();
+        const trend = await loanReferenceService.getTrend();
+
+        return { length, ...trend };
     },
 
     create: async (

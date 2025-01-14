@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -14,8 +15,12 @@ type GuarantorTableMenuProps = {
 
 export const GuarantorTableMenu = (props: GuarantorTableMenuProps) => {
     const router = useRouter();
+    const [isOpen, setIsOpen] = useState<boolean>(false);
+
+    const handleOpen = () => setIsOpen(false);
+
     return (
-        <DropdownMenu>
+        <DropdownMenu open={isOpen} onOpenChange={setIsOpen}>
             <DropdownMenuTrigger className="rounded-full">
                 <Ellipsis size={20} strokeWidth={2} />
             </DropdownMenuTrigger>
@@ -36,7 +41,7 @@ export const GuarantorTableMenu = (props: GuarantorTableMenuProps) => {
                     <Pencil />
                     Edit
                 </DropdownMenuItem>
-                <DeleteGuarantorDialog id={props.id} />
+                <DeleteGuarantorDialog id={props.id} onClose={handleOpen} />
             </DropdownMenuContent>
         </DropdownMenu>
     );

@@ -1,14 +1,14 @@
 'use client';
 import { Users } from 'lucide-react';
 import { DashboardBadge } from '~/features/dashboard/components/badges/DashboardBadge';
-import { useCustomersCount } from '~/features/customer/api/client';
+import { useCustomersStats } from '~/features/customer/api/client';
 import BadgeSkeleton from '../skeleton/badge/BadgeSkeleton';
 
 export const CustomerBadge = () => {
-    const { data: customersCount, isLoading: isCustomersCountLoading } =
-        useCustomersCount();
+    const { data: customersStats, isLoading: isCustomersStatsLoading } =
+        useCustomersStats();
 
-    if (isCustomersCountLoading) {
+    if (isCustomersStatsLoading) {
         return <BadgeSkeleton />;
     }
 
@@ -17,8 +17,9 @@ export const CustomerBadge = () => {
             icon={<Users size={25} />}
             iconBackground="bg-pink-500"
             label="Total Nasabah"
-            stat={customersCount ?? 0}
-            trend={12}
+            stat={customersStats?.length ?? 0}
+            trend={customersStats?.trend}
+            percentage={customersStats?.percentage}
             trendLabel="compared to last month"
             rootClassName="w-full"
             iconWrapperClassName="bg-gradient-to-tr from-pink-600 to-pink-400 text-white"
