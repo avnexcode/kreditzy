@@ -13,6 +13,7 @@ export const transactionRepository = {
             include: {
                 customer: true,
                 payment_records: true,
+                loan_balance: true,
             },
         });
 
@@ -83,6 +84,7 @@ export const transactionRepository = {
             include: {
                 customer: true,
                 payment_records: true,
+                loan_balance: true,
             },
         });
 
@@ -94,7 +96,11 @@ export const transactionRepository = {
     ): Promise<TransactionWithRelationsResponse | null> => {
         const transaction = await db.transaction.findUnique({
             where: { customer_id },
-            include: { customer: true, payment_records: true },
+            include: {
+                customer: true,
+                payment_records: true,
+                loan_balance: true,
+            },
         });
 
         return transaction;
@@ -105,7 +111,11 @@ export const transactionRepository = {
     ): Promise<TransactionWithRelationsResponse | null> => {
         const transaction = await db.transaction.findUnique({
             where: { loan_reference_id },
-            include: { customer: true, payment_records: true },
+            include: {
+                customer: true,
+                payment_records: true,
+                loan_balance: true,
+            },
         });
 
         return transaction;

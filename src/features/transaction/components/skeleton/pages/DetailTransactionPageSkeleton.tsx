@@ -1,10 +1,10 @@
 import { DashboardSkeletonContainer } from '~/components/skeleton/layouts/DashboardSkeletonContainer';
-import { TransactionViewSkeleton } from '../views/TransactionViewSkeleton';
+import { DetailTransactionViewSkeleton } from '../views/DetailTransactionViewSkeleton';
 
 export const DetailTransactionPageSkeleton = () => {
     return (
         <DashboardSkeletonContainer>
-            <TransactionViewSkeleton customerName={true} />
+            <DetailTransactionViewSkeleton />
         </DashboardSkeletonContainer>
     );
 };

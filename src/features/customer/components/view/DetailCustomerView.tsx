@@ -6,14 +6,12 @@ import { CustomerView } from './CustomerView';
 import { LoanReferenceView } from '~/features/loan-reference/components/view/LoanReferenceView';
 import type { GuarantorWithRelations } from '~/features/guarantor/types';
 import type { LoanReferenceWithRelations } from '~/features/loan-reference/types';
-import { TransactionView } from '~/features/transaction/components/view/TransactionView';
-import { TransactionWithRelations } from '~/features/transaction/types';
 
-type DetailViewProps = {
+type DetailCustomerViewProps = {
     id: string;
 };
 
-export const DetailView = async (props: DetailViewProps) => {
+export const DetailCustomerView = async (props: DetailCustomerViewProps) => {
     const customer = await getCustomerById(props.id);
 
     return (
@@ -32,9 +30,6 @@ export const DetailView = async (props: DetailViewProps) => {
             <Separator orientation="horizontal" />
             <CreditWorthinessView
                 creditWorthiness={customer?.credit_worthiness}
-            />
-            <TransactionView
-                transaction={customer.transaction as TransactionWithRelations}
             />
         </div>
     );

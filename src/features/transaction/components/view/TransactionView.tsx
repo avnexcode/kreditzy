@@ -21,7 +21,7 @@ export const TransactionView = ({ transaction }: TransactionViewProps) => {
             <CardHeader>
                 <CardTitle>Transaksi Pinjaman</CardTitle>
                 <CardDescription>
-                    Detail Informasi Transak Pinjaman
+                    Detail Informasi Transaksi Pinjaman
                 </CardDescription>
             </CardHeader>
             <CardContent>

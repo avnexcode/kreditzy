@@ -26,4 +26,5 @@ export const toTransactionWithRelationResponse = (
     ...toTransactionResponse(transaction),
     customer: transaction.customer,
     payment_records: transaction.payment_records,
+    loan_balance: transaction.loan_balance,
 });

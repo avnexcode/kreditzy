@@ -22,7 +22,7 @@ export type UpdateTransactionFormSchema = z.infer<
 export type TransactionWithRelations = Prisma.TransactionGetPayload<{
     include: {
         customer: true;
-        LoanBalance: true;
+        loan_balance: true;
         payment_records: true;
     };
 }>;

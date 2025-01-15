@@ -92,6 +92,19 @@ export const loanReferenceService = {
         return countGuarantors;
     },
 
+    countExistsById: async (id: string): Promise<number> => {
+        const countLoanReference =
+            await loanReferenceRepository.countUniqueId(id);
+
+        if (countLoanReference === 0) {
+            throw new NotFoundException(
+                `Not found loan reference with id = ${id}.`,
+            );
+        }
+
+        return countLoanReference;
+    },
+
     getTrend: async (): Promise<{
         percentage: number;
         trend: Trend;
@@ -262,6 +275,8 @@ export const loanReferenceService = {
         id: string,
         request: UpdateLoanReferenceRequest,
     ): Promise<LoanReference> => {
+        await loanReferenceService.countExistsById(id);
+
         const loanReferenceExists =
             await loanReferenceRepository.countUniqueId(id);
 
@@ -323,6 +338,8 @@ export const loanReferenceService = {
     },
 
     delete: async (id: string): Promise<{ id: string }> => {
+        await loanReferenceService.countExistsById(id);
+
         const loanReferenceExists =
             await loanReferenceRepository.countUniqueId(id);
 

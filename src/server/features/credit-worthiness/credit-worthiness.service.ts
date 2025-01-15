@@ -51,7 +51,7 @@ export const creditWorthinessService = {
 
         if (!creditWorthiness) {
             throw new NotFoundException(
-                `Credit woorthiness with customer id : ${customer_id} not found`,
+                `Credit worthiness with customer id : ${customer_id} not found`,
             );
         }
         return toCreditWorthinessWithRelationsResponse(creditWorthiness);
@@ -85,6 +85,19 @@ export const creditWorthinessService = {
             await creditWorthinessRepository.countUniqueId(id);
 
         return creditWorthinessCount;
+    },
+
+    countExistsById: async (id: string): Promise<number> => {
+        const countCreditWorthiness =
+            await creditWorthinessRepository.countUniqueId(id);
+
+        if (countCreditWorthiness === 0) {
+            throw new NotFoundException(
+                `Credit worthiness with id ${id} not found`,
+            );
+        }
+
+        return countCreditWorthiness;
     },
 
     countAllPreviousMonth: async () => {
@@ -159,6 +172,8 @@ export const creditWorthinessService = {
         id: string,
         request: UpdateCreditworthinessRequest,
     ): Promise<CreditWorthiness> => {
+        await creditWorthinessService.countExistsById(id);
+
         const validatedRequest: UpdateCreditworthinessRequest = validateSchema(
             updateCreditWorthinessRequest,
             request,
@@ -173,7 +188,10 @@ export const creditWorthinessService = {
     },
 
     delete: async (id: string): Promise<{ id: string }> => {
+        await creditWorthinessService.countExistsById(id);
+
         await creditWorthinessRepository.delete(id);
+
         return { id };
     },
 };

@@ -14,5 +14,6 @@ export type TransactionWithRelationsResponse = Prisma.TransactionGetPayload<{
     include: {
         customer: true;
         payment_records: true;
+        loan_balance: true;
     };
 }>;

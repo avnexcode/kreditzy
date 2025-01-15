@@ -150,6 +150,7 @@ export const guarantorService = {
         request: UpdateGuarantorRequest,
     ): Promise<Guarantor> => {
         await guarantorService.countExistsById(id);
+
         const validatedRequest: UpdateGuarantorRequest = validateSchema(
             updateGuarantorRequest,
             request,
@@ -176,6 +177,8 @@ export const guarantorService = {
     },
 
     delete: async (id: string): Promise<{ id: string }> => {
+        await guarantorService.countExistsById(id);
+
         const guarantor =
             await guarantorService.getByIdWithCustomerRelations(id);
 

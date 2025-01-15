@@ -20,7 +20,8 @@ export const createLoanBalanceRequest = z.object({
             const maxDate = new Date();
             maxDate.setFullYear(now.getFullYear() + 5);
             return date <= maxDate;
-        }, 'max 5 years'),
+        }, 'max 5 years')
+        .optional(),
     next_due_date: z
         .date()
         .min(new Date())

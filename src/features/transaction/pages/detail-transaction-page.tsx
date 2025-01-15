@@ -1,6 +1,5 @@
 import { DashboardContainer } from '~/components/layouts/DashboardContainer';
-import { TransactionView } from '../components/view/TransactionView';
-import { getTransactionById } from '../api/server';
+import { DetailTransactionView } from '../components/view/DetailTransactionView';
 
 type DashboardDetailTransactionPageProps = {
     params: Promise<{
@@ -12,14 +11,13 @@ export const DashboardDetailTransactionPage = async (
     props: DashboardDetailTransactionPageProps,
 ) => {
     const { id } = await props.params;
-    const transaction = await getTransactionById(id);
 
     return (
         <DashboardContainer
             title="Detail Transaksi"
             description="Detail transaksi nasabah beserta nama nasabah"
         >
-            <TransactionView transaction={transaction} />
+            <DetailTransactionView id={id} />
         </DashboardContainer>
     );
 };

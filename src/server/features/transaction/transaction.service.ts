@@ -21,6 +21,8 @@ import { loanReferenceService } from '../loan-reference/loan-reference.service';
 import { creditWorthinessService } from '../credit-worthiness/credit-worthiness.service';
 import { calculateDate } from '~/server/utils/calculate-date';
 import { StatsResponse, Trend } from '~/server/types/api';
+import { CreateLoanBalanceRequest } from '../loan-balance/loan-balance.model';
+import { loanBalanceService } from '../loan-balance/loan-balance.service';
 
 export const transactionService = {
     getAll: async (): Promise<TransactionWithRelationsResponse[]> => {
@@ -217,6 +219,22 @@ export const transactionService = {
             ...validatedRequest,
             ...validatedLoanReference,
         });
+
+        const creationDate = new Date(transaction.created_at);
+
+        const nextDueDate = new Date(creationDate);
+        nextDueDate.setMonth(nextDueDate.getMonth() + 1);
+
+        const loanBalance = {
+            remaining_loan_amount: transaction.loan_amount,
+            remaining_total_amount: transaction.total_amount,
+            interest_due: transaction.interest_amount,
+            total_paid: String(0),
+            next_due_date: nextDueDate,
+            transaction_id: transaction.id,
+        } as CreateLoanBalanceRequest;
+
+        await loanBalanceService.create(loanBalance);
 
         return transaction;
     },

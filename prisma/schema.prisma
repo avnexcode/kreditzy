@@ -96,13 +96,13 @@ model CreditWorthiness {
 
 model Transaction {
     id                   String            @id @default(cuid())
-    loan_installment     String            @db.VarChar(100) // angsuran setiap pinjaman bulan 
-    interest_installment String            @db.VarChar(100) // angsuran setiap bunga bulan 
-    total_installment    String            @db.VarChar(100) // angsuran setiap bulan dengan bunga
+    loan_installment     String            @db.VarChar(100) // angsuran pinjaman setiap bulan 
+    interest_installment String            @db.VarChar(100) // angsuran bunga setiap bulan 
+    total_installment    String            @db.VarChar(100) // angsuran pinjaman dengan bunga setiap bulan 
     loan_term            Int // jangka waktu pinjaman (bulan)
-    loan_amount          String            @db.VarChar(100)
-    interest_amount      String            @db.VarChar(100)
-    total_amount         String            @db.VarChar(100)
+    loan_amount          String            @db.VarChar(100) // jumlah pinjaman
+    interest_amount      String            @db.VarChar(100) // jumlah bungan
+    total_amount         String            @db.VarChar(100) // jumlah keseluruhan
     transaction_status   TransactionStatus @default(ACTIVE)
     end_transaction      DateTime
     customer_id          String            @unique
@@ -126,7 +126,7 @@ model LoanBalance {
     last_payment_date      DateTime? // tanggal pembayaran terakhir
     next_due_date          DateTime // tanggal jatuh tempo pembayaran berikutnya
     transaction_id         String      @unique // relasi one-to-one dengan transaksi
-    transaction            Transaction @relation(fields: [transaction_id], references: [id], onDelete: Restrict)
+    transaction            Transaction @relation(fields: [transaction_id], references: [id], onDelete: Cascade)
     created_at             DateTime    @default(now()) // waktu pembuatan record
     updated_at             DateTime    @updatedAt // waktu terakhir record diupdate
 
